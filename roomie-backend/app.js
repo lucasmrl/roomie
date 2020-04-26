@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
-const port = 8000;
+const morgan = require("morgan");
 
-app.get("/", (req, res) => {
-  res.status(200).send("Server running! 🏝");
-});
+const listingRouter = require("./routes/listingRouter");
+const userRouter = require("./routes/userRouter");
 
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
-});
+//MIDDLEWARES
+app.use(morgan("dev")); //HTTP Request logger
+app.use(express.json()); //Makes the data from the body to be added to the "req" object
+
+//ROUTES
+app.use("/api/v1/listings", listingRouter);
+app.use("/api/v1/users", userRouter);
+
+module.exports = app;
