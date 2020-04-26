@@ -1,7 +1,7 @@
 {
   "name": "roomie-backend",
   "version": "1.0.0",
-  "description": "A platform to find roommates by creating a listing or finding a place to share. Built with React/Express/MongoDB/Tailwind.",
+  "description": "A platform to find roommates by listing your space or finding one available. Built with React/Express/MongoDB/Tailwind.",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -27,6 +27,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.9.10",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
