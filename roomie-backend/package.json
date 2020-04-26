@@ -4,7 +4,8 @@
   "description": "A platform to find roommates by creating a listing or finding a place to share. Built with React/Express/MongoDB/Tailwind.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/lucasmrl/roomie#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0"
   }
