@@ -39,6 +39,18 @@ exports.getAllListings = async (req, res) => {
       ); //API will return by default these fields
     }
 
+    // 4) PAGINATION
+    const page = req.query.page * 1 || 1; //Multiplying by 1 to convert a string to a number (Because numbers in QUERIES are converted by default to Strings)
+    const limit = req.query.limit * 1 || 30; //Default is to show 30 results per page
+    const skip = (page - 1) * limit;
+
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numListings = await Listing.countDocuments();
+      if (skip >= numListings) throw new Error('This page does not exist!'); //If there is no results, throw an error
+    }
+
     // EXECUTE QUERY
     const listings = await query;
 
