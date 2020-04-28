@@ -2,6 +2,8 @@ const Listing = require('./../models/listingModel');
 
 exports.getAllListings = async (req, res) => {
   try {
+    // BUILD QUERY
+    // --- A) FILTERING
     /* In order to allow future developemnt of pagination, sorting, etc, I:
      * 1)Made a hard copy of the Query Object
      * 2)Create a array of the fields that I want to exclude from the queryObj
@@ -12,9 +14,17 @@ exports.getAllListings = async (req, res) => {
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
     excludeFields.forEach((el) => delete queryObj[el]);
 
-    const listings = await Listing.find(queryObj); //find() = Return an array w/ all the documents
+    // --- B) ADVANCED FILTERING (greater than, less than, etc...)
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`); //Using regex to add "$" in order to mongoose be able to use this params in the query
+
+    const query = Listing.find(JSON.parse(queryStr)); //find() = Return an array w/ all the documents
     //"Listing.find(queryObj)" returns a query - that is why I can chain others methods (to sort, to use paginations,etc...)
 
+    // --- C) EXECUTE QUERY
+    const listings = await query;
+
+    // --- D) SEND RESPONSE
     res.status(200).json({
       status: 200,
       results: listings.length,
