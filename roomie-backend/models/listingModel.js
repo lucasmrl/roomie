@@ -5,12 +5,16 @@ const listingSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'Listing must have a title'],
+    trim: true, //To remove space at the beginning or/and end of the string
   },
   type: {
     type: String,
     required: [true, 'Listing must have the type'],
   },
-  pictures: [],
+  prictureCover: {
+    type: String,
+  },
+  pictures: [String],
   address: {
     type: String,
     required: [true, 'Listing must have the address'],
@@ -18,14 +22,17 @@ const listingSchema = new mongoose.Schema({
   city: {
     type: String,
     required: [true, 'Listing must have the city'],
+    trim: true,
   },
   state: {
     type: String,
     required: [true, 'Listing must have the state'],
+    trim: true,
   },
   country: {
     type: String,
     required: [true, 'Listing must have the country'],
+    trim: true,
   },
   zip: {
     type: Number,
@@ -45,8 +52,12 @@ const listingSchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, 'Listing must have a short description'],
+    trim: true,
   },
-  createdDate: String,
+  createdDate: {
+    type: Date,
+    default: Date.now(),
+  },
   availableDate: String,
   petAllowed: Boolean,
   buildingType: String,
