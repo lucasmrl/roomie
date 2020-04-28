@@ -3,28 +3,36 @@ const Listing = require('./../models/listingModel');
 exports.getAllListings = async (req, res) => {
   try {
     // BUILD QUERY
-    // --- A) FILTERING
+    // --- 1A) FILTERING
     /* In order to allow future developemnt of pagination, sorting, etc, I:
-     * 1)Made a hard copy of the Query Object
-     * 2)Create a array of the fields that I want to exclude from the queryObj
-     * 3)Used a forEach (to not create a new array) in order to remove these fields from the Oject
+     * a)Made a hard copy of the Query Object
+     * b)Create a array of the fields that I want to exclude from the queryObj
+     * c)Used a forEach (to not create a new array) in order to remove these fields from the Oject
      * that will be used in the .find()
      */
     const queryObj = { ...req.query }; //Copy of the Query Obj
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
     excludeFields.forEach((el) => delete queryObj[el]);
 
-    // --- B) ADVANCED FILTERING (greater than, less than, etc...)
+    // --- 1B) ADVANCED FILTERING (greater than, less than, etc...)
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`); //Using regex to add "$" in order to mongoose be able to use this params in the query
 
-    const query = Listing.find(JSON.parse(queryStr)); //find() = Return an array w/ all the documents
+    let query = Listing.find(JSON.parse(queryStr)); //find() = Return an array w/ all the documents
     //"Listing.find(queryObj)" returns a query - that is why I can chain others methods (to sort, to use paginations,etc...)
 
-    // --- C) EXECUTE QUERY
+    // 2) SORTING
+    if (req.query.sort) {
+      query = query.sort(req.query.sort); //Ascending order
+      //To descending order, add "-" in front of the field (Example: ?sort=-rent)
+    } else {
+      query = query.sort('-createdDate'); //If the user doesn't specify the sort attribute, the API wil return from the most recent listing
+    }
+
+    // EXECUTE QUERY
     const listings = await query;
 
-    // --- D) SEND RESPONSE
+    // SEND RESPONSE
     res.status(200).json({
       status: 200,
       results: listings.length,
