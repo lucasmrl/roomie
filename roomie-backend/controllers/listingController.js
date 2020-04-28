@@ -1,58 +1,15 @@
 const Listing = require('./../models/listingModel');
+const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAllListings = async (req, res) => {
   try {
-    // BUILD QUERY
-    // --- 1A) FILTERING
-    /* In order to allow future developemnt of pagination, sorting, etc, I:
-     * a)Made a hard copy of the Query Object
-     * b)Create a array of the fields that I want to exclude from the queryObj
-     * c)Used a forEach (to not create a new array) in order to remove these fields from the Oject
-     * that will be used in the .find()
-     */
-    const queryObj = { ...req.query }; //Copy of the Query Obj
-    const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    excludeFields.forEach((el) => delete queryObj[el]);
-
-    // --- 1B) ADVANCED FILTERING (greater than, less than, etc...)
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`); //Using regex to add "$" in order to mongoose be able to use this params in the query
-
-    let query = Listing.find(JSON.parse(queryStr)); //find() = Return an array w/ all the documents
-    //"Listing.find(queryObj)" returns a query - that is why I can chain others methods (to sort, to use paginations,etc...)
-
-    // 2) SORTING
-    if (req.query.sort) {
-      query = query.sort(req.query.sort); //Ascending order
-      //To descending order, add "-" in front of the field (Example: ?sort=-rent)
-    } else {
-      query = query.sort('-createdDate'); //If the user doesn't specify the sort attribute, the API wil return from the most recent listing
-    }
-
-    // 3) FIELD LIMITING
-    if (req.query.fields) {
-      const fields = req.query.fields.split(',').join(' ');
-      query = query.select(fields);
-    } else {
-      query = query.select(
-        'title pictureCover, city state country zip rent utilitiesIncl'
-      ); //API will return by default these fields
-    }
-
-    // 4) PAGINATION
-    const page = req.query.page * 1 || 1; //Multiplying by 1 to convert a string to a number (Because numbers in QUERIES are converted by default to Strings)
-    const limit = req.query.limit * 1 || 30; //Default is to show 30 results per page
-    const skip = (page - 1) * limit;
-
-    query = query.skip(skip).limit(limit);
-
-    if (req.query.page) {
-      const numListings = await Listing.countDocuments();
-      if (skip >= numListings) throw new Error('This page does not exist!'); //If there is no results, throw an error
-    }
-
     // EXECUTE QUERY
-    const listings = await query;
+    const features = new APIFeatures(Listing.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const listings = await features.query;
 
     // SEND RESPONSE
     res.status(200).json({
