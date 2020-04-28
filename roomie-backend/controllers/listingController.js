@@ -29,6 +29,16 @@ exports.getAllListings = async (req, res) => {
       query = query.sort('-createdDate'); //If the user doesn't specify the sort attribute, the API wil return from the most recent listing
     }
 
+    // 3) FIELD LIMITING
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ');
+      query = query.select(fields);
+    } else {
+      query = query.select(
+        'title pictureCover, city state country zip rent utilitiesIncl'
+      ); //API will return by default these fields
+    }
+
     // EXECUTE QUERY
     const listings = await query;
 

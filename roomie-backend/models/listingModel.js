@@ -11,7 +11,7 @@ const listingSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Listing must have the type'],
   },
-  prictureCover: {
+  pictureCover: {
     type: String,
   },
   pictures: [String],
