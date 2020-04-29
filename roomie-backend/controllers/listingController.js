@@ -57,7 +57,7 @@ exports.createListing = async (req, res) => {
   } catch (err) {
     res.status(404).json({
       status: 'failed',
-      message: 'Invalid data sent!',
+      message: err,
     });
   }
 };

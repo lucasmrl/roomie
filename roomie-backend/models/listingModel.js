@@ -10,6 +10,10 @@ const listingSchema = new mongoose.Schema({
   type: {
     type: String,
     required: [true, 'Listing must have the type'],
+    enum: {
+      values: ['private', 'shared'],
+      message: 'Please, select between PRIVATE or SHARED',
+    },
   },
   pictureCover: {
     type: String,
@@ -28,6 +32,8 @@ const listingSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Listing must have the state'],
     trim: true,
+    minlength: [2, 'State should follow 2 letters format'],
+    maxlength: [2, 'State should follow 2 letters format'],
   },
   country: {
     type: String,
@@ -60,7 +66,13 @@ const listingSchema = new mongoose.Schema({
   },
   availableDate: String,
   petAllowed: Boolean,
-  buildingType: String,
+  buildingType: {
+    type: String,
+    enum: {
+      values: ['home', 'basement', 'apartment', 'condo', 'townhome'],
+      message: 'Please, select one of the available options',
+    },
+  },
   owner: Number,
   contactPhone: Number,
   contactEmail: String,
