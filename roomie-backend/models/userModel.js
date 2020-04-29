@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 //Defining the Schema
 const userSchema = new mongoose.Schema({
@@ -23,6 +24,13 @@ const userSchema = new mongoose.Schema({
   passwordConfirm: {
     type: String,
     required: [true, 'Please confirm your password'],
+    validate: {
+      // This only works on SAVE/CREATE
+      validator: function (el) {
+        return el === this.password;
+      },
+      message: 'Passwords are not the same!',
+    },
   },
   profilePicture: [String],
   myListings: [Number],
@@ -32,6 +40,20 @@ const userSchema = new mongoose.Schema({
   favoriteListings: {
     type: [String],
   },
+});
+
+//Encrypt Password using Document Middleware
+// It will run before the data is persisted in the database
+userSchema.pre('save', async function (next) {
+  //"isModified" Method in all documents to check if that field was modified
+  if (!this.isModified('password')) return next();
+
+  //Hash the password with cost of 12 (the higher, the longer it takes)
+  this.password = await bcrypt.hash(this.password, 12);
+
+  //Delete passwordConfirm field/ We only need that to make sure the user typed the same password
+  this.passwordConfirm = undefined;
+  next();
 });
 
 //Creating the Model
