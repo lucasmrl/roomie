@@ -34,9 +34,15 @@ const userSchema = new mongoose.Schema({
   },
   profilePicture: [String],
   myListings: [Number],
-  about: String,
-  age: Number,
-  college: String,
+  about: {
+    type: String,
+  },
+  age: {
+    type: Number,
+  },
+  college: {
+    type: String,
+  },
   favoriteListings: {
     type: [String],
   },
