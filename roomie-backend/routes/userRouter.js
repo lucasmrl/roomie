@@ -12,6 +12,7 @@ const router = express.Router();
 
 //USER SIDE
 router.post('/signup', authController.signup);
+router.post('/login', authController.login);
 
 // FOCUSED ON THE ADMIN SIDE
 router.route('/').get(getAllUsers).post(createUser);
