@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema({
   favoriteListings: {
     type: [String],
   },
+  passwordChangedAt: Date,
 });
 
 //Encrypt Password using Document Middleware
@@ -64,11 +65,27 @@ userSchema.pre('save', async function (next) {
 });
 
 //Instance METHOD - AVAILABLE IN ALL DOCUMENTS OF THIS COLLETION
+// A) This one compare the password provided in the login form and the one saved on the DB
 userSchema.methods.correctPassword = async function (
   candidatePassword,
   usePassword
 ) {
   return await bcrypt.compare(candidatePassword, usePassword);
+};
+
+// B) This one will be used to verify if the password was changed after the token was generated to the user
+userSchema.methods.changePasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    ); //Convert the "passwordChangedAt" to the same format as the Token Created Date
+
+    return JWTTimestamp < changedTimestamp;
+  }
+
+  // False means NOT changed/ So, good to go!
+  return false;
 };
 
 //Creating the Model
