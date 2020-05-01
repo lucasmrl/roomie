@@ -73,15 +73,15 @@ exports.protect = catchAsync(async (req, res, next) => {
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET); //Returns the payload, the IAT and EXP from token OR "JsonWebTokenError" if token is invalid
 
   // 3) Check if user still exists
-  const freshUser = await User.findById(decoded.id);
+  const currentUser = await User.findById(decoded.id);
 
-  if (!freshUser) {
+  if (!currentUser) {
     return next(new AppError('The user to this token does not exist.', 401));
   }
 
   // 4)Check if user changed password after the token was issued
-  if (freshUser.changePasswordAfter(decoded.iat)) {
-    //Since "freshUser" is a document, I can use the instance method on it ("changePasswordAfter");
+  if (currentUser.changePasswordAfter(decoded.iat)) {
+    //Since "currentUser" is a document, I can use the instance method on it ("changePasswordAfter");
     return next(
       new AppError(
         'The user recently changed password. Please log in again!',
@@ -91,6 +91,19 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //Grant access to protected route
-  req.user = freshUser; //Sending all the user info on the REQUEST to be used in the future
+  req.user = currentUser; //Sending all the user info on the REQUEST to be used in the future
   next();
 });
+
+exports.restrictTo = (...roles) => {
+  //Closure necessary because I can't pass argument through middlewares functions
+  return (req, res, next) => {
+    //roles is an array
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
+    next();
+  };
+};

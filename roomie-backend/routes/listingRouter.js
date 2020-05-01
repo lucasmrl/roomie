@@ -15,6 +15,14 @@ router
   .get(authController.protect, getAllListings)
   .post(createListing);
 
-router.route('/:id').get(getListing).patch(updateListing).delete(deleteListing);
+router
+  .route('/:id')
+  .get(getListing)
+  .patch(updateListing)
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin'),
+    deleteListing
+  );
 
 module.exports = router;

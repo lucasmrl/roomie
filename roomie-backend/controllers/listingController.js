@@ -68,7 +68,7 @@ exports.updateListing = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteListing = catchAsync(async (req, res, next) => {
-  const listgins = await Listing.findByIdAndDelete(req.params.id);
+  const listings = await Listing.findByIdAndDelete(req.params.id);
 
   if (!listings) {
     return next(new AppError('No listing found with that ID', 404));
