@@ -1,6 +1,7 @@
 const express = require('express');
 const {
   getAllUsers,
+  updateMe,
   createUser,
   getUser,
   updateUser,
@@ -21,6 +22,8 @@ router.patch(
   authController.protect,
   authController.updatePassword
 ); // Recieve the token and the new password.
+
+router.patch('/updateMe', authController.protect, updateMe); // Recieve the token and the new password.
 
 // FOCUSED ON THE ADMIN SIDE
 router.route('/').get(getAllUsers).post(createUser);
