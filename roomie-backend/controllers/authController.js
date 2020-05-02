@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const { promisify } = require('util'); //To make a function return a promisse
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
@@ -130,7 +131,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     'host'
   )}/api/v1/users/resetPassword/${resetToken}`; //Send the original token (not the encrypted)
 
-  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\n If you dind't, please ignore this email.`;
+  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you dind't, please ignore this email.`;
 
   try {
     await sendEmail({
@@ -149,4 +150,46 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.resetPassword = (req, res, next) => {};
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  // 1) Get user based on the token
+  // Encrypt the token given with the encrypted version stored in the DB
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex');
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() }, //If the token has expired, it will not return the user
+  });
+
+  // 2) If token has not expired, and there is a user : Set the new passwordResetExpires
+  if (!user) {
+    return next(
+      new AppError('Sorry, the token has expired. Request a new token!', 400)
+    );
+  }
+
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+
+  //All above only MODIFY the document. We need to save it, by calling this:
+
+  await user.save();
+
+  // 3) Update passwordChangedAt property for the user
+
+  // 4) Log the user in, send JWT
+
+  const token = signToken(user._id);
+
+  res.status(201).json({
+    status: 'sucess',
+    token, //Sending the token back to the client
+    data: {
+      user: user,
+    },
+  });
+});

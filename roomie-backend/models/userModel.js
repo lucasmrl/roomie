@@ -58,6 +58,9 @@ const userSchema = new mongoose.Schema({
   passwordResetExpires: Date,
 });
 
+/* MIDDLEWARES
+ *
+ */
 //Encrypt Password using Document Middleware
 // It will run before the data is persisted in the database
 userSchema.pre('save', async function (next) {
@@ -72,6 +75,17 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+//Change "passwordChangedAt" after user reseted his password
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000; //To ensure that the token was created after the password changed
+  next();
+});
+
+/* INSTANCE METHODS
+ *
+ */
 //Instance METHOD - AVAILABLE IN ALL DOCUMENTS OF THIS COLLETION
 // A) This one compare the password provided in the login form and the one saved on the DB
 userSchema.methods.correctPassword = async function (
