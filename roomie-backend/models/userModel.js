@@ -56,6 +56,11 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 /* MIDDLEWARES
@@ -81,6 +86,13 @@ userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000; //To ensure that the token was created after the password changed
+  next();
+});
+
+// Remove the "inactive" users from showings
+userSchema.pre(/^find/, function (next) {
+  //query middleware // "this" poits to the current document
+  this.find({ active: { $ne: false } }); //Showing all users that "active" is NOT EQUAL (NE) to false
   next();
 });
 
