@@ -14,6 +14,9 @@ const router = express.Router();
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
+router.post('/forgotPassword', authController.forgotPassword); // Receive the Email address -> We will send the token.
+router.patch('/resetPassword/:token', authController.resetPassword); // Recieve the token and the new password.
+
 // FOCUSED ON THE ADMIN SIDE
 router.route('/').get(getAllUsers).post(createUser);
 
