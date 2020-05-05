@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const hpp = require('hpp');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -37,6 +38,13 @@ app.use(mongoSanitize()); //Remove "$" and others from inputs
 
 // {SECURITY} - Data sanitization against XSS
 app.use(xss()); //Can't insert html/javascript into our code
+
+// {SECURITY} - Preventing Parameter Pollution
+app.use(
+  hpp({
+    whitelist: ['rent'],
+  })
+); //To clear up the query string
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
