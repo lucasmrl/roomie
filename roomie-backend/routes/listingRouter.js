@@ -18,11 +18,7 @@ router
 router
   .route('/:id')
   .get(getListing)
-  .patch(updateListing)
-  .delete(
-    authController.protect,
-    authController.restrictTo('admin'),
-    deleteListing
-  );
+  .patch(authController.protect, authController.validateOwner, updateListing)
+  .delete(authController.protect, authController.validateOwner, deleteListing);
 
 module.exports = router;

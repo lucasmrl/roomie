@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const { promisify } = require('util'); //To make a function return a promisse
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
+const Listing = require('./../models/listingModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const sendEmail = require('./../utils/email.js');
@@ -115,18 +116,35 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.restrictTo = (...roles) => {
-  //Closure necessary because I can't pass argument through middlewares functions
-  return (req, res, next) => {
-    //roles is an array
-    if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError('You do not have permission to perform this action', 403)
-      );
-    }
-    next();
-  };
-};
+// exports.restrictTo = (...roles) => {
+//   //Closure necessary because I can't pass argument through middlewares functions
+//   return (req, res, next) => {
+//     //roles is an array
+//     if (!roles.includes(req.user.role)) {
+//       return next(
+//         new AppError('You do not have permission to perform this action', 403)
+//       );
+//     }
+//     next();
+//   };
+// };
+
+exports.validateOwner = catchAsync(async (req, res, next) => {
+  // 1) Save the user ID
+  const userSignedInID = req.user.id;
+
+  // 2) Query for the Listing
+  const listing = await Listing.findOne({ _id: req.params.id });
+
+  // 3) Test to see if the user signed in is the owner of the listing
+  if (!listing.owner.includes(userSignedInID)) {
+    return next(
+      new AppError('You do not have permission to perform this action', 403)
+    );
+  }
+  // 4) If the onwer is trying to perform the action, send to the next middleware
+  next();
+});
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email address
