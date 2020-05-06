@@ -41,6 +41,8 @@ exports.getListing = catchAsync(async (req, res, next) => {
 });
 
 exports.createListing = catchAsync(async (req, res, next) => {
+  if (!req.body.owner) req.body.owner = req.user.id;
+
   const newListing = await Listing.create(req.body);
 
   res.status(201).json({

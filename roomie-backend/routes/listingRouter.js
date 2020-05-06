@@ -13,7 +13,7 @@ const router = express.Router();
 router
   .route('/')
   .get(authController.protect, getAllListings)
-  .post(createListing);
+  .post(authController.protect, createListing);
 
 router
   .route('/:id')
