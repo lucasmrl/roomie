@@ -12,7 +12,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(authController.protect, getAllListings)
+  .get(getAllListings)
   .post(authController.protect, createListing);
 
 router
