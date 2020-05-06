@@ -63,12 +63,24 @@ exports.createUser = (req, res) => {
   });
 };
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 500,
-    message: 'This route is not yet defined.',
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id).populate({
+    path: 'myListings',
+    select:
+      '_id title pictureCover city state country zip rent utilitiesIncl -owner',
   });
-};
+
+  if (!user) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 200,
+    data: {
+      user,
+    },
+  });
+});
 
 exports.updateUser = (req, res) => {
   res.status(500).json({

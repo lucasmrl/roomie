@@ -40,7 +40,6 @@ const userSchema = new mongoose.Schema({
     },
   },
   profilePicture: [String],
-  myListings: [Number],
   about: {
     type: String,
   },
@@ -50,12 +49,6 @@ const userSchema = new mongoose.Schema({
   college: {
     type: String,
   },
-  favoriteListings: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Listing',
-    },
-  ],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
@@ -64,6 +57,16 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
+});
+
+// Virtual Populate to show all the listings from a User
+userSchema.set('toObject', { virtuals: true });
+userSchema.set('toJSON', { virtuals: true });
+
+userSchema.virtual('myListings', {
+  ref: 'Listing',
+  foreignField: 'owner',
+  localField: '_id',
 });
 
 /* MIDDLEWARES
