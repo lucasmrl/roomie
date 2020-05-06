@@ -50,9 +50,12 @@ const userSchema = new mongoose.Schema({
   college: {
     type: String,
   },
-  favoriteListings: {
-    type: [String],
-  },
+  favoriteListings: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Listing',
+    },
+  ],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,

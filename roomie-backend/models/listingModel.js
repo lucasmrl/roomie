@@ -73,9 +73,24 @@ const listingSchema = new mongoose.Schema({
       message: 'Please, select one of the available options',
     },
   },
-  owner: Number,
+  owner: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+    },
+  ],
   contactPhone: Number,
   contactEmail: String,
+  geoLocation: {
+    //GeoJSON
+    type: {
+      type: String,
+      default: 'Point',
+      enum: ['Point'],
+    },
+    coordinates: [Number],
+    address2: String,
+  },
 });
 
 //Convention is to use uppercase letter to Models

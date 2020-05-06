@@ -23,7 +23,10 @@ exports.getAllListings = catchAsync(async (req, res, next) => {
 });
 
 exports.getListing = catchAsync(async (req, res, next) => {
-  const listings = await Listing.findById(req.params.id);
+  const listings = await Listing.findById(req.params.id).populate({
+    path: 'owner',
+    select: '_id name profilePicture',
+  });
 
   if (!listings) {
     return next(new AppError('No listing found with that ID', 404));
