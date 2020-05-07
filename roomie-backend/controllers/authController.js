@@ -77,6 +77,16 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+// Signing out the user by overriding the existent cookie with toker for a new cookie without token.
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+
+  res.status(200).json({ status: 'sucess' });
+};
+
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check if it's there
   let token;
@@ -118,19 +128,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = currentUser; //Sending all the user info on the REQUEST to be used in the future
   next();
 });
-
-// exports.restrictTo = (...roles) => {
-//   //Closure necessary because I can't pass argument through middlewares functions
-//   return (req, res, next) => {
-//     //roles is an array
-//     if (!roles.includes(req.user.role)) {
-//       return next(
-//         new AppError('You do not have permission to perform this action', 403)
-//       );
-//     }
-//     next();
-//   };
-// };
 
 exports.validateOwner = catchAsync(async (req, res, next) => {
   // 1) Save the user ID
@@ -239,3 +236,16 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   // 4) Log user in, send JWT
   createSendToken(user, 200, res);
 });
+
+// exports.restrictTo = (...roles) => {
+//   //Closure necessary because I can't pass argument through middlewares functions
+//   return (req, res, next) => {
+//     //roles is an array
+//     if (!roles.includes(req.user.role)) {
+//       return next(
+//         new AppError('You do not have permission to perform this action', 403)
+//       );
+//     }
+//     next();
+//   };
+// };

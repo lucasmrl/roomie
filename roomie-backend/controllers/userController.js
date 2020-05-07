@@ -25,6 +25,25 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id).populate({
+    path: 'myListings',
+    select:
+      '_id title pictureCover city state country zip rent utilitiesIncl -owner',
+  });
+
+  if (!user) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 200,
+    data: {
+      user,
+    },
+  });
+});
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   // 1) Create an error if the user tries to update the passwordChangedAt
   if (req.body.password | req.body.passwordConfirm) {
@@ -56,49 +75,30 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   res.status(204).json({ status: 'sucess', data: null });
 });
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: 500,
-    message: 'This route is not yet defined.',
-  });
-};
+// exports.createUser = (req, res) => {
+//   res.status(500).json({
+//     status: 500,
+//     message: 'This route is not yet defined.',
+//   });
+// };
 
-exports.getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id).populate({
-    path: 'myListings',
-    select:
-      '_id title pictureCover city state country zip rent utilitiesIncl -owner',
-  });
+// exports.updateUser = (req, res) => {
+//   res.status(500).json({
+//     status: 500,
+//     message: 'This route is not yet defined.',
+//   });
+// };
 
-  if (!user) {
-    return next(new AppError('No user found with that ID', 404));
-  }
+// exports.deleteUser = (req, res) => {
+//   res.status(500).json({
+//     status: 500,
+//     message: 'This route is not yet defined.',
+//   });
+// };
 
-  res.status(200).json({
-    status: 200,
-    data: {
-      user,
-    },
-  });
-});
-
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 500,
-    message: 'This route is not yet defined.',
-  });
-};
-
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 500,
-    message: 'This route is not yet defined.',
-  });
-};
-
-exports.getUserListings = (req, res) => {
-  res.status(500).json({
-    status: 500,
-    message: 'This route is not yet defined.',
-  });
-};
+// exports.getUserListings = (req, res) => {
+//   res.status(500).json({
+//     status: 500,
+//     message: 'This route is not yet defined.',
+//   });
+// };

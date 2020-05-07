@@ -7,7 +7,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
-
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const listingRouter = require('./routes/listingRouter');
@@ -54,8 +53,8 @@ app.use(
 app.use(express.static(`${__dirname}/public`));
 
 //ROUTES
-app.use('/api/v1/listings', listingRouter);
-app.use('/api/v1/users', userRouter);
+app.use('/api/listings', listingRouter);
+app.use('/api/users', userRouter);
 
 //Handling routes not defined
 app.all('*', (req, res, next) => {

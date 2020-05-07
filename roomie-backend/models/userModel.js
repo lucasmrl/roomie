@@ -73,7 +73,7 @@ userSchema.virtual('myListings', {
  *
  */
 // !!!!! THEY ONLY WORK WITH SAVE OR CREAT METHODS - NOT WITH FINDANDUPDATE, ETC.
-//Encrypt Password using Document Middleware
+// Encrypt Password using Document Middleware
 // It will run before the data is persisted in the database
 userSchema.pre('save', async function (next) {
   //"isModified" Method in all documents to check if that field was modified
@@ -129,7 +129,6 @@ userSchema.methods.changePasswordAfter = function (JWTTimestamp) {
   return false;
 };
 
-// C) This one
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
