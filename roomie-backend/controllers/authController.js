@@ -32,7 +32,7 @@ const createSendToken = (user, statusCode, res) => {
 
   res.status(statusCode).json({
     status: 'sucess',
-    token, //Sending the token back to the client
+    // token, //Sending the token back to the client
     data: {
       user: user,
     },
