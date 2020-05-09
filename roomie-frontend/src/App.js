@@ -7,7 +7,6 @@ import MyAccount from "./components/MyAccount";
 import NewListing from "./components/NewListing";
 import Logout from "./components/Logout";
 import { AuthContext } from "./context/AuthContext";
-import axios from "axios";
 
 function NavbarGuest() {
   return (
