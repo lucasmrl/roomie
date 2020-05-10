@@ -1,28 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import "./styles.css";
 
 function NewListing() {
-  const [data, setData] = useState({
-    title: "",
-    type: "",
-    address: "",
-    city: "",
-    state: "",
-    country: "",
-    zip: "",
-    utilitiesIncl: "",
-    rent: "",
-    description: "",
-    availableDate: "",
-    petAllowed: "",
-    buildingType: "",
-    contactPhone: "",
-    contactEmail: "",
-  });
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = async (data) => {
     try {
       const response = await axios({
         method: "POST",
@@ -39,144 +22,148 @@ function NewListing() {
       return alert("Problems!! ❌");
     }
   };
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <h1>New Listing:</h1>
+      <h2>New Listing:</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label>Title:</label>
         <input
           type="text"
-          name="title"
           placeholder="Title"
-          value={data.title}
-          onChange={(e) => setData({ ...data, title: e.target.value })}
-          required
+          name="title"
+          ref={register({ required: true, maxLength: 80 })}
         />
-
+        {errors.title && <span>Please provide a Title.</span>}
+        <label>Room:</label>
+        <select name="type" ref={register({ required: true })}>
+          <option value="shared">Shared</option>
+          <option value="private">Private</option>
+        </select>
+        <label>Building Type:</label>
+        <select name="buildingType" ref={register({ required: true })}>
+          <option value="home">Home</option>
+          <option value="basement">Basement</option>
+          <option value="apartment">Apartment</option>
+          <option value="condo">Condo</option>
+          <option value="townhome">Townhome</option>
+        </select>
+        <label>Rent:</label>
         <input
-          type="text"
-          name="type"
-          placeholder="Type"
-          value={data.type}
-          onChange={(e) => setData({ ...data, type: e.target.value })}
-          required
-        />
-
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          value={data.address}
-          onChange={(e) => setData({ ...data, address: e.target.value })}
-          required
-        />
-
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={data.city}
-          onChange={(e) => setData({ ...data, city: e.target.value })}
-          required
-        />
-
-        <input
-          type="text"
-          name="state"
-          placeholder="State"
-          value={data.state}
-          onChange={(e) => setData({ ...data, state: e.target.value })}
-          required
-        />
-
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={data.country}
-          onChange={(e) => setData({ ...data, country: e.target.value })}
-          required
-        />
-
-        <input
-          type="text"
-          name="zip"
-          placeholder="ZipCode"
-          value={data.zip}
-          onChange={(e) => setData({ ...data, zip: e.target.value })}
-          required
-        />
-
-        <input
-          type="text"
-          name="utilitiesIncl"
-          placeholder="Utilities Included?"
-          value={data.utilitiesIncl}
-          onChange={(e) => setData({ ...data, utilitiesIncl: e.target.value })}
-          required
-        />
-
-        <input
-          type="text"
+          type="number"
+          placeholder="Value"
           name="rent"
-          placeholder="Monthly Rent"
-          value={data.rent}
-          onChange={(e) => setData({ ...data, rent: e.target.value })}
-          required
+          ref={register({ required: true })}
         />
+        {errors.rent && <span>Please provide the Rent.</span>}
+        <label>Utilities Included?:</label>
+        <input
+          className="radio"
+          name="utilitiesIncl"
+          type="radio"
+          value="true"
+          ref={register({ required: true })}
+        />
+        <label className="radio">Yes</label>
 
         <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={data.description}
-          onChange={(e) => setData({ ...data, description: e.target.value })}
-          required
+          className="radio"
+          name="utilitiesIncl"
+          type="radio"
+          value="false"
+          ref={register({ required: true })}
         />
+        <label className="radio">No</label>
+
+        <label>Address:</label>
         <input
           type="text"
-          name="availableDate"
+          placeholder="Address"
+          name="address"
+          ref={register({ required: true })}
+        />
+        {errors.address && <span>Please provide a Address.</span>}
+        <label>City:</label>
+        <input
+          type="text"
+          placeholder="City"
+          name="city"
+          ref={register({ required: true })}
+        />
+        {errors.city && <span>Please provide a City.</span>}
+        <label>State:</label>
+        <input
+          type="text"
+          placeholder="State"
+          name="state"
+          ref={register({ required: true, maxLength: 2 })}
+        />
+        {errors.state && <span>Please provide a State.</span>}
+        <label>Zip:</label>
+        <input
+          type="number"
+          placeholder="Zipcode"
+          name="zip"
+          ref={register({ required: true, maxLength: 5 })}
+        />
+        {errors.zip && <span>Please provide a Zip.</span>}
+        <label>Country:</label>
+        <input
+          type="text"
+          placeholder="Country"
+          name="country"
+          ref={register({ required: true })}
+        />
+        {errors.country && <span>Please provide a Country.</span>}
+        <label>Description about your space:</label>
+        <textarea name="description" ref={register({ required: true })} />
+        {errors.description && <span>Please provide a Description.</span>}
+        <label>First Date Available:</label>
+        <input
+          type="datetime"
           placeholder="Available Date"
-          value={data.availableDate}
-          onChange={(e) => setData({ ...data, availableDate: e.target.value })}
-          required
+          name="availableDate"
+          ref={register({ required: true })}
         />
-
+        {errors.availableDate && (
+          <span>Please provide the first available date.</span>
+        )}
+        <label>Pets Allowed?</label>
         <input
-          type="text"
+          className="radio"
           name="petAllowed"
-          placeholder="Pets Allowed?"
-          value={data.petAllowed}
-          onChange={(e) => setData({ ...data, petAllowed: e.target.value })}
-          required
+          type="radio"
+          value="false"
+          ref={register({ required: true })}
         />
-
+        <label className="radio">No</label>
         <input
-          type="text"
-          name="buildingType"
-          placeholder="Building Type"
-          value={data.buildingType}
-          onChange={(e) => setData({ ...data, buildingType: e.target.value })}
-          required
+          className="radio"
+          name="petAllowed"
+          type="radio"
+          value="true"
+          ref={register({ required: true })}
         />
-
+        <label className="radio">Yes</label>
+        {errors.petAllowed && <span>Please inform if Pets are allowed.</span>}
+        <label>Contact E-mail:</label>
         <input
           type="email"
+          placeholder="Email"
           name="contactEmail"
-          placeholder="Enter email:"
-          value={data.contactEmail}
-          onChange={(e) => setData({ ...data, contactEmail: e.target.value })}
-          required
+          ref={register({ required: true, pattern: /^\S+@\S+$/i })}
         />
+        {errors.contactEmail && (
+          <span>Please provide a e-mail for contact.</span>
+        )}
+        <label>Contact Phone:</label>
         <input
-          type="text"
+          type="tel"
+          placeholder="Mobile number"
           name="contactPhone"
-          placeholder="Phone"
-          value={data.contactPhone}
-          onChange={(e) => setData({ ...data, contactPhone: e.target.value })}
-          required
+          ref={register({ required: true, minLength: 6, maxLength: 12 })}
         />
-        <input type="submit" value="Submit" />
+        {errors.contactPhone && <span>Please provide a contact phone.</span>}
+        <input type="submit" />
       </form>
     </div>
   );
