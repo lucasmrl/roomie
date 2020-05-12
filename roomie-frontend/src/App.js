@@ -7,6 +7,7 @@ import MyAccount from "./components/MyAccount";
 import NewListing from "./components/NewListing";
 import Logout from "./components/Logout";
 import Listings from "./components/Listings";
+import Listing from "./components/Listing";
 import { AuthContext } from "./context/AuthContext";
 
 function NavbarGuest() {
@@ -23,6 +24,11 @@ function NavbarGuest() {
       </li>
       <li>
         <Link to="/listings">Listings</Link>
+      </li>
+      <li>
+        <Link to="/listing/5eba1d81fe50bb183267359e">
+          Listing 5eba1d81fe50bb183267359e
+        </Link>
       </li>
     </ul>
   );
@@ -46,6 +52,11 @@ function NavbarUser() {
       <li>
         <Link to="/listings">Listings</Link>
       </li>
+      <li>
+        <Link to="/listing/5eba1d81fe50bb183267359e">
+          Listing 5eba1d81fe50bb183267359e
+        </Link>
+      </li>
     </ul>
   );
 }
@@ -67,6 +78,7 @@ function App() {
           <Route path="/new-listing" component={NewListing} />
           <Route path="/logout" component={Logout} />
           <Route path="/listings" component={Listings} />
+          <Route path="/listing/5eba1d81fe50bb183267359e" component={Listing} />
         </Switch>
       </div>
     </Router>
