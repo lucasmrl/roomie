@@ -20,7 +20,6 @@ function ListingInfo(props) {
         <p>{props.state}</p>
         <p>{props.country}</p>
         <p>{props.zip}</p>
-        <p>{props.utilitiesIncl}</p>
         <p>{props.utilitiesIncl ? "Utilities Included" : "NO Utilities"}</p>
         <p>{props.rent}</p>
         <p>{props.description}</p>

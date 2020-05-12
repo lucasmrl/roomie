@@ -143,10 +143,19 @@ label.radio {
   flex-wrap: wrap;
   padding: 20px 20px 20px 20px;
 }
+
 .myCard {
   border: 1px solid;
   padding: 20px;
   margin: 10px;
   font-size: 10px;
   color: blue;
+}
+
+.userProfile {
+  border: 1px solid black;
+  padding: 20px;
+  margin: 10px;
+  font-size: 15px;
+  color: green;
 }
