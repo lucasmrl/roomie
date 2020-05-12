@@ -9,6 +9,7 @@ function UserProfile(props) {
         <p>{props.name}</p>
         <p>{props.email}</p>
         <p>{props.about}</p>
+        <p>{props.about}</p>
         <p>{props.age}</p>
         <p>{props.college}</p>
       </div>

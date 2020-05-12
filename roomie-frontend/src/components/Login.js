@@ -19,6 +19,7 @@ function Login(props) {
 
       if (response.status === 200) {
         localStorage.setItem("isAuth", "true");
+        console.log(response.data.data.user._id);
         setIsAuth(true);
         props.history.push("/");
       }

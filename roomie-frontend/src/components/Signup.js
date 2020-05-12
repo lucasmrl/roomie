@@ -18,6 +18,7 @@ function Signup(props) {
 
       if (response.status === 201) {
         localStorage.setItem("isAuth", "true");
+        localStorage.setItem("userID", response.data.data.user._id);
         setIsAuth(true);
         props.history.push("/");
       }
@@ -25,8 +26,6 @@ function Signup(props) {
       return alert("Sorry, We could not sign you up! ❌");
     }
   };
-
-  console.log(watch("password"));
 
   return (
     <div>

@@ -9,7 +9,7 @@ function NewListing() {
     try {
       const response = await axios({
         method: "POST",
-        url: "/api//listings",
+        url: "/api/listings",
         data,
       });
 
