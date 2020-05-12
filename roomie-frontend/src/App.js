@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import MyAccount from "./components/MyAccount";
 import NewListing from "./components/NewListing";
 import Logout from "./components/Logout";
+import Listings from "./components/Listings";
 import { AuthContext } from "./context/AuthContext";
 
 function NavbarGuest() {
@@ -19,6 +20,9 @@ function NavbarGuest() {
       </li>
       <li>
         <Link to="/signup">Sign Up</Link>
+      </li>
+      <li>
+        <Link to="/listings">Listings</Link>
       </li>
     </ul>
   );
@@ -38,6 +42,9 @@ function NavbarUser() {
       </li>
       <li>
         <Link to="/logout">Log out</Link>
+      </li>
+      <li>
+        <Link to="/listings">Listings</Link>
       </li>
     </ul>
   );
@@ -59,6 +66,7 @@ function App() {
           <Route path="/my-account" component={MyAccount} />
           <Route path="/new-listing" component={NewListing} />
           <Route path="/logout" component={Logout} />
+          <Route path="/listings" component={Listings} />
         </Switch>
       </div>
     </Router>

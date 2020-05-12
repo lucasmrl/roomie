@@ -137,3 +137,16 @@ button {
 label.radio {
   margin: 0 20px 0 5px;
 }
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 20px 20px 20px;
+}
+.myCard {
+  border: 1px solid;
+  padding: 20px;
+  margin: 10px;
+  font-size: 10px;
+  color: blue;
+}

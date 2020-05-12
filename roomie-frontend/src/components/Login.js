@@ -13,7 +13,7 @@ function Login(props) {
     try {
       const response = await axios({
         method: "POST",
-        url: "/api//users/login",
+        url: "/api/users/login",
         data,
       });
 

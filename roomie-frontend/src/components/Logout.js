@@ -6,7 +6,7 @@ function Logout(props) {
   const { setIsAuth } = useContext(AuthContext);
 
   useEffect(() => {
-    setInterval(async () => {
+    const logoutTimer = setInterval(async () => {
       try {
         const response = await axios({
           method: "GET",
@@ -23,6 +23,7 @@ function Logout(props) {
         return alert("Something went wrong! ❌");
       }
     }, 2000);
+    return () => clearInterval(logoutTimer);
   }, []);
 
   return <p>You will be disconnected in 3 seconds... 😢</p>;
