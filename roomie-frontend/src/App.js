@@ -9,6 +9,7 @@ import Logout from "./components/Logout";
 import Listings from "./components/Listings";
 import Listing from "./components/Listing";
 import User from "./components/User";
+import UpdatePassword from "./components/UpdatePassword";
 import { AuthContext } from "./context/AuthContext";
 
 function NavbarGuest() {
@@ -68,6 +69,9 @@ function NavbarUser() {
           User 5eb24f8e4c713657506282de
         </Link>
       </li>
+      <li>
+        <Link to="/update-password">Update Password</Link>
+      </li>
     </ul>
   );
 }
@@ -91,6 +95,7 @@ function App() {
           <Route path="/listings" component={Listings} />
           <Route path="/listing/5eba1d81fe50bb183267359e" component={Listing} />
           <Route path="/users/5eb24f8e4c713657506282de" component={User} />
+          <Route path="/update-password" component={UpdatePassword} />
         </Switch>
       </div>
     </Router>

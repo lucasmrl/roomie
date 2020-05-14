@@ -17,6 +17,7 @@ function Logout(props) {
         if (response.status === 200) {
           setIsAuth(false); // 1) When the user is redirected, the navbar will be updated
           localStorage.removeItem("isAuth"); // 2) Removing the information from localStorage
+          localStorage.removeItem("userID");
           props.history.push("/"); // 3) Redirecting to the main page with the correct navbar
         }
       } catch (error) {
