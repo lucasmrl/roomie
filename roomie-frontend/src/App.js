@@ -10,6 +10,7 @@ import Listings from "./components/Listings";
 import Listing from "./components/Listing";
 import User from "./components/User";
 import UpdatePassword from "./components/UpdatePassword";
+import UpdateListing from "./components/UpdateListing";
 import { AuthContext } from "./context/AuthContext";
 
 function NavbarGuest() {
@@ -72,6 +73,11 @@ function NavbarUser() {
       <li>
         <Link to="/update-password">Update Password</Link>
       </li>
+      <li>
+        <Link to="/listings/5ebce8903591d548ae6aaf45">
+          Update Listing 5ebce8903591d548ae6aaf45
+        </Link>
+      </li>
     </ul>
   );
 }
@@ -92,10 +98,23 @@ function App() {
           <Route path="/my-account" component={MyAccount} />
           <Route path="/new-listing" component={NewListing} />
           <Route path="/logout" component={Logout} />
-          <Route path="/listings" component={Listings} />
-          <Route path="/listing/5eba1d81fe50bb183267359e" component={Listing} />
-          <Route path="/users/5eb24f8e4c713657506282de" component={User} />
+          <Route path="/listings" exact component={Listings} />
+          <Route
+            path="/listing/5eba1d81fe50bb183267359e"
+            exact
+            component={Listing}
+          />
+          <Route
+            path="/users/5eb24f8e4c713657506282de"
+            exact
+            component={User}
+          />
           <Route path="/update-password" component={UpdatePassword} />
+          <Route
+            path="/listings/5ebce8903591d548ae6aaf45"
+            exact
+            component={UpdateListing}
+          />
         </Switch>
       </div>
     </Router>
