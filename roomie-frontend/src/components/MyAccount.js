@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./styles.css";
 
@@ -53,6 +54,9 @@ function MyAccount() {
   return (
     <div>
       <h2>My Account:</h2>
+      <Link to="/update-password">
+        <h4>Update Password</h4>
+      </Link>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Name:</label>
         <input

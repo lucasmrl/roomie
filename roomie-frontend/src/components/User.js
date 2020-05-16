@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import "./../components/styles.css";
 import axios from "axios";
 
@@ -21,8 +22,7 @@ function UserListings(props) {
   return (
     <div className="userProfile">
       <div>
-        <p>{props._id}</p>
-        <p>{props.title}</p>
+        <Link to={`/listing/${props._id}`}>{props.title}</Link>
         <p>{props.city}</p>
         <p>{props.state}</p>
         <p>{props.country}</p>
@@ -34,7 +34,7 @@ function UserListings(props) {
   );
 }
 
-function User() {
+function User({ match }) {
   const [data, setData] = useState("");
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function User() {
       try {
         const response = await axios({
           method: "GET",
-          url: "/api/users/5eb24f8e4c713657506282de",
+          url: `/api/users/${match.params.id}`,
         });
         setData(response.data.data.user);
       } catch (error) {
@@ -58,6 +58,7 @@ function User() {
     fetchUserProfile();
   }, []);
 
+  const userName = data.name === "" ? "" : data.name;
   const resultInfo = data === "" ? "" : <UserProfile {...data} />;
   const resultListings =
     data === ""
@@ -66,7 +67,7 @@ function User() {
 
   return (
     <div>
-      <h1>User Profile: '5eb24f8e4c713657506282de':</h1>
+      <h1>User Profile: {userName}</h1>
       <h3>User:</h3>
       <div className="cardContainer">{resultInfo}</div>
       <h3>User's Listings:</h3>

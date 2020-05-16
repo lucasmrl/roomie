@@ -73,6 +73,9 @@ function NewListing() {
           ref={register({ required: true })}
         />
         <label className="radio">No</label>
+        {errors.utilitiesIncl && (
+          <span>Please inform if the utilities are included.</span>
+        )}
 
         <label>Address:</label>
         <input

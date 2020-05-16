@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { AuthContext } from "./../context/AuthContext";
 import axios from "axios";
 
@@ -6,11 +7,11 @@ function Logout(props) {
   const { setIsAuth } = useContext(AuthContext);
 
   useEffect(() => {
-    const logoutTimer = setInterval(async () => {
+    const logoutUser = async () => {
       try {
         const response = await axios({
           method: "GET",
-          url: "/api//users/logout",
+          url: "/api/users/logout",
         });
         //User will receive an invalid token as the response
 
@@ -23,11 +24,11 @@ function Logout(props) {
       } catch (error) {
         return alert("Something went wrong! ❌");
       }
-    }, 2000);
-    return () => clearInterval(logoutTimer);
+    };
+    logoutUser();
   }, []);
 
-  return <p>You will be disconnected in 3 seconds... 😢</p>;
+  return <Redirect to="/" />;
 }
 
 export default Logout;

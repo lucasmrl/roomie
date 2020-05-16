@@ -11,6 +11,8 @@ import Listing from "./components/Listing";
 import User from "./components/User";
 import UpdatePassword from "./components/UpdatePassword";
 import UpdateListing from "./components/UpdateListing";
+import DeleteListing from "./components/DeleteListing";
+import NotFound from "./components/NotFound";
 import { AuthContext } from "./context/AuthContext";
 
 function NavbarGuest() {
@@ -24,19 +26,6 @@ function NavbarGuest() {
       </li>
       <li>
         <Link to="/signup">Sign Up</Link>
-      </li>
-      <li>
-        <Link to="/listings">Listings</Link>
-      </li>
-      <li>
-        <Link to="/listing/5eba1d81fe50bb183267359e">
-          Listing 5eba1d81fe50bb183267359e
-        </Link>
-      </li>
-      <li>
-        <Link to="/users/5eb24f8e4c713657506282de">
-          User 5eb24f8e4c713657506282de
-        </Link>
       </li>
     </ul>
   );
@@ -56,27 +45,6 @@ function NavbarUser() {
       </li>
       <li>
         <Link to="/logout">Log out</Link>
-      </li>
-      <li>
-        <Link to="/listings">Listings</Link>
-      </li>
-      <li>
-        <Link to="/listing/5eba1d81fe50bb183267359e">
-          Listing 5eba1d81fe50bb183267359e
-        </Link>
-      </li>
-      <li>
-        <Link to="/users/5eb24f8e4c713657506282de">
-          User 5eb24f8e4c713657506282de
-        </Link>
-      </li>
-      <li>
-        <Link to="/update-password">Update Password</Link>
-      </li>
-      <li>
-        <Link to="/listings/5ebce8903591d548ae6aaf45">
-          Update Listing 5ebce8903591d548ae6aaf45
-        </Link>
       </li>
     </ul>
   );
@@ -99,22 +67,12 @@ function App() {
           <Route path="/new-listing" component={NewListing} />
           <Route path="/logout" component={Logout} />
           <Route path="/listings" exact component={Listings} />
-          <Route
-            path="/listing/5eba1d81fe50bb183267359e"
-            exact
-            component={Listing}
-          />
-          <Route
-            path="/users/5eb24f8e4c713657506282de"
-            exact
-            component={User}
-          />
+          <Route path="/listing/:id" component={Listing} />
+          <Route path="/users/:id" component={User} />
           <Route path="/update-password" component={UpdatePassword} />
-          <Route
-            path="/listings/5ebce8903591d548ae6aaf45"
-            exact
-            component={UpdateListing}
-          />
+          <Route path="/listings/:id" component={UpdateListing} />
+          <Route path="/delete/:id" component={DeleteListing} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     </Router>

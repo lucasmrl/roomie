@@ -3,7 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import "./styles.css";
 
-function UpdateListing() {
+function UpdateListing({ match }) {
   const { register, handleSubmit, errors } = useForm();
   const [listingData, setListingData] = useState({});
 
@@ -12,7 +12,7 @@ function UpdateListing() {
       try {
         const response = await axios({
           method: "GET",
-          url: `/api/listings/5ebce8903591d548ae6aaf45`,
+          url: `/api/listings/${match.params.id}`,
         });
 
         setListingData(response.data.data.listings);
@@ -42,7 +42,7 @@ function UpdateListing() {
     try {
       const response = await axios({
         method: "PATCH",
-        url: "/api/listings/5ebce8903591d548ae6aaf45",
+        url: `/api/listings/${match.params.id}`,
         data,
       });
 
@@ -197,7 +197,7 @@ function UpdateListing() {
 
   return (
     <div>
-      <h2>Update Listing 5ebce8903591d548ae6aaf45:</h2>
+      <h2>{`Update Listing ${match.params.id}:`}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Title:</label>
         <input

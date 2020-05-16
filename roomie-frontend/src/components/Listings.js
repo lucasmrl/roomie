@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import "./../components/styles.css";
 import axios from "axios";
 
@@ -7,7 +8,7 @@ function ListingCard(props) {
     <div className="myCard">
       <div>
         <p>{props.count}</p>
-        <p>{props._id}</p>
+        <Link to={`/listing/${props._id}`}>{props._id}</Link>
         <p>{props.title}</p>
         <p>{props.city}</p>
         <p>{props.state}</p>
