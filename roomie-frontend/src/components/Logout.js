@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "./../context/AuthContext";
 import axios from "axios";
@@ -26,7 +26,7 @@ function Logout(props) {
       }
     };
     logoutUser();
-  }, []);
+  }, [props, setIsAuth]);
 
   return <Redirect to="/" />;
 }

@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from "./../context/AuthContext";
+import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
 function Login(props) {
   const [data, setData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const { setIsAuth } = useContext(AuthContext);
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } }; //Default origin is from the route that sent to the login page OR from "/" root
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,7 +26,7 @@ function Login(props) {
         localStorage.setItem("userID", response.data.data.user._id);
         console.log(response.data.data.user._id);
         setIsAuth(true);
-        props.history.push("/");
+        history.replace(from);
       }
     } catch (error) {
       return setMessage("Incorrect Username and Password! ❌");

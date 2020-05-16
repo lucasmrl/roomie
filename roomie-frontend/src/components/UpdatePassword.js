@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from "./../context/AuthContext";
+import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
 function UpdatePassword(props) {
-  const { setIsAuth } = useContext(AuthContext);
-
   const { register, handleSubmit, watch, errors } = useForm();
 
   const onSubmit = async (data) => {

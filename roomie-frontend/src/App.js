@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -12,6 +12,7 @@ import User from "./components/User";
 import UpdatePassword from "./components/UpdatePassword";
 import UpdateListing from "./components/UpdateListing";
 import DeleteListing from "./components/DeleteListing";
+import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./components/NotFound";
 import { AuthContext } from "./context/AuthContext";
 
@@ -63,15 +64,15 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route path="/my-account" component={MyAccount} />
-          <Route path="/new-listing" component={NewListing} />
+          <ProtectedRoute path="/my-account" component={MyAccount} />
+          <ProtectedRoute path="/new-listing" component={NewListing} />
           <Route path="/logout" component={Logout} />
           <Route path="/listings" exact component={Listings} />
           <Route path="/listing/:id" component={Listing} />
-          <Route path="/users/:id" component={User} />
+          <ProtectedRoute path="/users/:id" component={User} />
           <Route path="/update-password" component={UpdatePassword} />
-          <Route path="/listings/:id" component={UpdateListing} />
-          <Route path="/delete/:id" component={DeleteListing} />
+          <ProtectedRoute path="/listings/:id" component={UpdateListing} />
+          <ProtectedRoute path="/delete/:id" component={DeleteListing} />
           <Route component={NotFound} />
         </Switch>
       </div>

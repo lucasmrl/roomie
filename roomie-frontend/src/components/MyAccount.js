@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import "./styles.css";
 
 function MyAccount() {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [userData, setUserData] = useState({});
 
   useEffect(() => {

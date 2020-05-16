@@ -23,7 +23,7 @@ function UpdateListing({ match }) {
       }
     };
     fetchListing();
-  }, []);
+  }, [match.params.id]);
 
   const onSubmit = async (data) => {
     if (data.address === "") data.address = listingData.address;

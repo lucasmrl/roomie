@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./../components/styles.css";
 import axios from "axios";
@@ -9,7 +9,6 @@ function UserProfile(props) {
       <div>
         <p>{props.name}</p>
         <p>{props.email}</p>
-        <p>{props.about}</p>
         <p>{props.about}</p>
         <p>{props.age}</p>
         <p>{props.college}</p>
@@ -56,7 +55,7 @@ function User({ match }) {
       }
     };
     fetchUserProfile();
-  }, []);
+  }, [match.params.id]);
 
   const userName = data.name === "" ? "" : data.name;
   const resultInfo = data === "" ? "" : <UserProfile {...data} />;
