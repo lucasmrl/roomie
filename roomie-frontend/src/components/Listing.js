@@ -65,7 +65,6 @@ function Listing({ match }) {
         });
 
         setData(response.data.data.listings);
-        console.log(response.data.data.listings.owner[0].id);
       } catch (error) {
         return alert(
           "Something went wrong while trying to fetch this particular Listings...🧐"

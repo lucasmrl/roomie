@@ -28,17 +28,33 @@ function MyAccount() {
   }, []);
 
   const onSubmit = async (data) => {
+    console.log(data.profilePicture[0]);
+    const formData = new FormData();
+
     if (data.name === "") data.name = userData.name;
-    if (data.contactEmail === "") data.contactEmail = userData.email;
+    if (data.email === "") data.email = userData.email;
     if (data.age === "") data.age = userData.age;
     if (data.college === "") data.college = userData.college;
     if (data.about === "") data.about = userData.about;
+    if (
+      typeof data.profilePicture[0] === "undefined" ||
+      data.profilePicture[0] === "undefined"
+    ) {
+    } else {
+      formData.append("profilePicture", data.profilePicture[0]);
+    }
+
+    formData.set("name", data.name);
+    formData.set("email", data.email);
+    formData.set("age", data.age);
+    formData.set("college", data.college);
+    formData.set("about", data.about);
 
     try {
       const response = await axios({
         method: "PATCH",
         url: "/api/users/updateMe",
-        data,
+        data: formData,
       });
 
       if (response.status === 200) {
@@ -51,6 +67,22 @@ function MyAccount() {
     }
   };
 
+  let imageProfile;
+
+  if (
+    userData.profilePicture === "undefined" ||
+    typeof userData.profilePicture === "undefined"
+  ) {
+    imageProfile = "";
+  } else {
+    imageProfile = (
+      <img
+        src={`https://roomie-profile-pictures.s3.amazonaws.com/${userData.profilePicture}`}
+        alt="User Profile"
+      />
+    );
+  }
+
   return (
     <div>
       <h2>My Account:</h2>
@@ -58,6 +90,10 @@ function MyAccount() {
         <h4>Update Password</h4>
       </Link>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <label>Profile Picture:</label>
+        {imageProfile}
+        <input type="file" name="profilePicture" ref={register} />
+
         <label>Name:</label>
         <input
           type="text"
@@ -70,7 +106,7 @@ function MyAccount() {
         <input
           type="email"
           placeholder={userData.email}
-          name="contactEmail"
+          name="email"
           ref={register({ pattern: /^\S+@\S+$/i })}
         />
 
