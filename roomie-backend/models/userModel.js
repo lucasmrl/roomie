@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords are not the same!',
     },
   },
-  profilePicture: [String],
+  profilePicture: String,
   about: {
     type: String,
   },

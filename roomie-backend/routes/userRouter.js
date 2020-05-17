@@ -8,6 +8,7 @@ const {
   updateUser,
   deleteUser,
   getUserListings,
+  uploadUserPhoto,
 } = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const router = express.Router();
@@ -25,7 +26,7 @@ router.patch(
   authController.updatePassword
 ); // Recieve the token and the new password.
 
-router.patch('/updateMe', authController.protect, updateMe); // Recieve the token and the new password.
+router.patch('/updateMe', authController.protect, uploadUserPhoto, updateMe); // Recieve the token and the new password.
 router.delete('/deleteMe', authController.protect, deleteMe);
 
 router.route('/:id').get(authController.protect, getUser);
