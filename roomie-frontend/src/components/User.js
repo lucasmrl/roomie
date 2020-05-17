@@ -4,9 +4,18 @@ import "./../components/styles.css";
 import axios from "axios";
 
 function UserProfile(props) {
+  const imageProfile = !props.profilePicture ? (
+    ""
+  ) : (
+    <img
+      src={`https://roomie-profile-pictures.s3.amazonaws.com/${props.profilePicture}`}
+      alt="User Profile"
+    />
+  );
   return (
     <div className="userProfile">
       <div>
+        {imageProfile}
         <p>{props.name}</p>
         <p>{props.email}</p>
         <p>{props.about}</p>
