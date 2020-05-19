@@ -13,8 +13,8 @@ function NewListing() {
     }
 
     formData.append("pictures", data.pictures0[0]);
-    formData.append("pictures", data.pictures0[1]);
-    formData.append("pictures", data.pictures0[2]);
+    formData.append("pictures", data.pictures1[0]);
+    formData.append("pictures", data.pictures2[0]);
 
     try {
       const response = await axios({

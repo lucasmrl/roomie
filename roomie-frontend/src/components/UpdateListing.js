@@ -39,11 +39,19 @@ function UpdateListing({ match }) {
     if (data.title === "") data.title = listingData.title;
     if (data.zip === "") data.zip = listingData.zip;
 
+    const formData = new FormData();
+    for (let dataKey in data) {
+      formData.append(dataKey, data[dataKey]);
+    }
+    if (data.pictures0[0]) formData.append("pictures", data.pictures0[0]);
+    if (data.pictures1[0]) formData.append("pictures", data.pictures1[0]);
+    if (data.pictures2[0]) formData.append("pictures", data.pictures2[0]);
+
     try {
       const response = await axios({
         method: "PATCH",
         url: `/api/listings/${match.params.id}`,
-        data,
+        data: formData,
       });
 
       if (response.status === 200) {
@@ -195,10 +203,26 @@ function UpdateListing({ match }) {
     }
   }
 
+  let pictures = "";
+  if (listingData.pictures && listingData.pictures.length > 0) {
+    pictures = listingData.pictures.map((el, index) => (
+      <img
+        key={index}
+        src={`https://roomie-profile-pictures.s3.amazonaws.com/${listingData.pictures[index]}`}
+        alt="Listing"
+      />
+    ));
+  }
+
   return (
     <div>
       <h2>{`Update Listing ${match.params.id}:`}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {pictures}
+        <label>Images:</label>
+        <input type="file" name="pictures0" ref={register} />
+        <input type="file" name="pictures1" ref={register} />
+        <input type="file" name="pictures2" ref={register} />
         <label>Title:</label>
         <input
           type="text"

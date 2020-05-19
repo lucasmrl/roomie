@@ -19,9 +19,22 @@ function ListingInfo(props) {
   } else {
     updateAndDelete = "";
   }
+
+  let pictures = "";
+  if (props.pictures.length > 0) {
+    pictures = props.pictures.map((el, index) => (
+      <img
+        key={index}
+        src={`https://roomie-profile-pictures.s3.amazonaws.com/${props.pictures[index]}`}
+        alt="Listing"
+      />
+    ));
+  }
+
   return (
     <div className="myCard">
       <div>
+        {pictures}
         <p>{props.createdDate}</p>
         <p>{props._id}</p>
         <p>
