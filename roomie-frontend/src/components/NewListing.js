@@ -6,11 +6,21 @@ import "./styles.css";
 function NewListing() {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (data) => {
+    const formData = new FormData();
+
+    for (let dataKey in data) {
+      formData.append(dataKey, data[dataKey]);
+    }
+
+    formData.append("pictures", data.pictures0[0]);
+    formData.append("pictures", data.pictures0[1]);
+    formData.append("pictures", data.pictures0[2]);
+
     try {
       const response = await axios({
         method: "POST",
         url: "/api/listings",
-        data,
+        data: formData,
       });
 
       if (response.status === 201) {
@@ -18,6 +28,7 @@ function NewListing() {
         //   props.history.push("/");
       }
     } catch (error) {
+      console.log(formData);
       console.log(error.response.data.message);
       return alert("Problems!! ❌");
     }
@@ -26,6 +37,11 @@ function NewListing() {
     <div>
       <h2>New Listing:</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <label>Images:</label>
+        <input type="file" name="pictures0" ref={register} />
+        <input type="file" name="pictures1" ref={register} />
+        <input type="file" name="pictures2" ref={register} />
+
         <label>Title:</label>
         <input
           type="text"

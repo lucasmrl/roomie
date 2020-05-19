@@ -1,6 +1,7 @@
 const express = require('express');
 const {
   getAllListings,
+  uploadListingPhotos,
   createListing,
   getListing,
   updateListing,
@@ -13,12 +14,17 @@ const router = express.Router();
 router
   .route('/')
   .get(getAllListings)
-  .post(authController.protect, createListing);
+  .post(authController.protect, uploadListingPhotos, createListing);
 
 router
   .route('/:id')
   .get(getListing)
-  .patch(authController.protect, authController.validateOwner, updateListing)
+  .patch(
+    authController.protect,
+    authController.validateOwner,
+    uploadListingPhotos,
+    updateListing
+  )
   .delete(authController.protect, authController.validateOwner, deleteListing);
 
 module.exports = router;

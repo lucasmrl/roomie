@@ -33,9 +33,6 @@ function MyAccount() {
 
     if (data.name === "") data.name = userData.name;
     if (data.email === "") data.email = userData.email;
-    if (data.age === "") data.age = userData.age;
-    if (data.college === "") data.college = userData.college;
-    if (data.about === "") data.about = userData.about;
     if (
       typeof data.profilePicture[0] === "undefined" ||
       data.profilePicture[0] === "undefined"
@@ -56,7 +53,7 @@ function MyAccount() {
         url: "/api/users/updateMe",
         data: formData,
       });
-
+      console.log(data);
       if (response.status === 200) {
         alert("It Worked!");
         //   props.history.push("/");

@@ -47,7 +47,17 @@ const upload = multer({
   }),
 });
 
-exports.uploadUserPhoto = upload.single('profilePicture');
+// exports.uploadUserPhoto = upload.single('profilePicture');
+exports.uploadUserPhoto = upload.fields([
+  {
+    name: 'profilePicture',
+    maxCount: 1,
+  },
+  {
+    name: 'pictures',
+    maxCount: 3,
+  },
+]);
 // End of AWS Code
 
 const filterObj = (obj, ...allowedFields) => {

@@ -15,9 +15,6 @@ const listingSchema = new mongoose.Schema({
       message: 'Please, select between PRIVATE or SHARED',
     },
   },
-  pictureCover: {
-    type: String,
-  },
   pictures: [String],
   address: {
     type: String,
