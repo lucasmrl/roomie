@@ -6,6 +6,7 @@ const {
   getListing,
   updateListing,
   deleteListing,
+  getGeoLocation,
 } = require('../controllers/listingController');
 const authController = require('./../controllers/authController');
 
@@ -26,5 +27,7 @@ router
     updateListing
   )
   .delete(authController.protect, authController.validateOwner, deleteListing);
+
+router.route('/location/getGeo').get(getGeoLocation);
 
 module.exports = router;

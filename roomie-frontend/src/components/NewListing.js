@@ -16,6 +16,10 @@ function NewListing() {
     formData.append("pictures", data.pictures1[0]);
     formData.append("pictures", data.pictures2[0]);
 
+    // 1) Create query based on ADDRESS, STATE, ZIPCODE
+    // 2) Linked AXIOS REQUEST:
+    // ---> 2.a) GET request to backend to retrieve latitude, longitute [ ] Create Backend route to support this
+    // ---> 2.b) Add the result to the fomrData object and send to POST request to create the listing
     try {
       const response = await axios({
         method: "POST",

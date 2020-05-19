@@ -78,16 +78,8 @@ const listingSchema = new mongoose.Schema({
   ],
   contactPhone: Number,
   contactEmail: String,
-  geoLocation: {
-    //GeoJSON
-    type: {
-      type: String,
-      default: 'Point',
-      enum: ['Point'],
-    },
-    coordinates: [Number],
-    address2: String,
-  },
+  latitude: Number,
+  longitude: Number,
 });
 
 //Convention is to use uppercase letter to Models

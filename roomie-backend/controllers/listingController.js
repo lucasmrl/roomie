@@ -5,6 +5,7 @@ const AppError = require('./../utils/appError');
 const multer = require('multer');
 const aws = require('aws-sdk');
 const multerSharp = require('multer-sharp-s3');
+const axios = require('axios');
 
 //AWS S3 - Uploading Pictures
 const s3 = new aws.S3({
@@ -141,3 +142,27 @@ exports.deleteListing = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
+
+exports.getGeoLocation = async (req, res, next) => {
+  const params = {
+    access_key: process.env.POSITIONSTACK_API_KEY,
+    query: '3196 S Washington Street,84115,UTAH',
+  };
+
+  axios
+    .get(
+      `http://api.positionstack.com/v1/forward?access_key=${params.access_key}&query=${params.query}`
+    )
+    .then((response) => {
+      res.status(200).json({
+        status: 200,
+        data: {
+          latitude: response.data.data[0].latitude,
+          longitude: response.data.data[0].longitude,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
