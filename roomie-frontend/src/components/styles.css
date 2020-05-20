@@ -161,6 +161,6 @@ label.radio {
 }
 
 .leaflet-container {
-  width: 100%;
-  height: 100vh;
+  width: 50%;
+  height: 50vh;
 }
