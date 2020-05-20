@@ -6,6 +6,7 @@ import "./styles.css";
 function NewListing() {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (data) => {
+    const addressToGeo = `${data.address},${data.state},${data.zip}`;
     const formData = new FormData();
 
     for (let dataKey in data) {
@@ -21,6 +22,14 @@ function NewListing() {
     // ---> 2.a) GET request to backend to retrieve latitude, longitute [ ] Create Backend route to support this
     // ---> 2.b) Add the result to the fomrData object and send to POST request to create the listing
     try {
+      const responseGeo = await axios({
+        method: "GET",
+        url: `/api/listings/location/getGeo/${addressToGeo}`,
+      });
+
+      formData.append("latitude", responseGeo.data.data.latitude);
+      formData.append("longitude", responseGeo.data.data.longitude);
+
       const response = await axios({
         method: "POST",
         url: "/api/listings",

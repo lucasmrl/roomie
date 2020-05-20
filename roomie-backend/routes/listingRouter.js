@@ -28,6 +28,6 @@ router
   )
   .delete(authController.protect, authController.validateOwner, deleteListing);
 
-router.route('/location/getGeo').get(getGeoLocation);
+router.route('/location/getGeo/:address').get(getGeoLocation);
 
 module.exports = router;

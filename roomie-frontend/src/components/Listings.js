@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./../components/styles.css";
 import axios from "axios";
+import MyMap from "./Map.js";
 
 function ListingCard(props) {
   return (
@@ -50,6 +51,8 @@ function Listings() {
     <div>
       <h1>Listings:</h1>
       <div className="cardContainer">{allLists}</div>
+      <h1>Map:</h1>
+      <MyMap />
     </div>
   );
 }

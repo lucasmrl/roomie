@@ -146,7 +146,7 @@ exports.deleteListing = catchAsync(async (req, res, next) => {
 exports.getGeoLocation = async (req, res, next) => {
   const params = {
     access_key: process.env.POSITIONSTACK_API_KEY,
-    query: '3196 S Washington Street,84115,UTAH',
+    query: req.params.address,
   };
 
   axios
@@ -163,6 +163,6 @@ exports.getGeoLocation = async (req, res, next) => {
       });
     })
     .catch((error) => {
-      console.log(error);
+      return next(new AppError('Error with API PositionStack', 404));
     });
 };
