@@ -52,7 +52,7 @@ function Listings() {
       <h1>Listings:</h1>
       <div className="cardContainer">{allLists}</div>
       <h1>Map:</h1>
-      <MyMap />
+      <MyMap listingsInfo={data} />
     </div>
   );
 }
