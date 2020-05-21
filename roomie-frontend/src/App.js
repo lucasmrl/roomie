@@ -15,6 +15,7 @@ import DeleteListing from "./components/DeleteListing";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./components/NotFound";
 import { AuthContext } from "./context/AuthContext";
+import logo from "./assets/images/logo.png";
 
 function NavbarGuest() {
   return (
@@ -58,8 +59,9 @@ function App() {
 
   return (
     <Router>
-      <div>
-        {navbar}
+      <div className="antialiased">
+        <img src={logo} alt="Logo" />
+        {/* {navbar} */}
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
