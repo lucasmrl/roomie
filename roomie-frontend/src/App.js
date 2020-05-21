@@ -59,24 +59,28 @@ function App() {
 
   return (
     <Router>
-      <div className="antialiased">
-        <img src={logo} alt="Logo" />
-        {/* {navbar} */}
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <ProtectedRoute path="/my-account" component={MyAccount} />
-          <ProtectedRoute path="/new-listing" component={NewListing} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/listings" exact component={Listings} />
-          <Route path="/listing/:id" component={Listing} />
-          <ProtectedRoute path="/users/:id" component={User} />
-          <Route path="/update-password" component={UpdatePassword} />
-          <ProtectedRoute path="/listings/:id" component={UpdateListing} />
-          <ProtectedRoute path="/delete/:id" component={DeleteListing} />
-          <Route component={NotFound} />
-        </Switch>
+      <div className="w-screen h-screen antialiased">
+        <div className="px-8 py-4">
+          <img src={logo} alt="Logo" className="h-8" />
+          {/* {navbar} */}
+        </div>
+        <div>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <ProtectedRoute path="/my-account" component={MyAccount} />
+            <ProtectedRoute path="/new-listing" component={NewListing} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/listings" exact component={Listings} />
+            <Route path="/listing/:id" component={Listing} />
+            <ProtectedRoute path="/users/:id" component={User} />
+            <Route path="/update-password" component={UpdatePassword} />
+            <ProtectedRoute path="/listings/:id" component={UpdateListing} />
+            <ProtectedRoute path="/delete/:id" component={DeleteListing} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
       </div>
     </Router>
   );
