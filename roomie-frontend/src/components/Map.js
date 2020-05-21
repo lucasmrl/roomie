@@ -50,14 +50,6 @@ export default function MyMap(props) {
         />
       ))}
 
-      {/* <Marker
-        //   key={park.properties.PARK_ID}
-        position={[latitude, longitude]}
-        onClick={() => {
-          setActivePark("teste");
-        }}
-      /> */}
-
       {activeListing && (
         <Popup
           position={[activeListing.latitude, activeListing.longitude]}
