@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./../components/styles.css";
 import axios from "axios";
 
 function ListingInfo(props) {
@@ -32,7 +31,7 @@ function ListingInfo(props) {
   }
 
   return (
-    <div className="myCard">
+    <div className="">
       <div>
         {pictures}
         <p>{props.createdDate}</p>
@@ -91,7 +90,7 @@ function Listing({ match }) {
   return (
     <div>
       <h1>{`Listing ${match.params.id}:`}</h1>
-      <div className="cardContainer">{result}</div>
+      <div className="">{result}</div>
     </div>
   );
 }

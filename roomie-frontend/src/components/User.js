@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./../components/styles.css";
 import axios from "axios";
 
 function UserProfile(props) {
@@ -20,7 +19,7 @@ function UserProfile(props) {
   }
 
   return (
-    <div className="userProfile">
+    <div>
       <div>
         {imageProfile}
         <p>{props.name}</p>
@@ -35,7 +34,7 @@ function UserProfile(props) {
 
 function UserListings(props) {
   return (
-    <div className="userProfile">
+    <div className="">
       <div>
         <Link to={`/listing/${props._id}`}>{props.title}</Link>
         <p>{props.city}</p>
@@ -84,9 +83,9 @@ function User({ match }) {
     <div>
       <h1>User Profile: {userName}</h1>
       <h3>User:</h3>
-      <div className="cardContainer">{resultInfo}</div>
+      <div className="">{resultInfo}</div>
       <h3>User's Listings:</h3>
-      <div className="cardContainer">{resultListings}</div>
+      <div className="">{resultListings}</div>
     </div>
   );
 }

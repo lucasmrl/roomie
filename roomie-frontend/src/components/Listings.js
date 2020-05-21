@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./../components/styles.css";
 import axios from "axios";
 import MyMap from "./Map.js";
 
 function ListingCard(props) {
   return (
-    <div className="myCard">
+    <div className="">
       <div>
         <p>{props.count}</p>
         <Link to={`/listing/${props._id}`}>{props._id}</Link>
@@ -50,7 +49,7 @@ function Listings() {
   return (
     <div>
       <h1>Listings:</h1>
-      <div className="cardContainer">{allLists}</div>
+      <div className="">{allLists}</div>
       <h1>Map:</h1>
       <MyMap listingsInfo={data} />
     </div>
