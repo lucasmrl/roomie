@@ -5,7 +5,7 @@ import AuthContextProvider from "./context/AuthContext";
 import "./tailwind.generated.css";
 
 ReactDOM.render(
-  <div className="antialiased mx-auto max-w-md sm:max-w-xl lg:mx-0 lg:max-w-none lg:max-h-screen">
+  <div className="antialiased mx-auto max-w-md sm:max-w-xl lg:mx-auto lg:mt-16 lg:max-w-screen-xl lg:max-h-screen">
     <AuthContextProvider>
       <App />
     </AuthContextProvider>
