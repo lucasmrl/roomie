@@ -59,12 +59,12 @@ function App() {
 
   return (
     <Router>
-      <div className="w-screen h-screen antialiased">
-        <div className="px-8 py-4">
+      <div className="w-screen h-screen antialiased mx-auto max-w-md sm:max-w-xl lg:m-0">
+        <div className="px-8 py-4 sm:max-w-xl sm:px-0 lg:px-8 lg:absolute">
           <img src={logo} alt="Logo" className="h-8" />
           {/* {navbar} */}
         </div>
-        <div>
+        <div className="">
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
