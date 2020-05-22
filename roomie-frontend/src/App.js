@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -16,20 +16,50 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./components/NotFound";
 import { AuthContext } from "./context/AuthContext";
 import logo from "./assets/images/logo.png";
+import { AiOutlineMenu } from "react-icons/ai";
 
 function NavbarGuest() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
-      <li>
-        <Link to="/signup">Sign Up</Link>
-      </li>
-    </ul>
+    <div className="container lg:flex">
+      <div className="flex px-2 py-2 items-center justify-between lg:w-1/2">
+        <div className="sm:max-w-xl sm:px-0 lg:max-w-none">
+          <img src={logo} alt="Logo" className="h-8 px-8" />
+        </div>
+        <div>
+          <button
+            type="button"
+            className="pr-8 my-2 text-2xl focus:outline-none lg:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <AiOutlineMenu />
+          </button>
+        </div>
+      </div>
+      <div
+        className={`${
+          isOpen ? "block" : "hidden"
+        } p-4 bg-gray-200 lg:bg-white lg:flex lg:w-1/2`}
+      >
+        <ul className="lg:flex">
+          <li className="p-2 rounded hover:bg-gray-300">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="p-2 rounded hover:bg-gray-300">
+            <Link to="/">About</Link>
+          </li>
+          <li className="p-2 rounded hover:bg-gray-300">
+            <Link to="/">Contact Us</Link>
+          </li>
+          <li className="p-2 lg:ml-56 rounded hover:bg-gray-300">
+            <Link to="/login">Login</Link>
+          </li>
+          <li className="p-2 rounded  hover:bg-gray-300 lg:text-white lg:bg-themeOrange lg:rounded-lg lg:hover:bg-themeOrange lg:hover:font-bold">
+            <Link to="/signup">Sign Up</Link>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -61,10 +91,7 @@ function App() {
     <div className="lg:flex lg:flex-col">
       <Router>
         <div className="">
-          <div className="px-8 py-4 sm:max-w-xl sm:px-0 lg:max-w-none">
-            <img src={logo} alt="Logo" className="h-8 px-8" />
-            {/* {navbar} */}
-          </div>
+          {navbar}
           <div className="lg:h-auto">
             <Switch>
               <Route path="/" exact component={Home} />
