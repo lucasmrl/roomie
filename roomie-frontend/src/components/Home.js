@@ -7,7 +7,7 @@ function Home(props) {
   const onSubmit = (data) => props.history.push("/listings");
 
   return (
-    <div className="flex lg:w-screen lg:h-auto">
+    <div className="flex lg:w-screen lg:h-auto lg:items-center lg:py-8 xl:py-4">
       {/* Left */}
       <div className="lg:w-1/2 lg:flex lg:flex-col lg:justify-center">
         <div className="bg-themeGreen lg:hidden">
@@ -37,8 +37,8 @@ function Home(props) {
         </form>
       </div>
       {/* Right */}
-      <div className="hidden lg:inline lg:w-1/2 lg:bg-themeGreen lg:h-full">
-        <img className="p-8" src={firstImage} alt="Rooms" />
+      <div className="hidden lg:inline lg:w-1/2 lg:bg-themeGreen lg:h-auto">
+        <img className="h-auto p-8" src={firstImage} alt="Rooms" />
       </div>
     </div>
   );

@@ -58,42 +58,50 @@ function App() {
   const navbar = isAuth ? <NavbarUser /> : <NavbarGuest />;
 
   return (
-    <Router>
-      <div className="lg:bg-gray-200">
-        <div className="px-8 py-4 sm:max-w-xl sm:px-0">
-          <img src={logo} alt="Logo" className="h-8" />
-          {/* {navbar} */}
+    <div className="lg:flex lg:flex-col">
+      <Router>
+        <div className="">
+          <div className="px-8 py-4 sm:max-w-xl sm:px-0 lg:max-w-none">
+            <img src={logo} alt="Logo" className="h-8 px-8" />
+            {/* {navbar} */}
+          </div>
+          <div className="lg:h-auto">
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <ProtectedRoute path="/my-account" component={MyAccount} />
+              <ProtectedRoute path="/new-listing" component={NewListing} />
+              <Route path="/logout" component={Logout} />
+              <Route path="/listings" exact component={Listings} />
+              <Route path="/listing/:id" component={Listing} />
+              <ProtectedRoute path="/users/:id" component={User} />
+              <Route path="/update-password" component={UpdatePassword} />
+              <ProtectedRoute path="/listings/:id" component={UpdateListing} />
+              <ProtectedRoute path="/delete/:id" component={DeleteListing} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+          <div className="hidden lg:flex lg:justify-between lg:h-16 lg:content-center lg:items-center lg:my-4 xl:my-0">
+            <div>
+              <p className="px-8 lg:font-medium text-gray-800">
+                &copy;roomie.com
+              </p>
+            </div>
+            <div>
+              <ul className="lg:flex lg:ml-16 lg:pr-6">
+                <li className="pr-16">
+                  <Link to="/">Terms of Service</Link>
+                </li>
+                <li>
+                  <Link to="/">Privacy Policy</Link>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="lg:bg-gray-500 lg:h-full">
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <ProtectedRoute path="/my-account" component={MyAccount} />
-            <ProtectedRoute path="/new-listing" component={NewListing} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/listings" exact component={Listings} />
-            <Route path="/listing/:id" component={Listing} />
-            <ProtectedRoute path="/users/:id" component={User} />
-            <Route path="/update-password" component={UpdatePassword} />
-            <ProtectedRoute path="/listings/:id" component={UpdateListing} />
-            <ProtectedRoute path="/delete/:id" component={DeleteListing} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-        <div className="hidden lg:flex">
-          <p>&copy;roomie.com</p>
-          <ul className="lg:flex">
-            <li>
-              <Link to="/">Terms of Service</Link>
-            </li>
-            <li>
-              <Link to="/">Privacy Policy</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 
