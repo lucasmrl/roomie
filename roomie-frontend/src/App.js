@@ -59,12 +59,12 @@ function App() {
 
   return (
     <Router>
-      <div className="w-screen h-screen antialiased mx-auto max-w-md sm:max-w-xl lg:m-0">
-        <div className="px-8 py-4 sm:max-w-xl sm:px-0 lg:px-8 lg:absolute">
+      <div className="lg:bg-gray-200">
+        <div className="px-8 py-4 sm:max-w-xl sm:px-0">
           <img src={logo} alt="Logo" className="h-8" />
           {/* {navbar} */}
         </div>
-        <div className="">
+        <div className="lg:bg-gray-500 lg:h-full">
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
@@ -80,6 +80,17 @@ function App() {
             <ProtectedRoute path="/delete/:id" component={DeleteListing} />
             <Route component={NotFound} />
           </Switch>
+        </div>
+        <div className="hidden lg:flex">
+          <p>&copy;roomie.com</p>
+          <ul className="lg:flex">
+            <li>
+              <Link to="/">Terms of Service</Link>
+            </li>
+            <li>
+              <Link to="/">Privacy Policy</Link>
+            </li>
+          </ul>
         </div>
       </div>
     </Router>
