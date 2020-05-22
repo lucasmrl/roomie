@@ -5,7 +5,7 @@ import AuthContextProvider from "./context/AuthContext";
 import "./tailwind.generated.css";
 
 ReactDOM.render(
-  <div className="">
+  <div className="h-auto">
     <AuthContextProvider>
       <App />
     </AuthContextProvider>
