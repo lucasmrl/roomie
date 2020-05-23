@@ -9,7 +9,7 @@ module.exports = {
         themeOrange: "#FF6C00",
       },
       fontFamily: {
-        sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+        sans: ["Source Sans Pro", ...defaultTheme.fontFamily.sans],
       },
     },
   },

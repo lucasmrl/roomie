@@ -28,7 +28,7 @@ function Signup(props) {
   };
 
   return (
-    <div>
+    <div className="bg-gray-300 flex flex-col p-8 h-screen">
       <h2>Sign Up:</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Name:</label>

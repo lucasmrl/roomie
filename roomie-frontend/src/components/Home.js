@@ -1,44 +1,52 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import firstImage from "./../assets/images/main-image.png";
+import city from "./../assets/images/cityscapes.png";
 
 function Home(props) {
   const { handleSubmit, register } = useForm();
   const onSubmit = (data) => props.history.push("/listings");
 
   return (
-    <div className="flex lg:w-auto lg:h-auto lg:items-center lg:py-8 xl:py-4">
-      {/* Left */}
-      <div className="lg:w-1/2 lg:flex lg:flex-col lg:justify-center">
-        <div className="bg-themeGreen lg:hidden">
-          <img className="p-8 w-full" src={firstImage} alt="Rooms" />
-        </div>
-        <div className="px-8 mt-4 text-2xl lg:text-4xl xl:text-5xl">
-          <h2 className="font-light text-gray-700">Looking For a Room?</h2>
-          <h1 className="text-gray-700">
+    <div className="flex flex-grow flex-col lg:flex-row-reverse">
+      {/*Image*/}
+      <div className="sm:py-4 lg:self-center">
+        <img
+          className="p-4 w-full sm:w-3/4 mx-auto lg:w-auto"
+          src={city}
+          alt="Rooms"
+        />
+      </div>
+      {/*Text-Right*/}
+      <div className="flex-grow sm:py-8 lg:self-center">
+        <div className="px-8 mt-4">
+          <h1 className="text-gray-700 text-3xl lg:text-5xl">
             Find Your New Place with <span className="font-bold">roomie!</span>
           </h1>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex items-center flex-col mt-4 sm:flex-row sm:justify-center lg:py-6 lg:justify-start lg:px-8">
-            <input
-              className="shadow appearance-none border rounded-lg p-2 w-2/3 py-3 px-1 mx-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center lg:w-64 lg:text-left lg:px-4 xl:w-1/2"
-              type="text"
-              placeholder="Enter City or State"
-              name="query"
-              ref={register}
-            />
-            <input
-              className="block bg-yellow my-2 px-3 py-2 h-auto mx-4 rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
-              type="submit"
-              value="Search"
-            />
+          <p className="font-light text-gray-700 text-xl md:text-2xl">
+            Easy as making friends, with roomie you can look for many
+            <br className="hidden md:inline lg:hidden" /> rooms available across
+            the country.
+          </p>
+          <div className="flex items-center my-auto py-8 md:w-full">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="md:w-3/5 md:flex lg:w-4/5"
+            >
+              <input
+                className="shadow p-1 appearance-none text-xl border lg:text-2xl rounded-lg text-gray-700 focus:outline-none focus:shadow-outline text-center md:w-full md:flex-grow"
+                type="text"
+                placeholder="Enter City or State"
+                name="query"
+                ref={register}
+              />
+              <input
+                className="md:inline bg-yellow mx-1 px-3 py-1 lg:ml-6 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                type="submit"
+                value="Search"
+              />
+            </form>
           </div>
-        </form>
-      </div>
-      {/* Right */}
-      <div className="hidden lg:inline lg:w-1/2 lg:bg-themeGreen lg:h-auto">
-        <img className="h-auto p-8" src={firstImage} alt="Rooms" />
+        </div>
       </div>
     </div>
   );

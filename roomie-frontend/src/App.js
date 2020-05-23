@@ -14,47 +14,48 @@ import UpdateListing from "./components/UpdateListing";
 import DeleteListing from "./components/DeleteListing";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./components/NotFound";
+import logo from "./assets/images/logonew@2x.png";
 import { AuthContext } from "./context/AuthContext";
-import logo from "./assets/images/logo.png";
 import { AiOutlineMenu } from "react-icons/ai";
 
 function NavbarGuest() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="container lg:flex">
-      <div className="flex px-2 py-2 items-center justify-between lg:w-1/2">
-        <div className="sm:max-w-xl sm:px-0 lg:max-w-none">
-          <img src={logo} alt="Logo" className="h-8 px-8" />
+    <div className="lg:flex lg:items-center lg:justify-between">
+      {/*Logo and Menu*/}
+      <div className="flex items-center justify-between p-6 ">
+        <div className="">
+          <img src={logo} alt="Logo" className="w-32 lg:w-auto" />
         </div>
         <div>
           <button
             type="button"
-            className="pr-8 my-2 text-2xl focus:outline-none lg:hidden"
+            className="focus:outline-none lg:hidden text-3xl"
             onClick={() => setIsOpen(!isOpen)}
           >
             <AiOutlineMenu />
           </button>
         </div>
       </div>
-      <div
-        className={`${
-          isOpen ? "block" : "hidden"
-        } p-4 bg-gray-200 lg:bg-white lg:flex lg:w-1/2`}
-      >
-        <ul className="lg:flex">
-          <li className="p-2 rounded hover:bg-gray-300">
+      <div className={`${isOpen ? "block" : "hidden"} pt-1 lg:flex`}>
+        <ul
+          className="text-xl lg:bg-white lg:flex"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
             <Link to="/">Home</Link>
           </li>
-          <li className="p-2 rounded hover:bg-gray-300">
+          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
             <Link to="/">About</Link>
           </li>
-          <li className="p-2 rounded hover:bg-gray-300">
+          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
             <Link to="/">Contact Us</Link>
           </li>
-          <li className="p-2 lg:ml-56 rounded hover:bg-gray-300">
+          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
             <Link to="/login">Login</Link>
           </li>
-          <li className="p-2 rounded  hover:bg-gray-300 lg:text-white lg:bg-themeOrange lg:rounded-lg lg:hover:bg-themeOrange lg:hover:font-bold">
+          <li className="p-3 bg-themeOrange text-white lg:mx-6 lg:px-6 lg:rounded-full lg:hover:font-bold">
             <Link to="/signup">Sign Up</Link>
           </li>
         </ul>
@@ -64,72 +65,99 @@ function NavbarGuest() {
 }
 
 function NavbarUser() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/my-account">My Account</Link>
-      </li>
-      <li>
-        <Link to="/new-listing">New Listing</Link>
-      </li>
-      <li>
-        <Link to="/logout">Log out</Link>
-      </li>
-    </ul>
+    <div className="lg:flex lg:items-center lg:justify-between">
+      {/*Logo and Menu*/}
+      <div className="flex items-center justify-between p-6 ">
+        <div className="">
+          <img src={logo} alt="Logo" className="w-32 lg:w-auto" />
+        </div>
+        <div>
+          <button
+            type="button"
+            className="focus:outline-none lg:hidden text-3xl"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <AiOutlineMenu />
+          </button>
+        </div>
+      </div>
+      <div className={`${isOpen ? "block" : "hidden"} pt-1 lg:flex`}>
+        <ul
+          className="text-xl lg:bg-white lg:flex"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+            <Link to="/">About</Link>
+          </li>
+          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+            <Link to="/">Contact Us</Link>
+          </li>
+          <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-orange-600 lg:text-orange-400 lg:hover:text-white">
+            <Link to="/my-account">My Account</Link>
+          </li>
+          <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-green-600 lg:text-green-400 lg:hover:text-white">
+            <Link to="/new-listing">New Listing</Link>
+          </li>
+          <li className="p-3 bg-red-400 text-white lg:mx-2 lg:p-4 lg:rounded-full lg:hover:bg-red-900">
+            <Link to="/logout">Log out</Link>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 }
 
-function App() {
+export default function App() {
   const { isAuth } = useContext(AuthContext);
 
   const navbar = isAuth ? <NavbarUser /> : <NavbarGuest />;
 
   return (
-    <div className="lg:flex lg:flex-col">
-      <Router>
-        <div className="">
-          {navbar}
-          <div className="lg:h-auto">
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={Signup} />
-              <ProtectedRoute path="/my-account" component={MyAccount} />
-              <ProtectedRoute path="/new-listing" component={NewListing} />
-              <Route path="/logout" component={Logout} />
-              <Route path="/listings" exact component={Listings} />
-              <Route path="/listing/:id" component={Listing} />
-              <ProtectedRoute path="/users/:id" component={User} />
-              <Route path="/update-password" component={UpdatePassword} />
-              <ProtectedRoute path="/listings/:id" component={UpdateListing} />
-              <ProtectedRoute path="/delete/:id" component={DeleteListing} />
-              <Route component={NotFound} />
-            </Switch>
+    <Router>
+      <div className="p-0 flex flex-col min-h-screen min-w-screen lg:max-w-screen-xl lg:mx-auto">
+        <header className="">{navbar}</header>
+        <main className="flex flex-col flex-grow">
+          {/* <div className="bg-red-400 w-auto"> */}
+          {/* Components */}
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <ProtectedRoute path="/my-account" component={MyAccount} />
+            <ProtectedRoute path="/new-listing" component={NewListing} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/listings" exact component={Listings} />
+            <Route path="/listing/:id" component={Listing} />
+            <ProtectedRoute path="/users/:id" component={User} />
+            <Route path="/update-password" component={UpdatePassword} />
+            <ProtectedRoute path="/listings/:id" component={UpdateListing} />
+            <ProtectedRoute path="/delete/:id" component={DeleteListing} />
+            <Route component={NotFound} />
+          </Switch>
+          {/* </div> */}
+        </main>
+        <footer className="p-4 flex justify-between items-center">
+          <div>
+            <p className="font-medium text-gray-800">&copy;roomie.com</p>
           </div>
-          <div className="hidden lg:flex lg:justify-between lg:h-16 lg:content-center lg:items-center lg:my-4 xl:my-0">
-            <div>
-              <p className="px-8 lg:font-medium text-gray-800">
-                &copy;roomie.com
-              </p>
-            </div>
-            <div>
-              <ul className="lg:flex lg:ml-16 lg:pr-6">
-                <li className="pr-16">
-                  <Link to="/">Terms of Service</Link>
-                </li>
-                <li>
-                  <Link to="/">Privacy Policy</Link>
-                </li>
-              </ul>
-            </div>
+          <div>
+            <ul className="flex flex-col ml-16 pr-6 justify-end text-sm lg:text-base lg:flex-row">
+              <li className="lg:mx-10">
+                <Link to="/">Terms of Service</Link>
+              </li>
+              <li className="lg:mx-10">
+                <Link to="/">Privacy Policy</Link>
+              </li>
+            </ul>
           </div>
-        </div>
-      </Router>
-    </div>
+        </footer>
+      </div>
+    </Router>
   );
 }
-
-export default App;
