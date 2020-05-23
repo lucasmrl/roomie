@@ -70,10 +70,11 @@ function Login(props) {
               required
               className="my-4 shadow p-1 appearance-none text-xl border lg:px-4 lg:text-xl rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
             />
+
             <input
               type="submit"
               value="Submit"
-              className="md:inline bg-yellow mx-1 px-3 py-1 lg:ml-6 lg:mx-8 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+              className="md:inline bg-yellow mx-1 px-3 lg:mt-2 py-1 lg:ml-6 lg:mx-8 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
             />
           </form>
         </div>
