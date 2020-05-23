@@ -104,7 +104,7 @@ function Signup(props) {
             )}
             <input
               type="submit"
-              className="md:inline bg-yellow mx-1 px-3 py-1 lg:mt-2 lg:ml-6 lg:mx-8 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+              className="md:inline bg-themeYellow mx-1 px-3 py-1 lg:mt-2 lg:ml-6 lg:mx-8 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
             />
           </form>
         </div>

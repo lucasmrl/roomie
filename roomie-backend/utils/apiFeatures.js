@@ -46,7 +46,7 @@ class APIFeatures {
       this.query = this.query.select(fields);
     } else {
       this.query = this.query.select(
-        'title pictureCover city state country zip rent utilitiesIncl latitude longitude'
+        'title pictures city state country zip rent utilitiesIncl latitude longitude type'
       ); //API will return by default these fields
     }
 

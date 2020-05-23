@@ -26,11 +26,6 @@ export default function MyMap(props) {
         (accumulator, currentValue) => accumulator + currentValue,
         0
       ) / props.listingsInfo.length;
-
-    console.log(latitudeCenter, longitudeCenter);
-
-    // latitudeCenter = props.listingsInfo[0].latitude;
-    // longitudeCenter = props.listingsInfo[0].longitude;
   }
 
   return (

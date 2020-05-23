@@ -40,7 +40,7 @@ function Home(props) {
                 ref={register}
               />
               <input
-                className="md:inline bg-yellow mx-1 px-3 py-1 lg:ml-6 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                className="md:inline bg-themeYellow mx-1 px-3 py-1 lg:ml-6 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
                 type="submit"
                 value="Search"
               />
