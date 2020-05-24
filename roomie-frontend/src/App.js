@@ -26,7 +26,9 @@ function NavbarGuest() {
       {/*Logo and Menu*/}
       <div className="flex items-center justify-between p-6 ">
         <div className="">
-          <img src={logo} alt="Logo" className="w-32 lg:w-auto" />
+          <Link to="/">
+            <img src={logo} alt="Logo" className="w-32 lg:w-auto" />
+          </Link>
         </div>
         <div>
           <button
