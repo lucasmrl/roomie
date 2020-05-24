@@ -42,7 +42,7 @@ function ListingCard(props) {
             <span className="text-gray-600 text-sm"> / month</span>
           </p>
         </div>
-        <div class="py-3 flex">
+        <div className="py-3 flex">
           <p
             className={`${
               !props.utilitiesIncl ? "hidden" : "block"
@@ -56,7 +56,7 @@ function ListingCard(props) {
   );
 }
 
-function Listings() {
+function Listings(props) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -85,8 +85,10 @@ function Listings() {
     <div className="bg-red-300 flex flex-col lg:max-h-screen">
       {/* Nav - Filters */}
       <div className="px-6 py-3 bg-themeGreen">
-        <p className="font-light text-gray-900">Looking rooms in:</p>
-        <h1 className="font-bold text-2xl text-gray-900">Salt Lake City, UT</h1>
+        <p className="font-light text-gray-900">Searching rooms in:</p>
+        <h1 className="font-bold text-2xl text-gray-900">
+          {props.location.state.response}
+        </h1>
       </div>
       {/* Listings */}
       <div className="bg-gray-100 lg:flex lg:overflow-hidden">

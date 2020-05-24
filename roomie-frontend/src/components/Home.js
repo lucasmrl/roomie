@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import city from "./../assets/images/cityscapes.png";
+import AlgoliaPlaces from "algolia-places-react";
 
 function Home(props) {
+  const [citySelected, setCitySelected] = useState("");
   const { handleSubmit, register } = useForm();
-  const onSubmit = (data) => props.history.push("/listings");
+  const onSubmit = (data) =>
+    props.history.push("/listings", { response: citySelected });
 
   return (
     <div className="flex flex-grow flex-col lg:flex-row-reverse">
@@ -30,17 +33,36 @@ function Home(props) {
           <div className="flex items-center my-auto py-8 md:w-full">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="md:w-3/5 md:flex lg:w-4/5"
+              className="flex flex-col w-full items-center md:w-full md:flex-row lg:w-4/5"
             >
-              <input
-                className="shadow p-1 appearance-none text-xl border lg:text-2xl rounded-lg text-gray-700 focus:outline-none focus:shadow-outline text-center md:w-full md:flex-grow"
-                type="text"
-                placeholder="Enter City or State"
-                name="query"
-                ref={register}
+              <AlgoliaPlaces
+                className="w-64 px-10 md:px-16 shadow p-1 appearance-none text-xl border lg:text-xl rounded-lg text-gray-700 focus:outline-none focus:shadow-outline text-center md:w-full md:flex-grow"
+                placeholder="Enter a City"
+                options={{
+                  appId: process.env.REACT_APP_APP,
+                  apiKey: process.env.REACT_APP_APPK,
+                  // language: "sv",
+                  // countries: ["se"],
+                  type: "city",
+                  // Other options from https://community.algolia.com/places/documentation.html#options
+                }}
+                onChange={({
+                  query,
+                  rawAnswer,
+                  suggestion,
+                  suggestionIndex,
+                }) => {
+                  setCitySelected(
+                    `${suggestion.name}, ${suggestion.administrative} `
+                  );
+                }}
+                onError={({ message }) =>
+                  console.log("Sorry, error with the API! ❌")
+                }
               />
+
               <input
-                className="md:inline bg-themeYellow mx-1 px-3 py-1 lg:ml-6 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                className="mt-4 md:mt-0 bg-themeYellow mx-1 px-3 py-1 lg:ml-6 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
                 type="submit"
                 value="Search"
               />
