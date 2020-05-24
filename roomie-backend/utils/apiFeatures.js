@@ -20,6 +20,7 @@ class APIFeatures {
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`); //Using regex to add "$" in order to mongoose be able to use this params in the query
 
+    console.log(JSON.parse(queryStr));
     this.query = this.query.find(JSON.parse(queryStr));
     // let query = Listing.find(JSON.parse(queryStr)); //find() = Return an array w/ all the documents
     // //"Listing.find(queryObj)" returns a query - that is why I can chain others methods (to sort, to use paginations,etc...)

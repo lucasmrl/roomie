@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import city from "./../assets/images/cityscapes.png";
 import AlgoliaPlaces from "algolia-places-react";
+import { Link } from "react-router-dom";
 
 function Home(props) {
   const [citySelected, setCitySelected] = useState("");
@@ -33,7 +34,7 @@ function Home(props) {
           <div className="flex items-center my-auto py-8 md:w-full">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col w-full items-center md:w-full md:flex-row lg:w-4/5"
+              className="flex flex-col w-full items-center sm:w-full sm:flex-row lg:w-4/5"
             >
               <AlgoliaPlaces
                 className="w-64 px-10 md:px-16 shadow p-1 appearance-none text-xl border lg:text-xl rounded-lg text-gray-700 focus:outline-none focus:shadow-outline text-center md:w-full md:flex-grow"
@@ -62,12 +63,30 @@ function Home(props) {
               />
 
               <input
-                className="mt-4 md:mt-0 bg-themeYellow mx-1 px-3 py-1 lg:ml-6 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                className="mt-4 sm:mt-0 bg-themeYellow mx-1 px-3 py-1 lg:ml-6 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
                 type="submit"
                 value="Search"
               />
+              <Link
+                to={{
+                  pathname: "/listings",
+                  state: { response: "" },
+                }}
+                className="py-2 text-orange-400 text-sm sm:hidden"
+              >
+                All Available Rooms
+              </Link>
             </form>
           </div>
+          <Link
+            to={{
+              pathname: "/listings",
+              state: { response: "" },
+            }}
+            className="hidden py-2 text-orange-400 text-sm sm:block sm:p-0 sm:m-0"
+          >
+            All Available Rooms
+          </Link>
         </div>
       </div>
     </div>

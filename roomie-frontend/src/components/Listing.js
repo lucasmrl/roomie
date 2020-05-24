@@ -47,6 +47,7 @@ function ListingInfo(props) {
         </p>
         <p>{props.title}</p>
         <p>{props.type}</p>
+        <p>{props.address}</p>
         <p>{props.city}</p>
         <p>{props.state}</p>
         <p>{props.country}</p>

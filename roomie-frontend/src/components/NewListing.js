@@ -5,6 +5,12 @@ import { useForm } from "react-hook-form";
 function NewListing() {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (data) => {
+    const upperCaseCity = data.city
+      .toLowerCase()
+      .split(" ")
+      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(" ");
+    data.city = upperCaseCity;
     const addressToGeo = `${data.address},${data.state},${data.zip}`;
     const formData = new FormData();
 

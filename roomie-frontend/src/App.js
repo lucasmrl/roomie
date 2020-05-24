@@ -72,7 +72,9 @@ function NavbarUser() {
       {/*Logo and Menu*/}
       <div className="flex items-center justify-between p-6 ">
         <div className="">
-          <img src={logo} alt="Logo" className="w-32 lg:w-auto" />
+          <Link to="/">
+            <img src={logo} alt="Logo" className="w-32 lg:w-auto" />
+          </Link>
         </div>
         <div>
           <button
@@ -142,7 +144,7 @@ export default function App() {
           </Switch>
           {/* </div> */}
         </main>
-        <footer className="p-4 flex justify-between items-center">
+        <footer className="p-4 pl-6 flex justify-between items-center">
           <div>
             <p className="font-medium text-gray-800">&copy;roomie.com</p>
           </div>
