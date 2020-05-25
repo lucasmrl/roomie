@@ -4,7 +4,6 @@ import axios from "axios";
 import MyMap from "./Map.js";
 
 function ListingCard(props) {
-  console.log(props.pictures.length);
   let mainPictureListing = "";
   let utilities = "";
   if (props.pictures.length > 0) {
@@ -69,10 +68,11 @@ function ListingCard(props) {
 
 function Listings(props) {
   const [data, setData] = useState([]);
+  console.log(props);
 
   let queryCityURL = "";
   let selectedCity = "Everywhere! 🌎";
-  if (props.location.state.response === "") {
+  if (props.location.search === "" && props.location.state.response === "") {
     queryCityURL = "/api/listings";
   } else {
     queryCityURL = `/api/listings/?city=${
@@ -80,8 +80,6 @@ function Listings(props) {
     }`;
     selectedCity = props.location.state.response;
   }
-
-  console.log(queryCityURL);
 
   useEffect(() => {
     const fetchListings = async () => {

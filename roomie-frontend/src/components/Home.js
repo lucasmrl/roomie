@@ -23,7 +23,7 @@ function Home(props) {
       {/*Text-Right*/}
       <div className="flex-grow sm:py-8 lg:self-center">
         <div className="px-8 mt-4">
-          <h1 className="text-gray-700 text-3xl lg:text-5xl">
+          <h1 className="text-gray-700 text-3xl lg:text-5xl leading-tight">
             Find Your New Place with <span className="font-bold">roomie!</span>
           </h1>
           <p className="font-light text-gray-700 text-xl md:text-2xl">
