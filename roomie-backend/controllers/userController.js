@@ -117,7 +117,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     'age',
     'college'
   );
-  if (req.file) filteredBody.profilePicture = req.file.key;
+  if (Object.keys(req.files).length > 0)
+    filteredBody.profilePicture = req.files.profilePicture[0].key;
 
   // 3) Update user document
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
