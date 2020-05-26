@@ -87,7 +87,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id).populate({
     path: 'myListings',
     select:
-      '_id title pictureCover city state country zip rent utilitiesIncl -owner',
+      '_id title pictures type city state country zip rent utilitiesIncl -owner',
   });
 
   if (!user) {

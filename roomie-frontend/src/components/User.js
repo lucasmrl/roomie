@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import ListingCard from "./ListingCard";
 import axios from "axios";
 
 function UserProfile(props) {
@@ -12,6 +12,7 @@ function UserProfile(props) {
   } else {
     imageProfile = (
       <img
+        className="rounded-full h-40 w-40 shadow-sm"
         src={`https://roomie-profile-pictures.s3.amazonaws.com/${props.profilePicture}`}
         alt="User Profile"
       />
@@ -20,29 +21,15 @@ function UserProfile(props) {
 
   return (
     <div>
-      <div>
-        {imageProfile}
-        <p>{props.name}</p>
-        <p>{props.email}</p>
-        <p>{props.about}</p>
-        <p>{props.age}</p>
-        <p>{props.college}</p>
-      </div>
-    </div>
-  );
-}
-
-function UserListings(props) {
-  return (
-    <div className="">
-      <div>
-        <Link to={`/listing/${props._id}`}>{props.title}</Link>
-        <p>{props.city}</p>
-        <p>{props.state}</p>
-        <p>{props.country}</p>
-        <p>{props.zip}</p>
-        <p>{props.utilitiesIncl ? "Utilities Included" : "NO Utilities"}</p>
-        <p>{props.rent}</p>
+      <div className="text-gray-800 text-center">
+        <div className="">{imageProfile}</div>
+        <div className="leading-snug">
+          <p className="font-bold mb-2">{props.name}</p>
+          <p className="font-medium">{props.email}</p>
+          <p>{props.about === "" ? "" : `About Me: ${props.about}`}</p>
+          <p>{props.age === null ? "" : `Age: ${props.age}`}</p>
+          <p>{props.college === "" ? "" : `College: ${props.college}`}</p>
+        </div>
       </div>
     </div>
   );
@@ -59,6 +46,7 @@ function User({ match }) {
           url: `/api/users/${match.params.id}`,
         });
         setData(response.data.data.user);
+        console.log(response.data.data.user);
       } catch (error) {
         if (error.response.status === 401) {
           return console.log("Please, sign in!");
@@ -72,20 +60,25 @@ function User({ match }) {
     fetchUserProfile();
   }, [match.params.id]);
 
-  const userName = data.name === "" ? "" : data.name;
+  const userName = data.name ? data.name : "";
   const resultInfo = data === "" ? "" : <UserProfile {...data} />;
   const resultListings =
     data === ""
       ? ""
-      : data.myListings.map((el) => <UserListings key={el._id} {...el} />);
+      : data.myListings.map((el) => <ListingCard key={el._id} {...el} />);
 
   return (
-    <div>
-      <h1>User Profile: {userName}</h1>
-      <h3>User:</h3>
-      <div className="">{resultInfo}</div>
-      <h3>User's Listings:</h3>
-      <div className="">{resultListings}</div>
+    <div className="flex flex-col items-center bg-gray-100 sm:flex-row sm:items-start">
+      <div className="sm:p-6 md:w-1/4 justify-center">
+        <h3 className="font-bold text-2xl text-gray-800">Profile:</h3>
+        <div className="flex items-center my-4">{resultInfo}</div>
+      </div>
+      <div className="sm:p-6 md:w-3/4">
+        <h3 className="font-bold text-2xl text-gray-800">{`${userName}'s Listings`}</h3>
+        <div className="w-64 md:flex md:w-auto md:flex-wrap">
+          {resultListings}
+        </div>
+      </div>
     </div>
   );
 }
