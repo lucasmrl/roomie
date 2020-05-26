@@ -2,9 +2,9 @@ import React from "react";
 
 function NotFound() {
   return (
-    <div>
-      <h2>404.</h2>
-      <h3>Sorry, page not found.</h3>
+    <div className="flex items-center flex-col justify-center w-full flex-grow bg-gray-100 text-gray-800">
+      <h2 className="font-bold text-6xl">404.</h2>
+      <h3 className="font-base"> Sorry, page not found. 😢</h3>
     </div>
   );
 }
