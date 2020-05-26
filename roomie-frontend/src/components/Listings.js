@@ -44,7 +44,12 @@ function Listings(props) {
   if (data.length > 0) {
     results = data.map((el, index) => <ListingCard key={el._id} {...el} />);
   } else {
-    results = <p>No Listings Available for this location!</p>;
+    results = (
+      <div className="flex items-center flex-col justify-center w-full h-full flex-grow bg-gray-100 text-gray-800">
+        <h2 className="font-bold text-6xl">Sorry,</h2>
+        <h3 className="font-base"> No listings available yet.</h3>
+      </div>
+    );
   }
 
   return (
