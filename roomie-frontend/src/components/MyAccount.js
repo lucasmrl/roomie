@@ -17,6 +17,7 @@ function MyAccount() {
         });
 
         setUserData(response.data.data.user);
+        console.log(response.data.data.user);
       } catch (error) {
         return alert(
           "Something went wrong while trying to fetch this particular User...🧐"

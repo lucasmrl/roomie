@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function DeleteListing({ match }) {
+  console.log(match);
   useEffect(() => {
     const deleteListing = async () => {
       try {
@@ -11,6 +12,10 @@ function DeleteListing({ match }) {
           method: "DELETE",
           url: `/api/listings/${match.params.id}`,
         });
+
+        // if (response.status === 204) {
+        //   props.history.push("/my-account");
+        // }
       } catch (error) {
         return alert(
           "Something went wrong while trying to delete this Listing...🧐"
@@ -22,15 +27,7 @@ function DeleteListing({ match }) {
 
   return (
     <div>
-      <h2>Your Listing was deleted.</h2>
-      <ul>
-        <li>
-          <Link to={`/my-account`}>Go to My Account</Link>
-        </li>
-        <li>
-          <Link to={`/listings`}>Se All Listings</Link>
-        </li>
-      </ul>
+      <h2 className="p-6 text-red-400 text-xl">Your Listing was deleted.</h2>
     </div>
   );
 }
