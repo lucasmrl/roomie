@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import ListingCard from "./ListingCard";
 
 function MyAccount() {
   const { register, handleSubmit } = useForm();
@@ -87,8 +88,18 @@ function MyAccount() {
     );
   }
 
+  const resultListings =
+    userData.myListings === "undefined" ||
+    typeof userData.myListings === "undefined"
+      ? ""
+      : userData.myListings.map((el) => (
+          <div className="m-3">
+            <ListingCard key={el._id} {...el} />
+          </div>
+        ));
+
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full bg-gray-200 ">
       {/* Header */}
       <div className="px-6 py-3 bg-yellow-200">
         <h2 className="font-bold text-2xl text-gray-900">My Account:</h2>
@@ -163,6 +174,14 @@ function MyAccount() {
           </div>
         </div>
       </form>
+      <div className="flex flex-col w-full bg-gray-100 ">
+        <div className="px-6 py-3 bg-yellow-200">
+          <h2 className="font-bold text-2xl text-gray-900">My Listings:</h2>
+        </div>
+        <div className="w-64 md:flex md:w-full md:flex-wrap">
+          {resultListings}
+        </div>
+      </div>
     </div>
   );
 }

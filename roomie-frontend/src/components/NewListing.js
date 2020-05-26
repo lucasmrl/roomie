@@ -156,7 +156,7 @@ function NewListing() {
         {errors.description && <span>Please provide a Description.</span>}
         <label>First Date Available:</label>
         <input
-          type="datetime"
+          type="date"
           placeholder="Available Date"
           name="availableDate"
           ref={register({ required: true })}
