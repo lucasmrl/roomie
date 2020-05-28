@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ListingCard from "./ListingCard";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function UserProfile(props) {
   let imageProfile;
@@ -37,6 +39,7 @@ function UserProfile(props) {
 
 function User({ match }) {
   const [data, setData] = useState("");
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -51,8 +54,23 @@ function User({ match }) {
         if (error.response.status === 401) {
           return console.log("Please, sign in!");
         } else {
-          return alert(
-            "Something went wrong while trying to fetch this User...🧐"
+          return setAlert(
+            <SweetAlert
+              danger
+              title="Woot!"
+              customButtons={
+                <React.Fragment>
+                  <input
+                    onClick={() => setAlert(<Redirect to={`/listings`} />)}
+                    value="Ok"
+                    type="submit"
+                    className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                  />
+                </React.Fragment>
+              }
+            >
+              Problems to retrieve this user's information.
+            </SweetAlert>
           );
         }
       }
@@ -69,6 +87,7 @@ function User({ match }) {
 
   return (
     <div className="flex flex-col items-center bg-gray-100 sm:flex-row sm:items-start">
+      {alert}
       <div className="sm:p-6 md:w-1/4 justify-center">
         <h3 className="font-bold text-2xl text-gray-800">Profile:</h3>
         <div className="flex items-center my-4">{resultInfo}</div>

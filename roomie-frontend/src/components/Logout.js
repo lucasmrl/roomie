@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "./../context/AuthContext";
 import axios from "axios";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function Logout(props) {
   const { setIsAuth } = useContext(AuthContext);
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     const logoutUser = async () => {
@@ -22,13 +24,35 @@ function Logout(props) {
           props.history.push("/"); // 3) Redirecting to the main page with the correct navbar
         }
       } catch (error) {
-        return alert("Something went wrong! ❌");
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(null)}
+                  value="Try Again"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Something went wrong!
+          </SweetAlert>
+        );
       }
     };
     logoutUser();
   }, [props, setIsAuth]);
 
-  return <Redirect to="/" />;
+  return (
+    <div>
+      {alert}
+      <Redirect to="/" />
+    </div>
+  );
 }
 
 export default Logout;

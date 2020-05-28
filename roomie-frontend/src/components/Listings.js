@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import ListingCard from "./ListingCard";
 import axios from "axios";
 import MyMap from "./Map.js";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function Listings(props) {
   const [data, setData] = useState([]);
-  console.log(props.location.state);
+  const [alert, setAlert] = useState("");
 
   let queryCityURL = "";
   let selectedCity = "Everywhere! 🌎";
@@ -32,8 +33,23 @@ function Listings(props) {
 
         setData(response.data.data.listings);
       } catch (error) {
-        return alert(
-          "Something went wrong while trying to fetch the Listings...🧐"
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => window.location.reload(false)}
+                  value="Try Again"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Problems to retrieve the listings. Please, try again later.
+          </SweetAlert>
         );
       }
     };
@@ -54,6 +70,7 @@ function Listings(props) {
 
   return (
     <div className="bg-red-300 flex flex-col lg:max-h-screen">
+      {alert}
       {/* Nav - Filters */}
       <div className="px-6 py-3 bg-themeGreen">
         <p className="font-light text-gray-900">Searching rooms in:</p>

@@ -4,9 +4,12 @@ import { useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import imgLogin from "./../assets/images/img-login@2x.png";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function Login(props) {
   const [data, setData] = useState({ email: "", password: "" });
+  const [alert, setAlert] = useState("");
+
   const { setIsAuth } = useContext(AuthContext);
   let history = useHistory();
   let location = useLocation();
@@ -30,12 +33,30 @@ function Login(props) {
         history.replace(from);
       }
     } catch (error) {
-      return alert("Incorrect Username and Password! ❌");
+      return setAlert(
+        <SweetAlert
+          danger
+          title="Something Wrong.."
+          customButtons={
+            <React.Fragment>
+              <input
+                onClick={() => setAlert(null)}
+                value="Ok"
+                type="submit"
+                className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+              />
+            </React.Fragment>
+          }
+        >
+          E-mail and/or password not correct.{" "}
+        </SweetAlert>
+      );
     }
   };
 
   return (
     <div className="p-6 flex flex-grow flex-col lg:items-center lg:justify-center">
+      {alert}
       <div className="lg:max-w-none lg:flex lg:flex-row lg:bg-gray-100 lg:shadow-inner lg:shadow-2xl lg:max-w-6xl lg:max-w-6xl">
         {/* Form */}
         <div className="lg:w-2/3 lg:mx-auto lg:p-16">

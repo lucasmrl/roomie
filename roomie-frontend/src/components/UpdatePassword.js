@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function UpdatePassword(props) {
   const { register, handleSubmit, watch, errors } = useForm();
+  const [alert, setAlert] = useState("");
 
   const onSubmit = async (data) => {
     try {
@@ -15,13 +17,64 @@ function UpdatePassword(props) {
       });
 
       if (response.status === 200) {
-        alert("It Worked!");
+        setAlert(
+          <SweetAlert
+            success
+            title="Yay!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(null)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Password updated!
+          </SweetAlert>
+        );
       }
     } catch (error) {
       if (error.response.status === 400) {
-        return alert("Sorry, your current password don't match! ❌");
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(null)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Your current password didn't match.
+          </SweetAlert>
+        );
       } else {
-        return alert("Sorry, We could update your password! ❌");
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(null)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Something wrong happened on our side. Try again later.
+          </SweetAlert>
+        );
       }
     }
   };
@@ -36,6 +89,7 @@ function UpdatePassword(props) {
       </div>
       <div className="px-6 py-3 flex flex-col">
         <div className="lg:w-2/5">
+          {alert}
           <form onSubmit={handleSubmit(onSubmit)}>
             <label className="block font-medium text-gray-800">
               Current Password:

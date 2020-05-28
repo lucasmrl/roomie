@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function DeleteListing({ match }) {
-  console.log(match);
+  const [alert, setAlert] = useState("");
   useEffect(() => {
     const deleteListing = async () => {
       try {
@@ -13,23 +15,47 @@ function DeleteListing({ match }) {
           url: `/api/listings/${match.params.id}`,
         });
 
-        // if (response.status === 204) {
-        //   props.history.push("/my-account");
-        // }
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Listing Deleted."
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(<Redirect to={`/my-account`} />)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          ></SweetAlert>
+        );
       } catch (error) {
-        return alert(
-          "Something went wrong while trying to delete this Listing...🧐"
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => window.location.reload(false)}
+                  value="Try Again"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Problems to delete this listing. Please, try again later.
+          </SweetAlert>
         );
       }
     };
     deleteListing();
   }, [match.params.id]);
 
-  return (
-    <div>
-      <h2 className="p-6 text-red-400 text-xl">Your Listing was deleted.</h2>
-    </div>
-  );
+  return <div>{alert}</div>;
 }
 
 export default DeleteListing;

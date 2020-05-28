@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function ListingInfo(props) {
   const userLoggedID = localStorage.getItem("userID");
@@ -142,6 +143,7 @@ function ListingInfo(props) {
 
 function Listing({ match }) {
   const [data, setData] = useState("");
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -153,8 +155,23 @@ function Listing({ match }) {
 
         setData(response.data.data.listings);
       } catch (error) {
-        return alert(
-          "Something went wrong while trying to fetch this particular Listings...🧐"
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(null)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Problems to retrieve the information. Please, try again later.
+          </SweetAlert>
         );
       }
     };
@@ -166,6 +183,7 @@ function Listing({ match }) {
   const result = data === "" ? "" : <ListingInfo {...data} />;
   return (
     <div>
+      {alert}
       <div className="px-6 py-3 bg-themeGreen">
         <p className="font-light text-gray-900">{headerCity}</p>
         <h1 className="font-bold text-2xl text-gray-900">{headerTitle}</h1>

@@ -3,10 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ListingCard from "./ListingCard";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function MyAccount() {
   const { register, handleSubmit } = useForm();
   const [userData, setUserData] = useState({});
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     const userId = localStorage.getItem("userID");
@@ -20,8 +22,23 @@ function MyAccount() {
         setUserData(response.data.data.user);
         console.log(response.data.data.user);
       } catch (error) {
-        return alert(
-          "Something went wrong while trying to fetch this particular User...🧐"
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => window.location.reload(false)}
+                  value="Try Again"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Problems to retrieve your information.
+          </SweetAlert>
         );
       }
     };
@@ -62,12 +79,45 @@ function MyAccount() {
       });
       console.log(data);
       if (response.status === 200) {
-        alert("It Worked!");
-        //   props.history.push("/");
+        setAlert(
+          <SweetAlert
+            success
+            title="Yay!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => window.location.reload(false)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Your account was updated.
+          </SweetAlert>
+        );
       }
     } catch (error) {
       console.log(error.response.data.message);
-      return alert("Problems!! ❌");
+      return setAlert(
+        <SweetAlert
+          danger
+          title="Woot!"
+          customButtons={
+            <React.Fragment>
+              <input
+                onClick={() => setAlert(null)}
+                value="Ok"
+                type="submit"
+                className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+              />
+            </React.Fragment>
+          }
+        >
+          Something wrong happened on our side. Try again later.
+        </SweetAlert>
+      );
     }
   };
 
@@ -100,6 +150,7 @@ function MyAccount() {
 
   return (
     <div className="flex flex-col w-full bg-gray-100 ">
+      {alert}
       {/* Header */}
       <div className="px-6 py-3 bg-yellow-200">
         <h2 className="font-bold text-2xl text-gray-900">My Account:</h2>

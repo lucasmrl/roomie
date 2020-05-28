@@ -52,9 +52,19 @@ export default function MyMap(props) {
             setActiveListing(null);
           }}
         >
-          <div>
-            <h2>{activeListing.title}</h2>
-            <p>{activeListing.rent}</p>
+          <div className="leading-tight">
+            <img
+              className="w-20"
+              src={`https://roomie-profile-pictures.s3.amazonaws.com/${activeListing.pictures[0]}`}
+              alt="Listing"
+            />
+            <h2 className="text-xl text-gray-900 font-bold">
+              {activeListing.title}
+            </h2>
+            <p className="text-xl font-medium text-gray-700">
+              ${activeListing.rent}
+              <span className="text-sm">/month</span>
+            </p>
             <Link to={`/listing/${activeListing._id}`}>View Listing</Link>
           </div>
         </Popup>

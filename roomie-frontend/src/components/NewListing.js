@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { Redirect } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function NewListing() {
   const { register, handleSubmit, errors } = useForm();
+  const [alert, setAlert] = useState("");
+
   const onSubmit = async (data) => {
     const upperCaseCity = data.city
       .toLowerCase()
@@ -42,17 +46,55 @@ function NewListing() {
       });
 
       if (response.status === 201) {
-        alert("It Worked!");
-        //   props.history.push("/");
+        setAlert(
+          <SweetAlert
+            success
+            title="Yay!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() =>
+                    setAlert(
+                      <Redirect
+                        to={`/listing/${response.data.data.listing._id}`}
+                      />
+                    )
+                  }
+                  value="View Listing"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Listing created!
+          </SweetAlert>
+        );
       }
     } catch (error) {
-      console.log(formData);
-      console.log(error.response.data.message);
-      return alert("Problems!! ❌");
+      return setAlert(
+        <SweetAlert
+          danger
+          title="Woot!"
+          customButtons={
+            <React.Fragment>
+              <input
+                onClick={() => setAlert(null)}
+                value="Ok"
+                type="submit"
+                className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+              />
+            </React.Fragment>
+          }
+        >
+          Something wrong happened on our side. Try again later.
+        </SweetAlert>
+      );
     }
   };
   return (
     <div className="flex flex-col">
+      {alert}
       {/* Header */}
       <div className="px-6 py-3 bg-themeGreen">
         <h1 className="font-bold text-2xl text-gray-900">New Listing</h1>

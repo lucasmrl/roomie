@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 function UpdateListing({ match }) {
   const { register, handleSubmit, errors } = useForm();
   const [listingData, setListingData] = useState({});
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -54,14 +56,64 @@ function UpdateListing({ match }) {
       });
 
       if (response.status === 200) {
-        alert("It Worked!");
-        //   props.history.push("/");
+        setAlert(
+          <SweetAlert
+            success
+            title="Yay!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => window.location.reload(false)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Listing Updated.
+          </SweetAlert>
+        );
       }
     } catch (error) {
       if (error.response.status === 403) {
-        return alert("Sorry, your are not authorized to make this update!");
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(null)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Sorry, your are not authorized to make this update!
+          </SweetAlert>
+        );
       } else {
-        return alert("Sorry, We couldn't update your listing! ❌");
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(null)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Something wrong happened on our side. Try again later.
+          </SweetAlert>
+        );
       }
     }
   };
@@ -229,6 +281,7 @@ function UpdateListing({ match }) {
 
   return (
     <div className="flex flex-col lg:w-full">
+      {alert}
       {/* Header */}
       <div className="px-6 py-3 bg-orange-200">
         <h1 className="font-bold text-2xl text-gray-900">Update Listing</h1>
