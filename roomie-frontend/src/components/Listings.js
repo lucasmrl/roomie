@@ -41,12 +41,9 @@ function Listings(props) {
   }, []);
 
   let results;
-  let totalResults;
   if (data.length > 0) {
     results = data.map((el, index) => <ListingCard key={el._id} {...el} />);
-    totalResults = `Total of ${data.length} rooms available`;
   } else {
-    totalResults = "";
     results = (
       <div className="flex items-center flex-col justify-center w-full h-full flex-grow bg-gray-100 text-gray-800">
         <h2 className="font-bold text-6xl">Sorry,</h2>
@@ -64,9 +61,8 @@ function Listings(props) {
       </div>
       {/* Listings */}
       <div className="bg-gray-100 lg:flex lg:overflow-hidden">
-        <div className="lg:flex lg:flex-col lg:w-2/3 sm:flex-row  sm:justify-around lg:justify-start">
-          <p className="text-sm pl-6 py-6 h-6">{totalResults}</p>
-          <div className="p-6 lg:p-4 sm:flex sm:flex-wrap">{results}</div>
+        <div className="p-6 lg:p-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll">
+          {results}
         </div>
         {/* Map */}
         <div className="hidden lg:inline-block lg:w-1/3 lg:bg-red-300 lg:sticky">
