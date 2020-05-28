@@ -14,6 +14,7 @@ import UpdateListing from "./components/UpdateListing";
 import DeleteListing from "./components/DeleteListing";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./components/NotFound";
+import PasswordReset from "./components/PasswordReset";
 import logo from "./assets/images/logonew@2x.png";
 import { AuthContext } from "./context/AuthContext";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -140,6 +141,7 @@ export default function App() {
             <Route path="/listing/:id" component={Listing} />
             <ProtectedRoute path="/users/:id" component={User} />
             <Route path="/update-password" component={UpdatePassword} />
+            <Route path="/password-reset" component={PasswordReset} />
             <ProtectedRoute path="/listings/:id" component={UpdateListing} />
             <ProtectedRoute path="/delete/:id" component={DeleteListing} />
             <Route component={NotFound} />
