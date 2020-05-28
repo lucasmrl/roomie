@@ -99,7 +99,7 @@ function MyAccount() {
         ));
 
   return (
-    <div className="flex flex-col w-full bg-gray-200 ">
+    <div className="flex flex-col w-full bg-gray-100 ">
       {/* Header */}
       <div className="px-6 py-3 bg-yellow-200">
         <h2 className="font-bold text-2xl text-gray-900">My Account:</h2>
@@ -175,7 +175,7 @@ function MyAccount() {
         </div>
       </form>
       <div className="flex flex-col w-full bg-gray-100 ">
-        <div className="px-6 py-3 bg-yellow-200">
+        <div className="px-6 py-3">
           <h2 className="font-bold text-2xl text-gray-900">My Listings:</h2>
         </div>
         <div className="w-64 md:flex md:w-full md:flex-wrap">

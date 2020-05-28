@@ -79,8 +79,13 @@ function UpdateListing({ match }) {
   } else {
     renderSelect = (
       <div>
-        <label>Room:</label>
-        <select name="type" defaultValue={listingData.type} ref={register}>
+        <label className="block font-bold text-gray-900 mt-3">Room:</label>
+        <select
+          name="type"
+          defaultValue={listingData.type}
+          ref={register}
+          className="block my-2 text-xl"
+        >
           <option value="shared">Shared</option>
           <option value="private">Private</option>
         </select>
@@ -89,12 +94,12 @@ function UpdateListing({ match }) {
 
     renderBuldingType = (
       <div>
-        {" "}
-        <label>Building Type:</label>
+        <label className="font-bold text-gray-900 mt-3">Building Type:</label>
         <select
           name="buildingType"
           defaultValue={listingData.buildingType}
           ref={register}
+          className="block my-2 text-xl"
         >
           <option value="home">Home</option>
           <option value="basement">Basement</option>
@@ -115,8 +120,9 @@ function UpdateListing({ match }) {
             defaultChecked
             value="true"
             ref={register}
+            className="inline ml-2"
           />
-          <label className="radio">Yes</label>
+          <label className="text-xl mx-1">Yes</label>
 
           <input
             className="radio"
@@ -124,8 +130,9 @@ function UpdateListing({ match }) {
             type="radio"
             value="false"
             ref={register}
+            className="inline ml-2 text-xl"
           />
-          <label className="radio">No</label>
+          <label className="text-xl mx-1">No</label>
         </div>
       );
     } else {
@@ -137,8 +144,9 @@ function UpdateListing({ match }) {
             type="radio"
             value="true"
             ref={register}
+            className="inline ml-2"
           />
-          <label className="radio">Yes</label>
+          <label className="text-xl mx-1">Yes</label>
 
           <input
             className="radio"
@@ -147,8 +155,9 @@ function UpdateListing({ match }) {
             defaultChecked
             value="false"
             ref={register}
+            className="inline ml-2 text-xl"
           />
-          <label className="radio">No</label>
+          <label className="text-xl mx-1">No</label>
         </div>
       );
     }
@@ -162,8 +171,9 @@ function UpdateListing({ match }) {
             type="radio"
             value="false"
             ref={register}
+            className="inline ml-2"
           />
-          <label className="radio">No</label>
+          <label className="text-xl mx-1">No</label>
 
           <input
             className="radio"
@@ -172,8 +182,9 @@ function UpdateListing({ match }) {
             defaultChecked
             value="true"
             ref={register}
+            className="inline ml-2 text-xl"
           />
-          <label className="radio">Yes</label>
+          <label className="text-xl mx-1">Yes</label>
         </div>
       );
     } else {
@@ -186,8 +197,9 @@ function UpdateListing({ match }) {
             defaultChecked
             value="false"
             ref={register}
+            className="inline ml-2"
           />
-          <label className="radio">No</label>
+          <label className="text-xl mx-1">No</label>
 
           <input
             className="radio"
@@ -195,8 +207,9 @@ function UpdateListing({ match }) {
             type="radio"
             value="true"
             ref={register}
+            className="inline ml-2 text-xl"
           />
-          <label className="radio">Yes</label>
+          <label className="text-xl mx-1">Yes</label>
         </div>
       );
     }
@@ -207,6 +220,7 @@ function UpdateListing({ match }) {
     pictures = listingData.pictures.map((el, index) => (
       <img
         key={index}
+        className="w-32 sm:w-48 sm:w-64 lg:w-64 lg:h-64 shadow-sm lg:px-1 lg:object-center lg:object-cover"
         src={`https://roomie-profile-pictures.s3.amazonaws.com/${listingData.pictures[index]}`}
         alt="Listing"
       />
@@ -214,115 +228,184 @@ function UpdateListing({ match }) {
   }
 
   return (
-    <div>
-      <h2>{`Update Listing ${match.params.id}:`}</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {pictures}
-        <label>Images:</label>
-        <input type="file" name="pictures0" ref={register} />
-        <input type="file" name="pictures1" ref={register} />
-        <input type="file" name="pictures2" ref={register} />
-        <label>Title:</label>
-        <input
-          type="text"
-          placeholder={listingData.title}
-          name="title"
-          ref={register}
-        />
+    <div className="flex flex-col lg:w-full">
+      {/* Header */}
+      <div className="px-6 py-3 bg-orange-200">
+        <h1 className="font-bold text-2xl text-gray-900">Update Listing</h1>
+      </div>
 
-        {renderSelect}
-        {renderBuldingType}
+      {/* Form */}
+      <div className="flex flex-col p-6">
+        <div className="flex py-2 sm:justify-around lg:px-6 lg:w-full lg:flex-grow lg:justify-start overflow-hidden">
+          {pictures}
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label className="font-bold text-gray-900 mt-3">Images:</label>
+          <input
+            type="file"
+            name="pictures0"
+            ref={register}
+            className="block border-4 border-dotted my-2"
+          />
+          <input
+            type="file"
+            name="pictures1"
+            ref={register}
+            className="block border-4 border-dotted my-2"
+          />
+          <input
+            type="file"
+            name="pictures2"
+            ref={register}
+            className="block border-4 border-dotted my-2"
+          />
 
-        <label>Rent:</label>
-        <input
-          type="number"
-          placeholder={listingData.rent}
-          name="rent"
-          ref={register}
-        />
+          <p className="font-bold text-gray-900 mt-4 text-xl">
+            Listing Information:
+          </p>
+          <hr className="border-orange-300 mb-4" />
 
-        <label>Utilities Included?:</label>
-        {renderUtil}
+          <label className="font-bold text-gray-900 mt-3">Title:</label>
+          <input
+            type="text"
+            placeholder={listingData.title}
+            name="title"
+            ref={register}
+            className="block my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline sm:w-full sm:flex-grow"
+          />
 
-        <label>Address:</label>
-        <input
-          type="text"
-          placeholder={listingData.address}
-          name="address"
-          ref={register}
-        />
+          <div className="lg:flex lg:justify-start">
+            <div>{renderSelect}</div>
 
-        <label>City:</label>
-        <input
-          type="text"
-          placeholder={listingData.city}
-          name="city"
-          ref={register}
-        />
+            <div className="lg:mt-3 lg:ml-8">{renderBuldingType}</div>
 
-        <label>State:</label>
-        <input
-          type="text"
-          placeholder={listingData.state}
-          name="state"
-          ref={register}
-        />
+            <div className="lg:ml-8">
+              {" "}
+              <label className="block font-bold text-gray-900 mt-3">
+                Utilities Included?
+              </label>
+              {renderUtil}
+            </div>
 
-        <label>Zip:</label>
-        <input
-          type="number"
-          placeholder={listingData.zip}
-          name="zip"
-          ref={register}
-        />
+            <div className="lg:ml-8">
+              {" "}
+              <label className="block font-bold text-gray-900 mt-3">
+                Pets Allowed?
+              </label>
+              {petAllowed}
+            </div>
+          </div>
 
-        <label>Country:</label>
-        <input
-          type="text"
-          placeholder={listingData.country}
-          name="country"
-          ref={register}
-        />
+          <label className="font-bold text-gray-900 mt-3">Rent:</label>
+          <input
+            type="number"
+            placeholder={listingData.rent}
+            name="rent"
+            ref={register}
+            className="block my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
 
-        <label>Description about your space:</label>
-        <textarea
-          name="description"
-          placeholder={listingData.description}
-          ref={register}
-        />
+          <label className="block font-bold text-gray-900 mt-3">Address:</label>
+          <input
+            type="text"
+            placeholder={listingData.address}
+            name="address"
+            ref={register}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
 
-        <label>First Date Available:</label>
-        <input
-          type="datetime"
-          placeholder={listingData.availableDate}
-          name="availableDate"
-          ref={register}
-        />
+          <label className="block font-bold text-gray-900 mt-3">City:</label>
+          <input
+            type="text"
+            placeholder={listingData.city}
+            name="city"
+            ref={register}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
 
-        <label>Pets Allowed?</label>
-        {petAllowed}
+          <label className="block font-bold text-gray-900 mt-3">State:</label>
+          <input
+            type="text"
+            placeholder={listingData.state}
+            name="state"
+            ref={register}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
 
-        <label>Contact E-mail:</label>
-        <input
-          type="email"
-          placeholder={listingData.contactEmail}
-          name="contactEmail"
-          ref={register({ pattern: /^\S+@\S+$/i })}
-        />
-        {errors.contactEmail && (
-          <span>Please provide a valid e-mail for contact.</span>
-        )}
+          <label className="block font-bold text-gray-900 mt-3">Zip:</label>
+          <input
+            type="number"
+            placeholder={listingData.zip}
+            name="zip"
+            ref={register}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
 
-        <label>Contact Phone:</label>
-        <input
-          type="tel"
-          placeholder={listingData.contactPhone}
-          name="contactPhone"
-          ref={register}
-        />
+          <label className="block font-bold text-gray-900 mt-3">Country:</label>
+          <input
+            type="text"
+            placeholder={listingData.country}
+            name="country"
+            ref={register}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
 
-        <input type="submit" />
-      </form>
+          <label className="block font-bold text-gray-900 mt-3">
+            Description about your space:
+          </label>
+          <textarea
+            name="description"
+            placeholder={listingData.description}
+            ref={register}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
+
+          <label className="block font-bold text-gray-900 mt-3">
+            First Date Available:
+          </label>
+          <input
+            type="date"
+            placeholder={listingData.availableDate}
+            name="availableDate"
+            ref={register}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
+
+          <p className="font-bold text-gray-900 mt-4 text-xl">Contact:</p>
+          <hr className="border-orange-300 mb-4" />
+
+          <label className="block font-bold text-gray-900 mt-3">E-mail:</label>
+          <input
+            type="email"
+            placeholder={listingData.contactEmail}
+            name="contactEmail"
+            ref={register({ required: false, pattern: /^\S+@\S+$/i })}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
+          {errors.contactEmail && (
+            <span className="my-2 text-red-600">
+              Please provide a e-mail for contact.
+            </span>
+          )}
+          <label className="block font-bold text-gray-900 mt-3">Phone:</label>
+          <input
+            type="tel"
+            placeholder={listingData.contactPhone}
+            name="contactPhone"
+            ref={register({ required: false, minLength: 6, maxLength: 12 })}
+            className="my-2 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
+          />
+          {errors.contactPhone && (
+            <span className="my-2 text-red-600">
+              Please provide a contact phone.
+            </span>
+          )}
+          <input
+            type="submit"
+            className="block my-2 md:inline bg-themeYellow mx-1 px-3 lg:mt-6 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+          />
+        </form>
+      </div>
     </div>
   );
 }

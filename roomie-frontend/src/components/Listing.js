@@ -121,7 +121,7 @@ function ListingInfo(props) {
               {typeof ownerData === "object" ? (
                 <Link
                   to={`/users/${ownerData[0].id}`}
-                  className="text-blue-900"
+                  className="text-blue-500"
                 >
                   Posted by {ownerData[0].name}
                 </Link>
@@ -170,7 +170,7 @@ function Listing({ match }) {
         <p className="font-light text-gray-900">{headerCity}</p>
         <h1 className="font-bold text-2xl text-gray-900">{headerTitle}</h1>
       </div>
-      <div>{result}</div>
+      <div className="bg-gray-100">{result}</div>
     </div>
   );
 }

@@ -102,7 +102,7 @@ function NavbarUser() {
           <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
             <Link to="/">Contact Us</Link>
           </li>
-          <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-orange-600 lg:text-orange-400 lg:hover:text-white">
+          <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-yellow-300 lg:text-orange-400 lg:hover:text-gray-900">
             <Link to="/my-account">My Account</Link>
           </li>
           <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-green-600 lg:text-green-400 lg:hover:text-white">
