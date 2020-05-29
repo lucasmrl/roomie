@@ -9,7 +9,6 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    // useFindAndModify: false,
   })
   .then((con) => {
     console.log('DB connection successful!🔑');

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import city from "./../assets/images/cityscapes.png";
-import AlgoliaPlaces from "algolia-places-react";
 import { Link } from "react-router-dom";
+import AlgoliaPlaces from "algolia-places-react";
+import city from "./../assets/images/cityscapes.png";
 
 function Home(props) {
   const [citySelected, setCitySelected] = useState("");
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit } = useForm();
   const onSubmit = (data) =>
     props.history.push("/listings", { response: citySelected });
 

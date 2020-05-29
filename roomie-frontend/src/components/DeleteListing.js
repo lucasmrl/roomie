@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import { Redirect } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
 
 function DeleteListing({ match }) {
   const [alert, setAlert] = useState("");

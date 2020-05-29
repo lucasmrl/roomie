@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
 
 function UpdateListing({ match }) {
   const { register, handleSubmit, errors } = useForm();
@@ -18,8 +18,23 @@ function UpdateListing({ match }) {
 
         setListingData(response.data.data.listings);
       } catch (error) {
-        return alert(
-          "Something went wrong while trying to fetch this particular Listing...🧐"
+        return setAlert(
+          <SweetAlert
+            danger
+            title="Woot!"
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={setAlert(null)}
+                  value="Try Again"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          >
+            Problems to retrieve this listing. Please, try again later.
+          </SweetAlert>
         );
       }
     };
@@ -166,23 +181,21 @@ function UpdateListing({ match }) {
       renderUtil = (
         <div>
           <input
-            className="radio"
+            className="inline ml-2"
             name="utilitiesIncl"
             type="radio"
             defaultChecked
             value="true"
             ref={register}
-            className="inline ml-2"
           />
           <label className="text-xl mx-1">Yes</label>
 
           <input
-            className="radio"
+            className="inline ml-2 text-xl"
             name="utilitiesIncl"
             type="radio"
             value="false"
             ref={register}
-            className="inline ml-2 text-xl"
           />
           <label className="text-xl mx-1">No</label>
         </div>
@@ -191,23 +204,21 @@ function UpdateListing({ match }) {
       renderUtil = (
         <div>
           <input
-            className="radio"
+            className="inline ml-2"
             name="utilitiesIncl"
             type="radio"
             value="true"
             ref={register}
-            className="inline ml-2"
           />
           <label className="text-xl mx-1">Yes</label>
 
           <input
-            className="radio"
+            className="inline ml-2 text-xl"
             name="utilitiesIncl"
             type="radio"
             defaultChecked
             value="false"
             ref={register}
-            className="inline ml-2 text-xl"
           />
           <label className="text-xl mx-1">No</label>
         </div>
@@ -218,23 +229,21 @@ function UpdateListing({ match }) {
       petAllowed = (
         <div>
           <input
-            className="radio"
+            className="inline ml-2"
             name="petAllowed"
             type="radio"
             value="false"
             ref={register}
-            className="inline ml-2"
           />
           <label className="text-xl mx-1">No</label>
 
           <input
-            className="radio"
+            className="inline ml-2 text-xl"
             name="petAllowed"
             type="radio"
             defaultChecked
             value="true"
             ref={register}
-            className="inline ml-2 text-xl"
           />
           <label className="text-xl mx-1">Yes</label>
         </div>
@@ -243,23 +252,21 @@ function UpdateListing({ match }) {
       petAllowed = (
         <div>
           <input
-            className="radio"
+            className="inline ml-2"
             name="petAllowed"
             type="radio"
             defaultChecked
             value="false"
             ref={register}
-            className="inline ml-2"
           />
           <label className="text-xl mx-1">No</label>
 
           <input
-            className="radio"
+            ref={register}
+            className="inline ml-2 text-xl"
             name="petAllowed"
             type="radio"
             value="true"
-            ref={register}
-            className="inline ml-2 text-xl"
           />
           <label className="text-xl mx-1">Yes</label>
         </div>

@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "./../context/AuthContext";
 import { useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
 import axios from "axios";
 import imgLogin from "./../assets/images/img-login@2x.png";
-import SweetAlert from "react-bootstrap-sweetalert";
 
 function Login(props) {
   const [data, setData] = useState({ email: "", password: "" });
@@ -28,7 +28,6 @@ function Login(props) {
       if (response.status === 200) {
         localStorage.setItem("isAuth", "true");
         localStorage.setItem("userID", response.data.data.user._id);
-        console.log(response.data.data.user._id);
         setIsAuth(true);
         history.replace(from);
       }

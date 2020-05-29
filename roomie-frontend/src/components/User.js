@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ListingCard from "./ListingCard";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
+import ListingCard from "./ListingCard";
 
 function UserProfile(props) {
   let imageProfile;
@@ -49,10 +49,26 @@ function User({ match }) {
           url: `/api/users/${match.params.id}`,
         });
         setData(response.data.data.user);
-        console.log(response.data.data.user);
       } catch (error) {
         if (error.response.status === 401) {
-          return console.log("Please, sign in!");
+          return setAlert(
+            <SweetAlert
+              danger
+              title="Woot!"
+              customButtons={
+                <React.Fragment>
+                  <input
+                    onClick={() => setAlert(<Redirect to={`/login`} />)}
+                    value="Ok"
+                    type="submit"
+                    className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                  />
+                </React.Fragment>
+              }
+            >
+              Please, sign in.
+            </SweetAlert>
+          );
         } else {
           return setAlert(
             <SweetAlert

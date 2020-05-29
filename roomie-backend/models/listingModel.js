@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
-//Schema to create Models (Like a blueprint)
 const listingSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'Listing must have a title'],
-    trim: true, //To remove space at the beginning or/and end of the string
+    trim: true,
   },
   type: {
     type: String,

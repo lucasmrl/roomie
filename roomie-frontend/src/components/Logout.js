@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "./../context/AuthContext";
-import axios from "axios";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
 
 function Logout(props) {
   const { setIsAuth } = useContext(AuthContext);

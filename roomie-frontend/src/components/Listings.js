@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import ListingCard from "./ListingCard";
-import axios from "axios";
-import MyMap from "./Map.js";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
+import ListingCard from "./ListingCard";
+import MyMap from "./Map.js";
 
 function Listings(props) {
   const [data, setData] = useState([]);
@@ -54,7 +53,7 @@ function Listings(props) {
       }
     };
     fetchListings();
-  }, []);
+  }, [queryCityURL]);
 
   let results;
   if (data.length > 0) {

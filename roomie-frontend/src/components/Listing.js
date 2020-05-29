@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
 
 function ListingInfo(props) {
   const userLoggedID = localStorage.getItem("userID");
@@ -176,7 +176,7 @@ function Listing({ match }) {
       }
     };
     fetchListings();
-  }, [match.params.id]);
+  }, []);
 
   const headerCity = data === "" ? "" : `${data.city}, ${data.state}`;
   const headerTitle = data === "" ? "" : data.title;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import SweetAlert from "react-bootstrap-sweetalert";
 import axios from "axios";
 import imgLogin from "./../assets/images/img-login@2x.png";
-import SweetAlert from "react-bootstrap-sweetalert";
 
 function PasswordReset() {
   const [data, setData] = useState({ email: "" });
@@ -21,7 +21,7 @@ function PasswordReset() {
         return setAlert(
           <SweetAlert
             success
-            title="Not implemented."
+            title="Password Sent."
             customButtons={
               <React.Fragment>
                 <input
@@ -33,8 +33,8 @@ function PasswordReset() {
               </React.Fragment>
             }
           >
-            Your reset token is stuck in our development tool. Thank you for
-            testing this. :)
+            Please check your mailbox with the instructions to reset your
+            password.
           </SweetAlert>
         );
       }
@@ -63,7 +63,7 @@ function PasswordReset() {
   return (
     <div className="p-6 flex flex-grow flex-col lg:items-center lg:justify-center">
       {alert}
-      <div className="lg:max-w-none lg:flex lg:flex-row lg:bg-gray-100 lg:shadow-inner lg:shadow-2xl lg:max-w-6xl lg:max-w-6xl">
+      <div className="lg:max-w-none lg:flex lg:flex-row lg:bg-gray-100 lg:shadow-inner lg:shadow-2xl lg:max-w-6xl">
         {/* Form */}
         <div className="lg:w-2/3 lg:mx-auto lg:p-16">
           <form onSubmit={handleSubmit} className="flex flex-col">
@@ -92,7 +92,7 @@ function PasswordReset() {
           </form>
         </div>
         {/* Img */}
-        <div className="lg:w-3/6 lg:flex">
+        <div className="lg:w-2/6 lg:flex">
           <img className="hidden lg:flex" src={imgLogin} alt="Rooms" />
         </div>
       </div>

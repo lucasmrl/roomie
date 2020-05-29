@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "./../context/AuthContext";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import axios from "axios";
 import imgSignup from "./../assets/images/imgSignup@2x.png";
 
-function Signup(props) {
+function NewPassword({ match }) {
   const { setIsAuth } = useContext(AuthContext);
   const [alert, setAlert] = useState("");
 
@@ -15,16 +15,31 @@ function Signup(props) {
   const onSubmit = async (data) => {
     try {
       const response = await axios({
-        method: "POST",
-        url: "/api/users/signup",
+        method: "PATCH",
+        url: `/api/users/resetPassword/${match.params.token}`,
         data,
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         localStorage.setItem("isAuth", "true");
         localStorage.setItem("userID", response.data.data.user._id);
         setIsAuth(true);
-        props.history.push("/");
+        return setAlert(
+          <SweetAlert
+            success
+            title="Password Changed."
+            customButtons={
+              <React.Fragment>
+                <input
+                  onClick={() => setAlert(<Redirect to={`/my-account`} />)}
+                  value="Ok"
+                  type="submit"
+                  className="block md:inline bg-themeGreen mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+                />
+              </React.Fragment>
+            }
+          ></SweetAlert>
+        );
       }
     } catch (error) {
       return setAlert(
@@ -42,7 +57,7 @@ function Signup(props) {
             </React.Fragment>
           }
         >
-          Something went wrong!
+          Invalid Token!
         </SweetAlert>
       );
     }
@@ -56,41 +71,12 @@ function Signup(props) {
         <div className="lg:w-2/3 lg:mx-auto lg:p-16">
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
             <h1 className="font-bold text-2xl text-gray-900 lg:text-5xl">
-              Sign up
+              Reset your Password
             </h1>
-            <p className="font-light text-gray-900">
-              Already a member?
-              <Link to="/login" className="text-blue-700">
-                {` `}Sign up
-              </Link>
-            </p>
-            <label className="font-medium text-gray-900 mt-10">Name:</label>
-            <input
-              type="text"
-              placeholder=""
-              name="name"
-              ref={register({ required: true })}
-              className="my-4 shadow p-1 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
-            />
-            {errors.name && (
-              <span className="text-red-600">⚠ Please provide a Name.</span>
-            )}
 
-            <label className="font-medium text-gray-900">E-mail:</label>
-            <input
-              type="email"
-              placeholder=""
-              name="email"
-              ref={register({ required: true, pattern: /^\S+@\S+$/i })}
-              className="my-4 shadow p-1 appearance-none text-xl border lg:px-4 lg:text-xl rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
-            />
-            {errors.email && (
-              <span className="text-red-600">
-                ⚠ Please provide a valid Email.
-              </span>
-            )}
-
-            <label className="font-medium text-gray-900">Password:</label>
+            <label className="mt-16 font-medium text-gray-900">
+              New Password:
+            </label>
             <input
               type="password"
               placeholder=""
@@ -137,4 +123,4 @@ function Signup(props) {
   );
 }
 
-export default Signup;
+export default NewPassword;

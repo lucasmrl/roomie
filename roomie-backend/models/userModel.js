@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please provide your name'],
-    trim: true, //To remove space at the beginning or/and end of the string
+    trim: true,
   },
   email: {
     type: String,
     required: [true, 'Please provide your email'],
     unique: true,
-    lowercase: true, //Converts string to lowercase
+    lowercase: true,
     validate: [validator.isEmail, 'Please provide a valid email'],
   },
   role: {
@@ -136,8 +136,6 @@ userSchema.methods.createPasswordResetToken = function () {
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
-
-  console.log({ resetToken }, this.passwordResetToken);
 
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 

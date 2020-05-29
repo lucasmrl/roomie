@@ -161,11 +161,17 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false }); //Deactivate the validators on my users Schema
 
   // 3) Send it to user's e-mail
-  const resetURL = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/resetPassword/${resetToken}`; //Send the original token (not the encrypted)
+  // const resetURL = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/api/v1/users/resetPassword/${resetToken}`; //Send the original token (not the encrypted)
+  const resetURL = `http://localhost:3000/new-password/${resetToken}`; //Send the original token (not the encrypted)
 
-  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you dind't, please ignore this email.`;
+  const message = `Hello User,
+  
+  Please use the link below to reset your password:
+  ${resetURL}.
+  
+  If you dind't, please ignore this email.`;
 
   try {
     await sendEmail({
@@ -236,16 +242,3 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   // 4) Log user in, send JWT
   createSendToken(user, 200, res);
 });
-
-// exports.restrictTo = (...roles) => {
-//   //Closure necessary because I can't pass argument through middlewares functions
-//   return (req, res, next) => {
-//     //roles is an array
-//     if (!roles.includes(req.user.role)) {
-//       return next(
-//         new AppError('You do not have permission to perform this action', 403)
-//       );
-//     }
-//     next();
-//   };
-// };

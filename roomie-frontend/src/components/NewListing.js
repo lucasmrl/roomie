@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
 
 function NewListing() {
   const { register, handleSubmit, errors } = useForm();
@@ -176,22 +176,20 @@ function NewListing() {
                 Utilities Included?
               </label>
               <input
-                className="radio"
+                className="inline ml-2"
                 name="utilitiesIncl"
                 type="radio"
                 value="true"
                 ref={register({ required: true })}
-                className="inline ml-2"
               />
               <label className="text-xl mx-1">Yes</label>
 
               <input
-                className="radio"
+                className="inline ml-2 text-xl"
                 name="utilitiesIncl"
                 type="radio"
                 value="false"
                 ref={register({ required: true })}
-                className="inline ml-2 text-xl"
               />
               <label className="text-xl mx-1">No</label>
               {errors.utilitiesIncl && (
@@ -205,21 +203,19 @@ function NewListing() {
                 Pets Allowed?
               </label>
               <input
-                className="radio"
+                className="inline ml-2"
                 name="petAllowed"
                 type="radio"
                 value="false"
                 ref={register({ required: true })}
-                className="inline ml-2"
               />
               <label className="text-xl mx-1">No</label>
               <input
-                className="radio"
+                className="inline ml-2 text-xl"
                 name="petAllowed"
                 type="radio"
                 value="true"
                 ref={register({ required: true })}
-                className="inline ml-2 text-xl"
               />
               <label className="text-xl mx-1">Yes</label>
               {errors.petAllowed && (

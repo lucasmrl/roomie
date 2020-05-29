@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import ListingCard from "./ListingCard";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
+import ListingCard from "./ListingCard";
 
 function MyAccount() {
   const { register, handleSubmit } = useForm();
@@ -20,7 +20,6 @@ function MyAccount() {
         });
 
         setUserData(response.data.data.user);
-        console.log(response.data.data.user);
       } catch (error) {
         return setAlert(
           <SweetAlert
@@ -46,7 +45,6 @@ function MyAccount() {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log(data.profilePicture[0]);
     const formData = new FormData();
 
     if (
@@ -77,7 +75,6 @@ function MyAccount() {
         url: "/api/users/updateMe",
         data: formData,
       });
-      console.log(data);
       if (response.status === 200) {
         setAlert(
           <SweetAlert
@@ -99,7 +96,6 @@ function MyAccount() {
         );
       }
     } catch (error) {
-      console.log(error.response.data.message);
       return setAlert(
         <SweetAlert
           danger

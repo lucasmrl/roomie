@@ -1,5 +1,8 @@
 import React, { useState, useContext } from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
+import { AiOutlineMenu } from "react-icons/ai";
+import logo from "./assets/images/logonew@2x.png";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -15,9 +18,7 @@ import DeleteListing from "./components/DeleteListing";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./components/NotFound";
 import PasswordReset from "./components/PasswordReset";
-import logo from "./assets/images/logonew@2x.png";
-import { AuthContext } from "./context/AuthContext";
-import { AiOutlineMenu } from "react-icons/ai";
+import NewPassword from "./components/NewPassword";
 
 function NavbarGuest() {
   const [isOpen, setIsOpen] = useState(false);
@@ -142,6 +143,7 @@ export default function App() {
             <ProtectedRoute path="/users/:id" component={User} />
             <Route path="/update-password" component={UpdatePassword} />
             <Route path="/password-reset" component={PasswordReset} />
+            <Route path="/new-password/:token" component={NewPassword} />
             <ProtectedRoute path="/listings/:id" component={UpdateListing} />
             <ProtectedRoute path="/delete/:id" component={DeleteListing} />
             <Route component={NotFound} />
@@ -155,11 +157,41 @@ export default function App() {
           <div>
             <ul className="flex flex-col ml-16 pr-6 justify-end text-sm lg:text-base lg:flex-row">
               <li className="lg:mx-10">
+                <p className="font-bold">Credits:</p>
+              </li>
+              <li className="lg:mx-10">
+                <a
+                  href="https://icons8.com/icon/tg0qF8v_aLU2/empty-bed"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Empty Bed icon by Icons8
+                </a>
+              </li>
+              <li className="lg:mx-10">
+                <a
+                  href="https://blush.design/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Illustration by Blush.design
+                </a>
+              </li>
+              <li className="lg:mx-10">
+                <a
+                  href="https://unsplash.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Images from Unsplash
+                </a>
+              </li>
+              {/* <li className="lg:mx-10">
                 <Link to="/">Terms of Service</Link>
               </li>
               <li className="lg:mx-10">
                 <Link to="/">Privacy Policy</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </footer>

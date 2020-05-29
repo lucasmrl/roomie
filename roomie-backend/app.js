@@ -12,29 +12,22 @@ const globalErrorHandler = require('./controllers/errorController');
 const listingRouter = require('./routes/listingRouter');
 const userRouter = require('./routes/userRouter');
 
-// GLOBAL MIDDLEWARES
-// {SECURITY} - Set security HTTP Headers | Best practice is to put it on top
-app.use(helmet());
+// [GLOBAL MIDDLEWARES]
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev')); //HTTP Request logger
 }
+// {SECURITY} - Set security HTTP Headers | Best practice is to put it on top
+app.use(helmet());
 
 // {SECURITY} - Limit requests from the same IP
 const limiter = rateLimit({
   max: 1500,
   windowMs: 60 * 60 * 1000,
   message: 'Too many request from this IP, please try again in an hour',
-}); // 100 Requestes max from the same IP in 1 hour
-
+}); // 1500 Requestes max from the same IP in 1 hour
 app.use('/api', limiter);
-
-// Body parse (reading data from body into req.body)
-app.use(express.json({ limit: '10kb' }));
-
-//Enable the server to read cookies
-app.use(cookieParser());
 
 // {SECURITY} - Data sanitization against NoSQL query injection
 app.use(mongoSanitize()); //Remove "$" and others from inputs
@@ -49,16 +42,22 @@ app.use(
   })
 ); //To clear up the query string
 
+// Body parse (reading data from body into req.body)
+app.use(express.json({ limit: '10kb' }));
+
+//Enable the server to read cookies
+app.use(cookieParser());
+
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
 
-//ROUTES
+// [ROUTES]
 app.use('/api/listings', listingRouter);
 app.use('/api/users', userRouter);
 
 //Handling routes not defined
 app.all('*', (req, res, next) => {
-  next(new AppError(`${req.originalUrl} doesn't exist on this server!❌`), 404); //if next() receives an argument, express knows that it is an error
+  next(new AppError(`${req.originalUrl} doesn't exist on this server!❌`), 404);
 });
 
 // Global Error Handling Middleware

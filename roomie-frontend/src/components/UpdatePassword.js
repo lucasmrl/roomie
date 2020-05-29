@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
+import axios from "axios";
 
 function UpdatePassword(props) {
   const { register, handleSubmit, watch, errors } = useForm();
