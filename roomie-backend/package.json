@@ -4,7 +4,8 @@
   "description": "A platform to find roommates by listing your space or finding one available. Built with React/Express/MongoDB/Tailwind.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js"
   },
   "repository": {
@@ -55,5 +56,8 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "prettier": "^2.0.5",
     "validator": "^13.0.0"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
