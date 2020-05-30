@@ -1,33 +1,33 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "./../context/AuthContext";
-import { useHistory, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
-import imgLogin from "./../assets/images/img-login@2x.png";
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
+import imgLogin from '../assets/images/img-login@2x.png';
 
 function Login(props) {
-  const [data, setData] = useState({ email: "", password: "" });
-  const [alert, setAlert] = useState("");
+  const [data, setData] = useState({ email: '', password: '' });
+  const [alert, setAlert] = useState('');
 
   const { setIsAuth } = useContext(AuthContext);
   let history = useHistory();
   let location = useLocation();
-  let { from } = location.state || { from: { pathname: "/" } }; //Default origin is from the route that sent to the login page OR from "/" root
+  let { from } = location.state || { from: { pathname: '/' } }; //Default origin is from the route that sent to the login page OR from "/" root
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const response = await axios({
-        method: "POST",
-        url: "/api/users/login",
+        method: 'POST',
+        url: '/api/users/login',
         data,
       });
 
       if (response.status === 200) {
-        localStorage.setItem("isAuth", "true");
-        localStorage.setItem("userID", response.data.data.user._id);
+        localStorage.setItem('isAuth', 'true');
+        localStorage.setItem('userID', response.data.data.user._id);
         setIsAuth(true);
         history.replace(from);
       }
@@ -47,7 +47,7 @@ function Login(props) {
             </React.Fragment>
           }
         >
-          E-mail and/or password not correct.{" "}
+          E-mail and/or password not correct.{' '}
         </SweetAlert>
       );
     }

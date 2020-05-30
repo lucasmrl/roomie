@@ -1,28 +1,28 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "./../context/AuthContext";
-import { useForm } from "react-hook-form";
-import { Redirect } from "react-router-dom";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
-import imgSignup from "./../assets/images/imgSignup@2x.png";
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
+import imgSignup from '../assets/images/imgSignup@2x.png';
 
 function NewPassword({ match }) {
   const { setIsAuth } = useContext(AuthContext);
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState('');
 
   const { register, handleSubmit, watch, errors } = useForm();
 
   const onSubmit = async (data) => {
     try {
       const response = await axios({
-        method: "PATCH",
+        method: 'PATCH',
         url: `/api/users/resetPassword/${match.params.token}`,
         data,
       });
 
       if (response.status === 200) {
-        localStorage.setItem("isAuth", "true");
-        localStorage.setItem("userID", response.data.data.user._id);
+        localStorage.setItem('isAuth', 'true');
+        localStorage.setItem('userID', response.data.data.user._id);
         setIsAuth(true);
         return setAlert(
           <SweetAlert
@@ -99,7 +99,7 @@ function NewPassword({ match }) {
               name="passwordConfirm"
               ref={register({
                 required: true,
-                validate: (value) => value === watch("password"),
+                validate: (value) => value === watch('password'),
               })}
               className="my-4 shadow p-1 appearance-none text-xl border lg:px-4 lg:text-xl rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
             />

@@ -11,6 +11,9 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const listingRouter = require('./routes/listingRouter');
 const userRouter = require('./routes/userRouter');
+const path = require('path');
+
+app.enable('trust proxy');
 
 // [GLOBAL MIDDLEWARES]
 
@@ -50,13 +53,18 @@ app.use(cookieParser());
 
 // Serve static files
 // app.use(express.static(`${__dirname}/public`));
-app.use(express.static(`${__dirname}/client/build`));
+// app.use(express.static(`${__dirname}/client/build`)); - This works!
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // [ROUTES]
 app.use('/api/listings', listingRouter);
 app.use('/api/users', userRouter);
 
 //Handling routes not defined
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 app.all('*', (req, res, next) => {
   next(new AppError(`${req.originalUrl} doesn't exist on this server!❌`), 404);
 });

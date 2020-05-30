@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import { Link } from "react-router-dom";
-import "./../components/styles.css";
+import React, { useState } from 'react';
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Link } from 'react-router-dom';
+import './styles.css';
 
 export default function MyMap(props) {
   const [activeListing, setActiveListing] = useState(null);

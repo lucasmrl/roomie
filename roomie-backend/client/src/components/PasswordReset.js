@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
-import imgLogin from "./../assets/images/img-login@2x.png";
+import React, { useState } from 'react';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
+import imgLogin from '../assets/images/img-login@2x.png';
 
 function PasswordReset() {
-  const [data, setData] = useState({ email: "" });
-  const [alert, setAlert] = useState("");
+  const [data, setData] = useState({ email: '' });
+  const [alert, setAlert] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const response = await axios({
-        method: "POST",
-        url: "/api/users/forgotPassword",
+        method: 'POST',
+        url: '/api/users/forgotPassword',
         data,
       });
 

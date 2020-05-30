@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import AlgoliaPlaces from "algolia-places-react";
-import city from "./../assets/images/cityscapes.png";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import AlgoliaPlaces from 'algolia-places-react';
+import city from '../assets/images/cityscapes.png';
 
 function Home(props) {
-  const [citySelected, setCitySelected] = useState("");
+  const [citySelected, setCitySelected] = useState('');
   const { handleSubmit } = useForm();
   const onSubmit = (data) =>
-    props.history.push("/listings", { response: citySelected });
+    props.history.push('/listings', { response: citySelected });
 
   return (
     <div className="flex flex-grow flex-col lg:flex-row-reverse">
@@ -44,7 +44,7 @@ function Home(props) {
                   apiKey: process.env.REACT_APP_APPK,
                   // language: "sv",
                   // countries: ["se"],
-                  type: "city",
+                  type: 'city',
                   // Other options from https://community.algolia.com/places/documentation.html#options
                 }}
                 onChange={({
@@ -58,7 +58,7 @@ function Home(props) {
                   );
                 }}
                 onError={({ message }) =>
-                  console.log("Sorry, error with the API! ❌")
+                  console.log('Sorry, error with the API! ❌')
                 }
               />
 
@@ -69,8 +69,8 @@ function Home(props) {
               />
               <Link
                 to={{
-                  pathname: "/listings",
-                  state: { response: "" },
+                  pathname: '/listings',
+                  state: { response: '' },
                 }}
                 className="py-2 text-orange-400 text-sm sm:hidden"
               >
@@ -80,8 +80,8 @@ function Home(props) {
           </div>
           <Link
             to={{
-              pathname: "/listings",
-              state: { response: "" },
+              pathname: '/listings',
+              state: { response: '' },
             }}
             className="hidden py-2 text-orange-400 text-sm sm:block sm:p-0 sm:m-0"
           >
