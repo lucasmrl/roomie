@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FiMap } from 'react-icons/fi';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import axios from 'axios';
 import ListingCard from './ListingCard';
@@ -79,26 +78,12 @@ function Listings(props) {
       </div>
       {/* Listings */}
       <div className="bg-gray-100 lg:flex lg:overflow-hidden">
-        <div
-          className={`${
-            showMap === false ? '' : 'hidden'
-          } p-6 lg:p-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll`}
-        >
+        <div className="p-6 lg:p-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll">
           {results}
         </div>
         {/* Map */}
-        <div
-          className={`${
-            showMap === false ? 'hidden' : 'w-full'
-          } lg:inline-block lg:w-1/3 lg:sticky`}
-        >
+        <div className="hidden lg:inline-block lg:w-1/3 lg:bg-red-300 lg:sticky">
           <MyMap listingsInfo={data} />
-        </div>
-        <div
-          onClick={() => setShowMap(!showMap)}
-          className="fixed cursor-pointer right-0 bottom-0 mb-32 mr-12 bg-white shadow-xl md:hidden w-16 h-16 rounded-full flex items-center justify-center border border-teal-700"
-        >
-          <FiMap className="text-2xl text-teal-600" />
         </div>
       </div>
     </div>
