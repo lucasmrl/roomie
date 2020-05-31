@@ -23,14 +23,44 @@ function UserProfile(props) {
 
   return (
     <div>
-      <div className="text-gray-800 text-center">
+      <div className="text-gray-800">
         <div className="flex items-center justify-center">{imageProfile}</div>
-        <div className="leading-snug">
-          <p className="font-bold mb-2">{props.name}</p>
-          <p className="font-medium">{props.email}</p>
-          <p>{props.age === null ? '' : `Age: ${props.age}`}</p>
-          <p>{props.college === '' ? '' : `College: ${props.college}`}</p>
-          <p>{props.about === '' ? '' : `About Me: ${props.about}`}</p>
+        <div className="pt-2 px-4">
+          <p className="font-bold mb-2 text-xl py-4">{props.name}</p>
+          <p className="font-medium">
+            <span className="font-bold">E-mail: </span>
+            {props.email}
+          </p>
+          <p>
+            {props.age === null ? (
+              ''
+            ) : (
+              <div>
+                <span className="font-bold">Age: </span>
+                {props.age}
+              </div>
+            )}
+          </p>
+          <p>
+            {props.college === '' ? (
+              ''
+            ) : (
+              <div>
+                <span className="font-bold">College: </span>
+                {props.college}
+              </div>
+            )}
+          </p>
+          <p>
+            {props.about === '' ? (
+              ''
+            ) : (
+              <div>
+                <span className="font-bold">About me: </span>
+                {props.about}
+              </div>
+            )}
+          </p>
         </div>
       </div>
     </div>
