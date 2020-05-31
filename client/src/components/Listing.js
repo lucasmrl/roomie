@@ -190,6 +190,7 @@ function Listing({ match }) {
       }
     };
     fetchListings();
+    // eslint-disable-next-line
   }, []);
 
   const headerCity = data === '' ? '' : `${data.city}, ${data.state}`;

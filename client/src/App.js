@@ -1,24 +1,24 @@
-import React, { useState, useContext } from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import { AuthContext } from "./context/AuthContext";
-import { AiOutlineMenu } from "react-icons/ai";
-import logo from "./assets/images/logonew@2x.png";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import MyAccount from "./components/MyAccount";
-import NewListing from "./components/NewListing";
-import Logout from "./components/Logout";
-import Listings from "./components/Listings";
-import Listing from "./components/Listing";
-import User from "./components/User";
-import UpdatePassword from "./components/UpdatePassword";
-import UpdateListing from "./components/UpdateListing";
-import DeleteListing from "./components/DeleteListing";
-import ProtectedRoute from "./components/ProtectedRoute";
-import NotFound from "./components/NotFound";
-import PasswordReset from "./components/PasswordReset";
-import NewPassword from "./components/NewPassword";
+import React, { useState, useContext } from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
+import { AiOutlineMenu } from 'react-icons/ai';
+import logo from './assets/images/logonew@2x.png';
+import Home from './components/Home';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import MyAccount from './components/MyAccount';
+import NewListing from './components/NewListing';
+import Logout from './components/Logout';
+import Listings from './components/Listings';
+import Listing from './components/Listing';
+import User from './components/User';
+import UpdatePassword from './components/UpdatePassword';
+import UpdateListing from './components/UpdateListing';
+import DeleteListing from './components/DeleteListing';
+import ProtectedRoute from './components/ProtectedRoute';
+import NotFound from './components/NotFound';
+import PasswordReset from './components/PasswordReset';
+import NewPassword from './components/NewPassword';
 
 function NavbarGuest() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +42,7 @@ function NavbarGuest() {
           </button>
         </div>
       </div>
-      <div className={`${isOpen ? "block" : "hidden"} pt-1 lg:flex`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} pt-1 lg:flex`}>
         <ul
           className="text-xl lg:bg-white lg:flex"
           onClick={() => setIsOpen(!isOpen)}
@@ -90,7 +90,7 @@ function NavbarUser() {
           </button>
         </div>
       </div>
-      <div className={`${isOpen ? "block" : "hidden"} pt-1 lg:flex`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} pt-1 lg:flex`}>
         <ul
           className="text-xl lg:bg-white lg:flex"
           onClick={() => setIsOpen(!isOpen)}
@@ -140,7 +140,7 @@ export default function App() {
             <Route path="/logout" component={Logout} />
             <Route path="/listings" exact component={Listings} />
             <Route path="/listing/:id" component={Listing} />
-            <ProtectedRoute path="/users/:id" component={User} />
+            <Route path="/users/:id" component={User} />
             <Route path="/update-password" component={UpdatePassword} />
             <Route path="/password-reset" component={PasswordReset} />
             <Route path="/new-password/:token" component={NewPassword} />

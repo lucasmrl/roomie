@@ -6,7 +6,6 @@ import MyMap from './Map.js';
 
 function Listings(props) {
   const [data, setData] = useState([]);
-  const [showMap, setShowMap] = useState(false);
   const [alert, setAlert] = useState('');
 
   let queryCityURL = '';

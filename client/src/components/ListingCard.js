@@ -1,9 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ListingCard(props) {
-  let mainPictureListing = "";
-  let utilities = "";
+  let mainPictureListing = '';
+  // eslint-disable-next-line
+  let utilities = '';
   if (props.pictures.length > 0) {
     mainPictureListing = (
       <Link to={`/listing/${props._id}`} className="font-bold text-xl">
@@ -27,9 +28,9 @@ export default function ListingCard(props) {
   }
 
   if (props.utilitiesIncl) {
-    utilities = "Utilities Included!";
+    utilities = 'Utilities Included!';
   } else {
-    utilities = "No Utilities";
+    utilities = 'No Utilities';
   }
 
   return (
@@ -57,7 +58,7 @@ export default function ListingCard(props) {
         <div className="py-3 flex">
           <p
             className={`${
-              !props.utilitiesIncl ? "hidden" : "block"
+              !props.utilitiesIncl ? 'hidden' : 'block'
             } bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700`}
           >
             Utilities Included!

@@ -6,6 +6,7 @@ const {
   uploadUserPhoto,
 } = require('../controllers/userController');
 const authController = require('../controllers/authController');
+
 const router = express.Router();
 
 router.post('/signup', authController.signup);
@@ -23,6 +24,6 @@ router.patch(
 router.patch('/updateMe', authController.protect, uploadUserPhoto, updateMe);
 router.delete('/deleteMe', authController.protect, deleteMe);
 
-router.route('/:id').get(authController.protect, getUser);
+router.route('/:id').get(getUser);
 
 module.exports = router;
