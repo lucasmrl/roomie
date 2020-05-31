@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
 
 function ListingInfo(props) {
-  const userLoggedID = localStorage.getItem("userID");
+  const userLoggedID = localStorage.getItem('userID');
 
-  let ownerData = props.owner || "";
+  let ownerData = props.owner || '';
   let updateAndDelete;
   if (ownerData[0].id === userLoggedID) {
     updateAndDelete = (
@@ -26,10 +26,10 @@ function ListingInfo(props) {
       </div>
     );
   } else {
-    updateAndDelete = "";
+    updateAndDelete = '';
   }
 
-  let pictures = "";
+  let pictures = '';
   if (props.pictures.length > 0) {
     pictures = props.pictures.map((el, index) => (
       <img
@@ -40,6 +40,20 @@ function ListingInfo(props) {
       />
     ));
   }
+
+  // let createdDate = new Date(props.createdDate);
+  // createdDate = createdDate.toDateString();
+
+  const myDate = new Date(props.createdDate);
+  const date = myDate.getDate();
+  const month = myDate.getMonth();
+  const year = myDate.getFullYear();
+
+  function pad(n) {
+    return n < 10 ? '0' + n : n;
+  }
+
+  var ddmmyyyy = pad(date) + '-' + pad(month + 1) + '-' + year;
 
   return (
     <div className="flex flex-col lg:w-full">
@@ -95,7 +109,7 @@ function ListingInfo(props) {
               </div>
               <div className="ml-4">
                 <p className="mt-3 bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
-                  {props.petAllowed ? "Pet Allowed" : " Pet Not Allowed"}
+                  {props.petAllowed ? 'Pet Allowed' : ' Pet Not Allowed'}
                 </p>
               </div>
             </div>
@@ -119,7 +133,7 @@ function ListingInfo(props) {
             </div>
 
             <p className="mt-3">
-              {typeof ownerData === "object" ? (
+              {typeof ownerData === 'object' ? (
                 <Link
                   to={`/users/${ownerData[0].id}`}
                   className="text-blue-500"
@@ -131,9 +145,9 @@ function ListingInfo(props) {
               )}
             </p>
             <p className="font-medium text-gray-900 mt-3">
-              Listing Created at:
+              Listing Created on:
             </p>
-            <p>{props.createdDate}</p>
+            <p>{ddmmyyyy}</p>
           </div>
         </div>
       </div>
@@ -142,14 +156,14 @@ function ListingInfo(props) {
 }
 
 function Listing({ match }) {
-  const [data, setData] = useState("");
-  const [alert, setAlert] = useState("");
+  const [data, setData] = useState('');
+  const [alert, setAlert] = useState('');
 
   useEffect(() => {
     const fetchListings = async () => {
       try {
         const response = await axios({
-          method: "GET",
+          method: 'GET',
           url: `/api/listings/${match.params.id}`,
         });
 
@@ -178,9 +192,9 @@ function Listing({ match }) {
     fetchListings();
   }, []);
 
-  const headerCity = data === "" ? "" : `${data.city}, ${data.state}`;
-  const headerTitle = data === "" ? "" : data.title;
-  const result = data === "" ? "" : <ListingInfo {...data} />;
+  const headerCity = data === '' ? '' : `${data.city}, ${data.state}`;
+  const headerTitle = data === '' ? '' : data.title;
+  const result = data === '' ? '' : <ListingInfo {...data} />;
   return (
     <div>
       {alert}

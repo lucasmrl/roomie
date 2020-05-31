@@ -29,7 +29,7 @@ export default function MyMap(props) {
   }
 
   return (
-    <Map center={[latitudeCenter, longitudeCenter]} zoom={10}>
+    <Map center={[latitudeCenter, longitudeCenter]} zoom={9}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

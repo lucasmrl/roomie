@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
-import ListingCard from "./ListingCard";
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
+import ListingCard from './ListingCard';
 
 function UserProfile(props) {
   let imageProfile;
   if (
-    props.profilePicture === "undefined" ||
-    typeof props.profilePicture === "undefined"
+    props.profilePicture === 'undefined' ||
+    typeof props.profilePicture === 'undefined'
   ) {
-    imageProfile = "";
+    imageProfile = '';
   } else {
     imageProfile = (
       <img
@@ -24,13 +24,13 @@ function UserProfile(props) {
   return (
     <div>
       <div className="text-gray-800 text-center">
-        <div className="">{imageProfile}</div>
+        <div className="flex items-center justify-center">{imageProfile}</div>
         <div className="leading-snug">
           <p className="font-bold mb-2">{props.name}</p>
           <p className="font-medium">{props.email}</p>
-          <p>{props.about === "" ? "" : `About Me: ${props.about}`}</p>
-          <p>{props.age === null ? "" : `Age: ${props.age}`}</p>
-          <p>{props.college === "" ? "" : `College: ${props.college}`}</p>
+          <p>{props.age === null ? '' : `Age: ${props.age}`}</p>
+          <p>{props.college === '' ? '' : `College: ${props.college}`}</p>
+          <p>{props.about === '' ? '' : `About Me: ${props.about}`}</p>
         </div>
       </div>
     </div>
@@ -38,14 +38,14 @@ function UserProfile(props) {
 }
 
 function User({ match }) {
-  const [data, setData] = useState("");
-  const [alert, setAlert] = useState("");
+  const [data, setData] = useState('');
+  const [alert, setAlert] = useState('');
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios({
-          method: "GET",
+          method: 'GET',
           url: `/api/users/${match.params.id}`,
         });
         setData(response.data.data.user);
@@ -94,22 +94,24 @@ function User({ match }) {
     fetchUserProfile();
   }, [match.params.id]);
 
-  const userName = data.name ? data.name : "";
-  const resultInfo = data === "" ? "" : <UserProfile {...data} />;
+  const userName = data.name ? `${data.name}'s Listings` : '';
+  const resultInfo = data === '' ? '' : <UserProfile {...data} />;
   const resultListings =
-    data === ""
-      ? ""
+    data === ''
+      ? ''
       : data.myListings.map((el) => <ListingCard key={el._id} {...el} />);
 
   return (
     <div className="flex flex-col items-center bg-gray-100 sm:flex-row sm:items-start">
       {alert}
-      <div className="sm:p-6 md:w-1/4 justify-center">
-        <h3 className="font-bold text-2xl text-gray-800">Profile:</h3>
+      <div className="sm:p-6 md:w-1/4">
+        <h3 className="font-bold text-2xl text-gray-800 justify-center text-center">
+          Profile:
+        </h3>
         <div className="flex items-center my-4">{resultInfo}</div>
       </div>
       <div className="sm:p-6 md:w-3/4">
-        <h3 className="font-bold text-2xl text-gray-800">{`${userName}'s Listings`}</h3>
+        <h3 className="font-bold text-2xl text-gray-800">{userName}</h3>
         <div className="w-64 md:flex md:w-auto md:flex-wrap">
           {resultListings}
         </div>
