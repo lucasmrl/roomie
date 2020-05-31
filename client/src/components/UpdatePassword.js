@@ -1,22 +1,26 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import ReactLoading from 'react-loading';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
 
 function UpdatePassword(props) {
   const { register, handleSubmit, watch, errors } = useForm();
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   const onSubmit = async (data) => {
+    setIsFetching(true);
     try {
       const response = await axios({
-        method: "PATCH",
-        url: "/api/users/updatePassword",
+        method: 'PATCH',
+        url: '/api/users/updatePassword',
         data,
       });
 
       if (response.status === 200) {
+        setIsFetching(false);
         setAlert(
           <SweetAlert
             success
@@ -38,6 +42,7 @@ function UpdatePassword(props) {
       }
     } catch (error) {
       if (error.response.status === 400) {
+        setIsFetching(false);
         return setAlert(
           <SweetAlert
             danger
@@ -57,6 +62,7 @@ function UpdatePassword(props) {
           </SweetAlert>
         );
       } else {
+        setIsFetching(false);
         return setAlert(
           <SweetAlert
             danger
@@ -81,6 +87,15 @@ function UpdatePassword(props) {
 
   return (
     <div>
+      {alert}
+      <div
+        className={`${
+          isFetching ? '' : 'hidden'
+        } w-full bg-yellow-100 m-auto flex justify-center content-center items-center`}
+      >
+        <ReactLoading type="spin" color="#7BFFB7" height={70} width={70} />
+        <p className="text-2xl text-teal-400 mx-4">Processing...</p>
+      </div>
       <div className="px-6 py-3 bg-orange-200">
         <h2 className="font-bold text-2xl text-gray-900">Update Password</h2>
         <Link to="/my-account" className="font-sm text-red-400 font-light">
@@ -132,7 +147,7 @@ function UpdatePassword(props) {
               name="passwordConfirm"
               ref={register({
                 required: true,
-                validate: (value) => value === watch("password"),
+                validate: (value) => value === watch('password'),
               })}
               className="my-2 shadow p-3 appearance-none text-xl border lg:text-xl lg:px-4 rounded-lg text-gray-700 focus:outline-none focus:shadow-outline md:w-full md:flex-grow"
             />

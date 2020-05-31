@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import ReactLoading from 'react-loading';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
 
 function UpdateListing({ match }) {
   const { register, handleSubmit, errors } = useForm();
   const [listingData, setListingData] = useState({});
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const fetchListing = async () => {
       try {
         const response = await axios({
-          method: "GET",
+          method: 'GET',
           url: `/api/listings/${match.params.id}`,
         });
 
@@ -42,35 +44,37 @@ function UpdateListing({ match }) {
   }, [match.params.id]);
 
   const onSubmit = async (data) => {
-    if (data.address === "") data.address = listingData.address;
-    if (data.availableDate === "")
+    setIsFetching(true);
+    if (data.address === '') data.address = listingData.address;
+    if (data.availableDate === '')
       data.availableDate = listingData.availableDate;
-    if (data.city === "") data.city = listingData.city;
-    if (data.contactEmail === "") data.contactEmail = listingData.contactEmail;
-    if (data.contactPhone === "") data.contactPhone = listingData.contactPhone;
-    if (data.country === "") data.country = listingData.country;
-    if (data.description === "") data.description = listingData.description;
-    if (data.rent === "") data.rent = listingData.rent;
-    if (data.state === "") data.state = listingData.state;
-    if (data.title === "") data.title = listingData.title;
-    if (data.zip === "") data.zip = listingData.zip;
+    if (data.city === '') data.city = listingData.city;
+    if (data.contactEmail === '') data.contactEmail = listingData.contactEmail;
+    if (data.contactPhone === '') data.contactPhone = listingData.contactPhone;
+    if (data.country === '') data.country = listingData.country;
+    if (data.description === '') data.description = listingData.description;
+    if (data.rent === '') data.rent = listingData.rent;
+    if (data.state === '') data.state = listingData.state;
+    if (data.title === '') data.title = listingData.title;
+    if (data.zip === '') data.zip = listingData.zip;
 
     const formData = new FormData();
     for (let dataKey in data) {
       formData.append(dataKey, data[dataKey]);
     }
-    if (data.pictures0[0]) formData.append("pictures", data.pictures0[0]);
-    if (data.pictures1[0]) formData.append("pictures", data.pictures1[0]);
-    if (data.pictures2[0]) formData.append("pictures", data.pictures2[0]);
+    if (data.pictures0[0]) formData.append('pictures', data.pictures0[0]);
+    if (data.pictures1[0]) formData.append('pictures', data.pictures1[0]);
+    if (data.pictures2[0]) formData.append('pictures', data.pictures2[0]);
 
     try {
       const response = await axios({
-        method: "PATCH",
+        method: 'PATCH',
         url: `/api/listings/${match.params.id}`,
         data: formData,
       });
 
       if (response.status === 200) {
+        setIsFetching(false);
         setAlert(
           <SweetAlert
             success
@@ -92,6 +96,7 @@ function UpdateListing({ match }) {
       }
     } catch (error) {
       if (error.response.status === 403) {
+        setIsFetching(false);
         return setAlert(
           <SweetAlert
             danger
@@ -111,6 +116,7 @@ function UpdateListing({ match }) {
           </SweetAlert>
         );
       } else {
+        setIsFetching(false);
         return setAlert(
           <SweetAlert
             danger
@@ -139,10 +145,10 @@ function UpdateListing({ match }) {
   let petAllowed;
 
   if (Object.keys(listingData).length === 0) {
-    renderSelect = "";
-    renderBuldingType = "";
-    renderUtil = "";
-    petAllowed = "";
+    renderSelect = '';
+    renderBuldingType = '';
+    renderUtil = '';
+    petAllowed = '';
   } else {
     renderSelect = (
       <div>
@@ -274,7 +280,7 @@ function UpdateListing({ match }) {
     }
   }
 
-  let pictures = "";
+  let pictures = '';
   if (listingData.pictures && listingData.pictures.length > 0) {
     pictures = listingData.pictures.map((el, index) => (
       <img
@@ -289,6 +295,14 @@ function UpdateListing({ match }) {
   return (
     <div className="flex flex-col lg:w-full">
       {alert}
+      <div
+        className={`${
+          isFetching ? '' : 'hidden'
+        } w-full bg-yellow-100 m-auto flex justify-center content-center items-center`}
+      >
+        <ReactLoading type="spin" color="#7BFFB7" height={70} width={70} />
+        <p className="text-2xl text-teal-400 mx-4">Processing...</p>
+      </div>
       {/* Header */}
       <div className="px-6 py-3 bg-orange-200">
         <h1 className="font-bold text-2xl text-gray-900">Update Listing</h1>
@@ -340,7 +354,7 @@ function UpdateListing({ match }) {
             <div className="lg:mt-3 lg:ml-8">{renderBuldingType}</div>
 
             <div className="lg:ml-8">
-              {" "}
+              {' '}
               <label className="block font-bold text-gray-900 mt-3">
                 Utilities Included?
               </label>
@@ -348,7 +362,7 @@ function UpdateListing({ match }) {
             </div>
 
             <div className="lg:ml-8">
-              {" "}
+              {' '}
               <label className="block font-bold text-gray-900 mt-3">
                 Pets Allowed?
               </label>

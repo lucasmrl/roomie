@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Redirect } from "react-router-dom";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
+import ReactLoading from 'react-loading';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
 
 function NewListing() {
   const { register, handleSubmit, errors } = useForm();
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   const onSubmit = async (data) => {
+    setIsFetching(true);
     const upperCaseCity = data.city
       .toLowerCase()
-      .split(" ")
+      .split(' ')
       .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-      .join(" ");
+      .join(' ');
     data.city = upperCaseCity;
     const addressToGeo = `${data.address},${data.state},${data.zip}`;
     const formData = new FormData();
@@ -22,9 +25,9 @@ function NewListing() {
       formData.append(dataKey, data[dataKey]);
     }
 
-    formData.append("pictures", data.pictures0[0]);
-    formData.append("pictures", data.pictures1[0]);
-    formData.append("pictures", data.pictures2[0]);
+    formData.append('pictures', data.pictures0[0]);
+    formData.append('pictures', data.pictures1[0]);
+    formData.append('pictures', data.pictures2[0]);
 
     // 1) Create query based on ADDRESS, STATE, ZIPCODE
     // 2) Linked AXIOS REQUEST:
@@ -32,20 +35,21 @@ function NewListing() {
     // ---> 2.b) Add the result to the fomrData object and send to POST request to create the listing
     try {
       const responseGeo = await axios({
-        method: "GET",
+        method: 'GET',
         url: `/api/listings/location/getGeo/${addressToGeo}`,
       });
 
-      formData.append("latitude", responseGeo.data.data.latitude);
-      formData.append("longitude", responseGeo.data.data.longitude);
+      formData.append('latitude', responseGeo.data.data.latitude);
+      formData.append('longitude', responseGeo.data.data.longitude);
 
       const response = await axios({
-        method: "POST",
-        url: "/api/listings",
+        method: 'POST',
+        url: '/api/listings',
         data: formData,
       });
 
       if (response.status === 201) {
+        setIsFetching(false);
         setAlert(
           <SweetAlert
             success
@@ -95,6 +99,14 @@ function NewListing() {
   return (
     <div className="flex flex-col">
       {alert}
+      <div
+        className={`${
+          isFetching ? '' : 'hidden'
+        } w-full bg-yellow-100 m-auto flex justify-center content-center items-center`}
+      >
+        <ReactLoading type="spin" color="#7BFFB7" height={70} width={70} />
+        <p className="text-2xl text-teal-400 mx-4">Processing...</p>
+      </div>
       {/* Header */}
       <div className="px-6 py-3 bg-themeGreen">
         <h1 className="font-bold text-2xl text-gray-900">New Listing</h1>

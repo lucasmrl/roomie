@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import ReactLoading from 'react-loading';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import axios from 'axios';
 import ListingCard from './ListingCard';
@@ -9,6 +10,7 @@ function MyAccount() {
   const { register, handleSubmit } = useForm();
   const [userData, setUserData] = useState({});
   const [alert, setAlert] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const userId = localStorage.getItem('userID');
@@ -45,7 +47,7 @@ function MyAccount() {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    setIsFetching(true);
     const formData = new FormData();
 
     if (
@@ -74,6 +76,7 @@ function MyAccount() {
         data: formData,
       });
       if (response.status === 200) {
+        setIsFetching(false);
         setAlert(
           <SweetAlert
             success
@@ -94,6 +97,7 @@ function MyAccount() {
         );
       }
     } catch (error) {
+      setIsFetching(false);
       return setAlert(
         <SweetAlert
           danger
@@ -142,9 +146,18 @@ function MyAccount() {
           </div>
         ));
 
+  console.log(isFetching);
   return (
     <div className="flex flex-col w-full bg-gray-100 ">
       {alert}
+      <div
+        className={`${
+          isFetching ? '' : 'hidden'
+        } w-full bg-yellow-100 m-auto flex justify-center content-center items-center`}
+      >
+        <ReactLoading type="spin" color="#7BFFB7" height={70} width={70} />
+        <p className="text-2xl text-teal-400 mx-4">Processing...</p>
+      </div>
       {/* Header */}
       <div className="px-6 py-3 bg-yellow-200">
         <h2 className="font-bold text-2xl text-gray-900">My Account:</h2>
