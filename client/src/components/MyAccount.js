@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
-import ListingCard from "./ListingCard";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import axios from 'axios';
+import ListingCard from './ListingCard';
 
 function MyAccount() {
   const { register, handleSubmit } = useForm();
   const [userData, setUserData] = useState({});
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState('');
 
   useEffect(() => {
-    const userId = localStorage.getItem("userID");
+    const userId = localStorage.getItem('userID');
     const fetchUserData = async () => {
       try {
         const response = await axios({
-          method: "GET",
+          method: 'GET',
           url: `/api/users/${userId}`,
         });
 
@@ -45,34 +45,32 @@ function MyAccount() {
   }, []);
 
   const onSubmit = async (data) => {
+    console.log(data);
     const formData = new FormData();
 
     if (
-      typeof data.profilePicture[0] === "undefined" ||
-      data.profilePicture[0] === "undefined"
+      typeof data.profilePicture[0] === 'undefined' ||
+      data.profilePicture[0] === 'undefined'
     ) {
     } else {
-      formData.append("profilePicture", data.profilePicture[0]);
+      formData.append('profilePicture', data.profilePicture[0]);
     }
 
-    if (data.name === "") data.name = userData.name;
-    if (data.email === "") data.email = userData.email;
-    if (typeof data.age === "undefined" || data.age === "undefined")
-      data.age = userData.age;
-    if (typeof data.college === "undefined" || data.college === "undefined")
-      data.college = userData.college;
-    if (typeof data.about === "undefined" || data.about === "undefined")
-      data.about = userData.about;
-    formData.set("name", data.name);
-    formData.set("email", data.email);
-    formData.set("age", data.age);
-    formData.set("college", data.college);
-    formData.set("about", data.about);
+    if (data.name === '') data.name = userData.name;
+    if (data.email === '') data.email = userData.email;
+    if (data.age === '') data.age = userData.age;
+    if (data.college === '') data.college = userData.college;
+    if (data.about === '') data.about = userData.about;
+    formData.set('name', data.name);
+    formData.set('email', data.email);
+    formData.set('age', data.age);
+    formData.set('college', data.college);
+    formData.set('about', data.about);
 
     try {
       const response = await axios({
-        method: "PATCH",
-        url: "/api/users/updateMe",
+        method: 'PATCH',
+        url: '/api/users/updateMe',
         data: formData,
       });
       if (response.status === 200) {
@@ -120,10 +118,10 @@ function MyAccount() {
   let imageProfile;
 
   if (
-    userData.profilePicture === "undefined" ||
-    typeof userData.profilePicture === "undefined"
+    userData.profilePicture === 'undefined' ||
+    typeof userData.profilePicture === 'undefined'
   ) {
-    imageProfile = "";
+    imageProfile = '';
   } else {
     imageProfile = (
       <img
@@ -135,9 +133,9 @@ function MyAccount() {
   }
 
   const resultListings =
-    userData.myListings === "undefined" ||
-    typeof userData.myListings === "undefined"
-      ? ""
+    userData.myListings === 'undefined' ||
+    typeof userData.myListings === 'undefined'
+      ? ''
       : userData.myListings.map((el) => (
           <div className="m-3">
             <ListingCard key={el._id} {...el} />
