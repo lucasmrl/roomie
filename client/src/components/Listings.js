@@ -81,7 +81,7 @@ function Listings(props) {
           {results}
         </div>
         {/* Map */}
-        <div className="hidden lg:inline-block lg:w-1/3 lg:bg-red-300 lg:sticky">
+        <div className="lg:w-1/3 lg:bg-red-300 lg:sticky">
           <MyMap listingsInfo={data} />
         </div>
       </div>
