@@ -19,6 +19,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './components/NotFound';
 import PasswordReset from './components/PasswordReset';
 import NewPassword from './components/NewPassword';
+import ScrollToTop from './ScrollToTop.js';
 
 function NavbarGuest() {
   const [isOpen, setIsOpen] = useState(false);
@@ -131,6 +132,7 @@ export default function App() {
         <main className="flex flex-col flex-grow">
           {/* <div className="bg-red-400 w-auto"> */}
           {/* Components */}
+          <ScrollToTop />
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
