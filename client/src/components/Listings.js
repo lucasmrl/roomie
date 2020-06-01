@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FiMap } from 'react-icons/fi';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import axios from 'axios';
 import ListingCard from './ListingCard';
@@ -7,6 +8,7 @@ import MyMap from './Map.js';
 function Listings(props) {
   const [data, setData] = useState([]);
   const [alert, setAlert] = useState('');
+  const [showMap, setShowMap] = useState(false);
 
   let queryCityURL = '';
   let selectedCity = 'Everywhere! 🌎';
@@ -71,17 +73,37 @@ function Listings(props) {
     <div className="bg-red-300 flex flex-col lg:max-h-screen">
       {alert}
       {/* Nav - Filters */}
-      <div className="px-6 py-3 bg-themeGreen">
-        <p className="font-light text-gray-900">Searching rooms in:</p>
-        <h1 className="font-bold text-2xl text-gray-900">{selectedCity}</h1>
+      <div className="px-6 py-3 bg-themeGreen flex items-center content-center">
+        <div>
+          <p className="font-light text-gray-900">Searching rooms in:</p>
+          <h1 className="font-bold text-2xl text-gray-900">{selectedCity}</h1>
+        </div>
+        <div
+          onClick={() => setShowMap(!showMap)}
+          className="ml-20 cursor-pointer bg-white rounded-full w-16 h-16 flex items-center justify-center border shadow-xl border-teal-200 lg:hidden"
+        >
+          <FiMap className="text-2xl text-teal-600" />
+        </div>
       </div>
       {/* Listings */}
       <div className="bg-gray-100 lg:flex lg:overflow-hidden">
-        <div className="p-6 lg:p-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll">
+        <div
+          className={
+            showMap
+              ? 'hidden'
+              : 'p-6 lg:p-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll'
+          }
+        >
           {results}
         </div>
         {/* Map */}
-        <div className="lg:w-1/3 lg:bg-red-300 lg:sticky">
+        <div
+          className={
+            showMap
+              ? 'lg:inline-block lg:w-1/3 lg:bg-red-300 lg:sticky'
+              : 'hidden'
+          }
+        >
           <MyMap listingsInfo={data} />
         </div>
       </div>
