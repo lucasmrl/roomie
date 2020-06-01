@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FiMap } from 'react-icons/fi';
+import { FiList } from 'react-icons/fi';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import axios from 'axios';
 import ListingCard from './ListingCard';
@@ -8,7 +9,7 @@ import MyMap from './Map.js';
 function Listings(props) {
   const [data, setData] = useState([]);
   const [alert, setAlert] = useState('');
-  const [showMap, setShowMap] = useState(false);
+  const [showMap, setShowMap] = useState(true);
 
   let queryCityURL = '';
   let selectedCity = 'Everywhere! 🌎';
@@ -82,7 +83,11 @@ function Listings(props) {
           onClick={() => setShowMap(!showMap)}
           className="ml-20 cursor-pointer bg-white rounded-full w-16 h-16 flex items-center justify-center border shadow-xl border-teal-200 lg:hidden"
         >
-          <FiMap className="text-2xl text-teal-600" />
+          {showMap ? (
+            <FiMap className="text-2xl text-teal-600" />
+          ) : (
+            <FiList className="text-2xl text-teal-600" />
+          )}
         </div>
       </div>
       {/* Listings */}
