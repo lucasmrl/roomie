@@ -74,14 +74,14 @@ function Listings(props) {
     <div className="bg-red-300 flex flex-col lg:max-h-screen">
       {alert}
       {/* Nav - Filters */}
-      <div className="px-6 py-3 bg-themeGreen flex items-center content-center">
+      <div className="relative px-6 py-3 bg-themeGreen flex items-center content-center">
         <div>
           <p className="font-light text-gray-900">Searching rooms in:</p>
           <h1 className="font-bold text-2xl text-gray-900">{selectedCity}</h1>
         </div>
         <div
           onClick={() => setShowMap(!showMap)}
-          className="ml-20 cursor-pointer bg-white rounded-full w-16 h-16 flex items-center justify-center border shadow-xl border-teal-200 lg:hidden"
+          className="absolute inset-y-0 right-0 m-3 cursor-pointer bg-white rounded-full w-16 h-16 flex items-center justify-center border shadow-xl border-teal-200 lg:hidden"
         >
           {showMap ? (
             <FiMap className="text-2xl text-teal-600" />
@@ -93,21 +93,23 @@ function Listings(props) {
       {/* Listings */}
       <div className="bg-gray-100 lg:flex lg:overflow-hidden">
         <div
-          className={
-            showMap
-              ? 'hidden'
-              : 'p-6 lg:p-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll'
-          }
+          className={`
+            ${
+              showMap
+                ? 'hidden'
+                : 'p-6 lg:p-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll'
+            } p-6 lg:p-4 lg:flex lg:flex-row lg:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll`}
         >
           {results}
         </div>
         {/* Map */}
         <div
-          className={
-            showMap
-              ? 'lg:inline-block lg:w-1/3 lg:bg-red-300 lg:sticky'
-              : 'hidden'
-          }
+          className={`
+            ${
+              showMap
+                ? 'lg:inline-block lg:w-1/3 lg:bg-red-300 lg:sticky'
+                : 'hidden'
+            } lg:inline-block lg:w-1/3 lg:bg-red-300 lg:sticky`}
         >
           <MyMap listingsInfo={data} />
         </div>

@@ -42,7 +42,7 @@ function NavbarGuest() {
           </button>
         </div>
       </div>
-      <div className={`${isOpen ? 'block' : 'hidden'} pt-1 lg:flex`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} pt-1 px-5 lg:flex`}>
         <ul
           className="text-xl lg:bg-white lg:flex"
           onClick={() => setIsOpen(!isOpen)}
@@ -90,7 +90,7 @@ function NavbarUser() {
           </button>
         </div>
       </div>
-      <div className={`${isOpen ? 'block' : 'hidden'} pt-1 lg:flex`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} pt-1 px-5 lg:flex`}>
         <ul
           className="text-xl lg:bg-white lg:flex"
           onClick={() => setIsOpen(!isOpen)}
