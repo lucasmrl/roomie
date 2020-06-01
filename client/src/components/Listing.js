@@ -57,7 +57,7 @@ function ListingInfo(props) {
 
   return (
     <div className="flex flex-col lg:w-full">
-      <div className="flex py-2 h-48 sm:justify-around lg:px-6 lg:w-full lg:flex-grow lg:justify-start overflow-hidden">
+      <div className="flex py-2 h-40 sm:justify-around lg:px-6 lg:w-full lg:flex-grow lg:justify-start overflow-hidden">
         {pictures}
       </div>
       <div className="p-6 lg:flex lg:flex-col">
