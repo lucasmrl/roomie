@@ -84,9 +84,9 @@ function Listings(props) {
           className="absolute inset-y-0 right-0 m-3 cursor-pointer bg-white rounded-full w-16 h-16 flex items-center justify-center border shadow-xl border-teal-200 lg:hidden"
         >
           {showMap ? (
-            <FiMap className="text-2xl text-teal-600" />
-          ) : (
             <FiList className="text-2xl text-teal-600" />
+          ) : (
+            <FiMap className="text-2xl text-teal-600" />
           )}
         </div>
       </div>
