@@ -47,15 +47,11 @@ function Home(props) {
                   type: 'city',
                   // Other options from https://community.algolia.com/places/documentation.html#options
                 }}
-                onChange={({
-                  query,
-                  rawAnswer,
-                  suggestion,
-                  suggestionIndex,
-                }) => {
-                  setCitySelected(
-                    `${suggestion.name}, ${suggestion.administrative} `
-                  );
+                onChange={({ suggestion }) => {
+                  let state = suggestion.hasOwnProperty('administrative')
+                    ? suggestion.administrative
+                    : suggestion.hit.administrative[0];
+                  setCitySelected(`${suggestion.name}, ${state}`);
                 }}
                 onError={({ message }) =>
                   console.log('Sorry, error with the API! ❌')
