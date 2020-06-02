@@ -1,9 +1,10 @@
 # Roomie
 
-A platform to find roommates by listing your space or finding one available. 🚀 Built with React/Express/MongoDB/Tailwind.
-Second full-stack project created by me. 
+A platform to find roommates by listing your space or finding one available.
+Built with **React/Express/MongoDB/Tailwind**. 🚀
+My second full-stack project created by me. 😬
 
-[Demo](http://roomiew.herokuapp.com/)
+[View demo](http://roomiew.herokuapp.com/)
 
 ![Image of Roomie](https://github.com/lucasmrl/roomie/blob/master/ezgif.com-resize.gif?raw=true)
 
