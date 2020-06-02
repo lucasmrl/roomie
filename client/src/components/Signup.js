@@ -61,7 +61,7 @@ function Signup(props) {
             <p className="font-light text-gray-900">
               Already a member?
               <Link to="/login" className="text-blue-700">
-                {` `}Sign up
+                {` `}Sign in
               </Link>
             </p>
             <label className="font-medium text-gray-900 mt-10">Name:</label>

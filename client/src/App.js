@@ -48,19 +48,19 @@ function NavbarGuest() {
           className="text-xl lg:bg-white lg:flex"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg lg:cursor-pointer">
             <Link to="/">Home</Link>
           </li>
-          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg lg:cursor-pointer">
             <Link to="/">About</Link>
           </li>
-          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg lg:cursor-pointer">
             <Link to="/">Contact Us</Link>
           </li>
-          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+          <li className="p-2 lg:px-6 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg lg:cursor-pointer">
             <Link to="/login">Login</Link>
           </li>
-          <li className="p-3 bg-themeOrange text-white lg:mx-6 lg:px-6 lg:rounded-full lg:hover:font-bold">
+          <li className="p-3 bg-themeOrange text-white lg:mx-6 lg:px-6 lg:rounded-full lg:hover:shadow-xl lg:cursor-pointer">
             <Link to="/signup">Sign Up</Link>
           </li>
         </ul>
@@ -96,22 +96,22 @@ function NavbarUser() {
           className="text-xl lg:bg-white lg:flex"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg lg:cursor-pointer">
             <Link to="/">Home</Link>
           </li>
-          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg lg:cursor-pointer">
             <Link to="/">About</Link>
           </li>
-          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg">
+          <li className="p-2 lg:p-4 lg:mx-6 lg:hover:bg-gray-200 lg:rounded-lg lg:cursor-pointer">
             <Link to="/">Contact Us</Link>
           </li>
-          <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-yellow-300 lg:text-orange-400 lg:hover:text-gray-900">
+          <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-yellow-300 lg:text-orange-400 lg:hover:text-gray-900 lg:cursor-pointer">
             <Link to="/my-account">My Account</Link>
           </li>
-          <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-green-600 lg:text-green-400 lg:hover:text-white">
+          <li className="p-2 lg:p-4 lg:mx-2 lg:hover:bg-gray-200 lg:rounded-lg lg:hover:bg-green-600 lg:text-green-400 lg:hover:text-white lg:cursor-pointer">
             <Link to="/new-listing">New Listing</Link>
           </li>
-          <li className="p-3 bg-red-400 text-white lg:mx-2 lg:p-4 lg:rounded-full lg:hover:bg-red-900">
+          <li className="p-3 bg-red-400 text-white lg:mx-2 lg:p-4 lg:rounded-full lg:hover:bg-red-900 lg:cursor-pointer">
             <Link to="/logout">Log out</Link>
           </li>
         </ul>

@@ -67,26 +67,32 @@ function Home(props) {
                 type="submit"
                 value="Search"
               />
+            </form>
+          </div>
+          <div className="flex">
+            <div className="-my-5 mx-auto sm:mx-0">
               <Link
                 to={{
                   pathname: '/listings',
                   state: { response: '' },
                 }}
-                className="py-2 text-orange-400 text-sm sm:hidden"
+                className="text-orange-400 text-sm sm:hidden"
               >
                 All Available Rooms
               </Link>
-            </form>
+            </div>
+            <div>
+              <Link
+                to={{
+                  pathname: '/listings',
+                  state: { response: '' },
+                }}
+                className="hidden py-2 text-orange-400 text-sm sm:block sm:p-0 sm:m-0"
+              >
+                All Available Rooms
+              </Link>
+            </div>
           </div>
-          <Link
-            to={{
-              pathname: '/listings',
-              state: { response: '' },
-            }}
-            className="hidden py-2 text-orange-400 text-sm sm:block sm:p-0 sm:m-0"
-          >
-            All Available Rooms
-          </Link>
         </div>
       </div>
     </div>
