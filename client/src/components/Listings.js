@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiMap } from 'react-icons/fi';
 import { FiList } from 'react-icons/fi';
+import ReactLoading from 'react-loading';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import axios from 'axios';
 import ListingCard from './ListingCard';
@@ -10,6 +11,7 @@ function Listings(props) {
   const [data, setData] = useState([]);
   const [alert, setAlert] = useState('');
   const [showMap, setShowMap] = useState(true);
+  const [isFetching, setIsFetching] = useState(true);
 
   let queryCityURL = '';
   let selectedCity = 'Everywhere! 🌎';
@@ -32,7 +34,7 @@ function Listings(props) {
           method: 'GET',
           url: queryCityURL,
         });
-
+        setIsFetching(false);
         setData(response.data.data.listings);
       } catch (error) {
         return setAlert(
@@ -100,7 +102,15 @@ function Listings(props) {
                 : 'p-6 lg:p-4 sm:flex sm:flex-row sm:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll'
             } p-6 lg:p-4 lg:flex lg:flex-row lg:flex-wrap sm:justify-around lg:justify-start lg:w-2/3 lg:overflow-y-scroll`}
         >
-          {results}
+          {!isFetching ? results : ''}
+          <div
+            className={`${
+              isFetching ? '' : 'hidden'
+            } w-full m-auto flex justify-center content-center items-center`}
+          >
+            <ReactLoading type="spin" color="#7BFFB7" height={70} width={70} />
+            <p className="text-2xl text-teal-800 mx-4">Looking for rooms...</p>
+          </div>
         </div>
         {/* Map */}
         <div
