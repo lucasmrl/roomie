@@ -1,8 +1,12 @@
 # Roomie
+(project created for learning)
+
 
 A platform to find roommates by listing your space or finding one available.
+
 Built with **React/Express/MongoDB/Tailwind**. 🚀
-My second full-stack project created by me. 😬
+
+My second full-stack project. 😬
 
 [View demo](http://roomiew.herokuapp.com/)
 
