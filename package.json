@@ -44,7 +44,7 @@
     "multer-sharp-s3": "^0.2.0",
     "nodemailer": "^6.4.16",
     "xss-clean": "^0.1.1",
-    "validator": "^13.0.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -57,7 +57,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.1",
     "prettier": "^2.0.5",
-    "validator": "^13.0.0"
+    "validator": "^13.7.0"
   },
   "engines": {
     "node": "10.x"
