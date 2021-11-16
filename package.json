@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/lucasmrl/roomie#readme",
   "dependencies": {
-    "aws-sdk": "^2.678.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
